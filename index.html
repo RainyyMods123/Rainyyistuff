@@ -24,7 +24,7 @@
             padding: 2rem 1rem;
         }
 
-        /* Step 3: Main wrapper - flex to put sections side by side */
+        /* Step 3: Main wrapper */
         .main-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -35,7 +35,7 @@
             align-items: flex-start;
         }
 
-        /* Step 4: Left panel - TikTok friends */
+        /* Step 4: Left panel - TikTok */
         .container {
             background: rgba(20, 20, 40, 0.85);
             backdrop-filter: blur(6px);
@@ -49,7 +49,7 @@
             flex: 1 1 450px;
         }
 
-        /* Step 5: Right panel - Discord friends */
+        /* Step 5: Right panel - Discord */
         .discord-panel {
             background: rgba(20, 30, 50, 0.85);
             backdrop-filter: blur(6px);
@@ -63,7 +63,7 @@
             flex: 1 1 350px;
         }
 
-        /* Step 6: Discord panel header */
+        /* Step 6: Discord header */
         .discord-panel h2 {
             color: #8a9fff;
             font-size: 1.4rem;
@@ -74,7 +74,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Step 7: Discord friend items */
+        /* Step 7: Discord friend items with images */
         .discord-friend {
             display: flex;
             align-items: center;
@@ -82,7 +82,7 @@
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 10px;
-            padding: 0.6rem 1rem;
+            padding: 0.5rem 1rem;
             margin-bottom: 0.5rem;
             color: #b0c0ee;
             font-size: 0.95rem;
@@ -93,13 +93,33 @@
             background: rgba(255, 255, 255, 0.07);
         }
 
+        /* Step 8: Discord friend left side (avatar + name) */
+        .discord-left {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Step 9: Discord avatar styling */
+        .discord-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 0.7rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            flex-shrink: 0;
+            background: #1a1a3a;
+        }
+
+        /* Step 10: Status badge */
         .discord-friend .status {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #44bb77;
             background: rgba(68, 187, 119, 0.15);
             padding: 0.1rem 0.6rem;
             border-radius: 20px;
             border: 1px solid rgba(68, 187, 119, 0.15);
+            flex-shrink: 0;
         }
 
         .discord-friend .status.offline {
@@ -108,7 +128,7 @@
             background: rgba(85, 102, 136, 0.08);
         }
 
-        /* Step 8: TikTok header */
+        /* Step 11: TikTok header */
         h1 {
             font-size: 1.6rem;
             color: #aabbff;
@@ -128,7 +148,7 @@
             padding-bottom: 0.8rem;
         }
 
-        /* Step 9: TikTok friend buttons with image support */
+        /* Step 12: TikTok buttons */
         .friend-grid {
             display: flex;
             flex-direction: column;
@@ -157,18 +177,6 @@
             box-shadow: 0 0 25px rgba(80, 120, 255, 0.15);
         }
 
-        /* Step 10: Profile picture styling */
-        .friend-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 0.8rem;
-            border: 1px solid rgba(255,255,255,0.08);
-            flex-shrink: 0;
-            background: #1a1a3a; /* fallback if image fails */
-        }
-
         .friend-left {
             display: flex;
             align-items: center;
@@ -191,7 +199,6 @@
             color: #445577;
             font-size: 1.2rem;
             transition: color 0.2s;
-            flex-shrink: 0;
         }
 
         .friend-btn:hover .friend-arrow {
@@ -222,7 +229,7 @@
         .check-box {
             color: #334466;
             font-size: 1.1rem;
-            margin-right: 0.5rem;
+            margin-right: 0.8rem;
             opacity: 0.3;
         }
 
@@ -230,7 +237,7 @@
             opacity: 0.7;
         }
 
-        /* Step 11: Now playing footer */
+        /* Step 13: Now playing */
         .now-playing {
             margin-top: 1.8rem;
             padding-top: 1rem;
@@ -251,7 +258,7 @@
             font-size: 0.65rem;
         }
 
-        /* Step 12: Go to Discord button */
+        /* Step 14: Go to Discord button */
         .goto-discord-btn {
             display: inline-block;
             margin-top: 1rem;
@@ -282,7 +289,7 @@
             opacity: 0.5;
         }
 
-        /* Step 13: Responsive */
+        /* Step 15: Responsive */
         @media (max-width: 900px) {
             .main-wrapper {
                 flex-direction: column;
@@ -292,66 +299,37 @@
                 max-width: 100%;
             }
         }
-
-        /* Step 14: Small avatar fallback text */
-        .avatar-placeholder {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 0.8rem;
-            flex-shrink: 0;
-            background: linear-gradient(135deg, #2a2a5a, #1a1a3a);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            color: #5566aa;
-            border: 1px solid rgba(255,255,255,0.06);
-        }
     </style>
 </head>
 <body>
 
     <div class="main-wrapper">
 
-        <!-- ====== LEFT: TikTok Panel with Images ====== -->
+        <!-- ====== LEFT: TikTok Panel ====== -->
         <div class="container">
             <h1>@rainyy.mods</h1>
-            <div class="subhead">THE NAMES A CLICKABLE btw</div>
+            <div class="subhead">THE NAMES A CLICKABLE BTW</div>
 
             <div class="friends-label">[ FRIENDS ]</div>
 
             <div class="friend-grid">
-
-                <!-- Step 15: Each friend now has an <img> inside the button -->
-                <!-- Replace the src with your own image URLs -->
-
-                <!-- @isolated_just_chillin -->
                 <a href="https://www.tiktok.com/@isolated_just_chillin" target="_blank" class="friend-btn">
                     <span class="friend-left">
                         <span class="check-box">☐</span>
-                        <!-- IMAGE: replace src with your own image link -->
-                        <img src="https://cdn.discordapp.com/avatars/1033882057874620506/c849d6896e07f8ab30b86d6ae6bc40a4.webp?size=4096" alt="avatar" class="friend-avatar" />
                         <span class="friend-name"><span class="at-symbol">@</span>isolated_just_chillin</span>
                     </span>
                     <span class="friend-arrow">▶</span>
                 </a>
-
-                <!-- @rezzslowed -->
                 <a href="https://www.tiktok.com/@rezzslowed" target="_blank" class="friend-btn">
                     <span class="friend-left">
                         <span class="check-box">☐</span>
-                        <img src="https://i.pravatar.cc/32?img=2" alt="avatar" class="friend-avatar" />
                         <span class="friend-name"><span class="at-symbol">@</span>rezzslowed</span>
                     </span>
                     <span class="friend-arrow">▶</span>
                 </a>
-
-                <!-- @billyyates09 → Rainyy -->
                 <a href="https://tiktok.com/@billyyates09" target="_blank" class="friend-btn">
                     <span class="friend-left">
                         <span class="check-box">☐</span>
-                        <img src="https://i.pravatar.cc/32?img=3" alt="avatar" class="friend-avatar" />
                         <span class="friend-name">
                             <span class="at-symbol">@</span>Rainyy
                             <span class="custom-label">billyyates09</span>
@@ -359,32 +337,23 @@
                     </span>
                     <span class="friend-arrow">▶</span>
                 </a>
-
-                <!-- @sonic.vr21 -->
                 <a href="https://www.tiktok.com/@sonic.vr21" target="_blank" class="friend-btn">
                     <span class="friend-left">
                         <span class="check-box">☐</span>
-                        <img src="https://i.pravatar.cc/32?img=4" alt="avatar" class="friend-avatar" />
                         <span class="friend-name"><span class="at-symbol">@</span>sonic.vr21</span>
                     </span>
                     <span class="friend-arrow">▶</span>
                 </a>
-
-                <!-- @4xgm1 -->
                 <a href="https://www.tiktok.com/@4xgm1" target="_blank" class="friend-btn">
                     <span class="friend-left">
                         <span class="check-box">☐</span>
-                        <img src="https://i.pravatar.cc/32?img=5" alt="avatar" class="friend-avatar" />
                         <span class="friend-name"><span class="at-symbol">@</span>4xgm1</span>
                     </span>
                     <span class="friend-arrow">▶</span>
                 </a>
-
-                <!-- @tragic.on.90hz → Tr4gic -->
                 <a href="https://www.tiktok.com/@tragic.on.90hz" target="_blank" class="friend-btn">
                     <span class="friend-left">
                         <span class="check-box">☐</span>
-                        <img src="https://i.pravatar.cc/32?img=6" alt="avatar" class="friend-avatar" />
                         <span class="friend-name">
                             <span class="at-symbol">@</span>Tr4gic
                             <span class="custom-label">tragic.on.90hz</span>
@@ -392,7 +361,6 @@
                     </span>
                     <span class="friend-arrow">▶</span>
                 </a>
-
             </div>
 
             <a href="#discord-section" class="goto-discord-btn">→ Go to Discord Friends</a>
@@ -407,38 +375,64 @@
             </div>
         </div>
 
-        <!-- ====== RIGHT: Discord Panel ====== -->
+        <!-- ====== RIGHT: Discord Panel with Images ====== -->
         <div class="discord-panel" id="discord-section">
             <h2>💬 Discord Friends</h2>
 
-            <!-- Step 16: Discord friends can also have images if you want -->
+            <!-- Step 16: Each Discord friend now has an avatar image -->
+            <!-- Replace the src="..." with your own image URLs -->
+
             <div class="discord-friend">
-                <span>@user1</span>
+                <span class="discord-left">
+                    <img src="https://i.pravatar.cc/28?img=10" alt="avatar" class="discord-avatar" />
+                    <span>@user1</span>
+                </span>
                 <span class="status">● Online</span>
             </div>
+
             <div class="discord-friend">
-                <span>@user2</span>
-                <span class="status offline">● Offline</span>
-            </div>
-            <div class="discord-friend">
-                <span>@user3</span>
-                <span class="status">● Online</span>
-            </div>
-            <div class="discord-friend">
-                <span>@user4</span>
-                <span class="status offline">● Offline</span>
-            </div>
-            <div class="discord-friend">
-                <span>@user5</span>
-                <span class="status">● Online</span>
-            </div>
-            <div class="discord-friend">
-                <span>@user6</span>
+                <span class="discord-left">
+                    <img src="https://i.pravatar.cc/28?img=11" alt="avatar" class="discord-avatar" />
+                    <span>@user2</span>
+                </span>
                 <span class="status offline">● Offline</span>
             </div>
 
+            <div class="discord-friend">
+                <span class="discord-left">
+                    <img src="https://i.pravatar.cc/28?img=12" alt="avatar" class="discord-avatar" />
+                    <span>@user3</span>
+                </span>
+                <span class="status">● Online</span>
+            </div>
+
+            <div class="discord-friend">
+                <span class="discord-left">
+                    <img src="https://i.pravatar.cc/28?img=13" alt="avatar" class="discord-avatar" />
+                    <span>@user4</span>
+                </span>
+                <span class="status offline">● Offline</span>
+            </div>
+
+            <div class="discord-friend">
+                <span class="discord-left">
+                    <img src="https://i.pravatar.cc/28?img=14" alt="avatar" class="discord-avatar" />
+                    <span>@user5</span>
+                </span>
+                <span class="status">● Online</span>
+            </div>
+
+            <div class="discord-friend">
+                <span class="discord-left">
+                    <img src="https://i.pravatar.cc/28?img=15" alt="avatar" class="discord-avatar" />
+                    <span>@user6</span>
+                </span>
+                <span class="status offline">● Offline</span>
+            </div>
+
+            <!-- Step 17: Edit note -->
             <div class="edit-note">
-                ✎ Edit names &amp; statuses above. Replace image src links with your own.
+                ✎ Replace the image src links with your own Discord avatar URLs
             </div>
 
             <a href="#" style="display:inline-block; margin-top:1rem; color:#445577; font-size:0.7rem; text-decoration:none; letter-spacing:1px; border:1px solid rgba(255,255,255,0.04); padding:0.3rem 1.2rem; border-radius:30px;">
