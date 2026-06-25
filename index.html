@@ -97,6 +97,8 @@
         .discord-left {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 0.3rem;
         }
 
         /* Step 9: Discord avatar styling */
@@ -111,15 +113,19 @@
             background: #1a1a3a;
         }
 
-        /* Step 10: Status badge */
+        /* Step 10: Status badge - now supports custom text */
         .discord-friend .status {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #44bb77;
             background: rgba(68, 187, 119, 0.15);
             padding: 0.1rem 0.6rem;
             border-radius: 20px;
             border: 1px solid rgba(68, 187, 119, 0.15);
             flex-shrink: 0;
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .discord-friend .status.offline {
@@ -256,6 +262,14 @@
             padding: 0.2rem 1rem;
             border-radius: 20px;
             font-size: 0.65rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .now-playing .mute:hover {
+            background: rgba(255,255,255,0.08);
+            color: #7799cc;
         }
 
         /* Step 14: Go to Discord button */
@@ -299,9 +313,21 @@
                 max-width: 100%;
             }
         }
+
+        /* Step 16: Hidden audio */
+        #bg-music {
+            display: none;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Step 17: Hidden audio element -->
+    <!-- Replace the src with your own song URL -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://open.spotify.com/track/5mlOvoHmMorFm3eoAeLfPt?si=37f6336292f14c09" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <div class="main-wrapper">
 
@@ -365,13 +391,14 @@
 
             <a href="#discord-section" class="goto-discord-btn">→ Go to Discord Friends</a>
 
+            <!-- Step 18: Now playing with functional MUTE button -->
             <div class="now-playing">
-                <span>[ NOW PLAYING - 5matory - 5matory House ]</span>
-                <span class="mute">[ MUTE ]</span>
+                <span>[ NOW PLAYING ... ]</span>
+                <button class="mute" id="muteBtn">[ MUTE ]</button>
             </div>
 
             <div style="margin-top:1rem; color:#223355; font-size:0.55rem; letter-spacing:1px; opacity:0.4;">
-                discord.gg/sparktag 2.1k+ = Founder
+                Rainyy taggers = founder
             </div>
         </div>
 
@@ -379,9 +406,7 @@
         <div class="discord-panel" id="discord-section">
             <h2>💬 Discord Friends</h2>
 
-            <!-- Step 16: Each Discord friend now has an avatar image -->
-            <!-- Replace the src="..." with your own image URLs -->
-
+            <!-- Step 19: Your Discord friends with your custom names and statuses -->
             <div class="discord-friend">
                 <span class="discord-left">
                     <img src="https://cdn.discordapp.com/avatars/484124508983394328/5d82e6d4343074f290399870ed048d57.webp?size=4096" alt="avatar" class="discord-avatar" />
@@ -430,9 +455,9 @@
                 <span class="status offline">● he loves prototype</span>
             </div>
 
-            <!-- Step 17: Edit note -->
+            <!-- Step 20: Edit note -->
             <div class="edit-note">
-                ✎ Replace the image src links with your own Discord avatar URLs
+                ✎ if yur on here you mean something to me
             </div>
 
             <a href="#" style="display:inline-block; margin-top:1rem; color:#445577; font-size:0.7rem; text-decoration:none; letter-spacing:1px; border:1px solid rgba(255,255,255,0.04); padding:0.3rem 1.2rem; border-radius:30px;">
@@ -441,6 +466,55 @@
         </div>
 
     </div>
+
+    <!-- Step 21: JavaScript to control audio -->
+    <script>
+        (function() {
+            const audio = document.getElementById('bg-music');
+            const muteBtn = document.getElementById('muteBtn');
+
+            // Try to autoplay
+            const playAudio = function() {
+                audio.play().catch(function(error) {
+                    console.log('Autoplay blocked. Click the page to start music.');
+                });
+            };
+
+            playAudio();
+
+            // Click anywhere to start if blocked
+            document.addEventListener('click', function() {
+                if (audio.paused) {
+                    audio.play().catch(function(e) {});
+                }
+            }, { once: false });
+
+            // Mute toggle
+            muteBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (audio.muted) {
+                    audio.muted = false;
+                    muteBtn.textContent = '[ MUTE ]';
+                } else {
+                    audio.muted = true;
+                    muteBtn.textContent = '[ UNMUTE ]';
+                }
+            });
+
+            audio.addEventListener('volumechange', function() {
+                if (audio.muted) {
+                    muteBtn.textContent = '[ UNMUTE ]';
+                } else {
+                    muteBtn.textContent = '[ MUTE ]';
+                }
+            });
+
+            audio.addEventListener('ended', function() {
+                audio.currentTime = 0;
+                audio.play().catch(function(e) {});
+            });
+        })();
+    </script>
 
 </body>
 </html>
