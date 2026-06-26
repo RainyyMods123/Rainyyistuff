@@ -12,19 +12,208 @@
             box-sizing: border-box;
         }
 
-        /* Step 2: Dark space-like background */
+        /* Step 2: Galaxy background with animated stars and nebula */
         body {
             min-height: 100vh;
-            background: #0d0d1a;
             font-family: 'Segoe UI', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+            background: #0a0a1a;
         }
 
-        /* Step 3: Main wrapper */
+        /* Step 3: Animated galaxy background */
+        #galaxy-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(72, 0, 255, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 200, 0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(0, 100, 255, 0.12) 0%, transparent 55%),
+                radial-gradient(ellipse at 10% 90%, rgba(150, 0, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 70%, rgba(255, 50, 100, 0.06) 0%, transparent 45%),
+                #0a0a1a;
+            animation: nebulaPulse 8s ease-in-out infinite alternate;
+        }
+
+        /* Step 4: Nebula pulse animation */
+        @keyframes nebulaPulse {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Step 5: Stars layer 1 - tiny twinkling stars */
+        #stars-1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(1px 1px at 10% 20%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 25% 55%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40% 10%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 55% 80%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 70% 30%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 85% 65%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 15% 90%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 45% 45%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 65% 10%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90% 40%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 5% 35%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 35% 70%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 75% 50%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 95% 85%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50% 95%, #fff, rgba(0,0,0,0));
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            animation: twinkle1 3s ease-in-out infinite alternate;
+        }
+
+        /* Step 6: Stars layer 2 - medium stars */
+        #stars-2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(2px 2px at 15% 30%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 30% 65%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50% 15%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 65% 85%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 80% 25%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 10% 70%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 45% 55%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 75% 75%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 92% 55%, #aaddff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 20% 10%, #aaddff, rgba(0,0,0,0));
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            animation: twinkle2 4s ease-in-out infinite alternate-reverse;
+        }
+
+        /* Step 7: Stars layer 3 - large glowing stars */
+        #stars-3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(4px 4px at 20% 15%, #ffe9aa, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 60% 45%, #ffe9aa, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 40% 78%, #ffe9aa, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 85% 10%, #ffe9aa, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 8% 85%, #ffe9aa, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 70% 60%, #ffe9aa, rgba(0,0,0,0));
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            animation: twinkle3 5s ease-in-out infinite alternate;
+        }
+
+        /* Step 8: Twinkling animations */
+        @keyframes twinkle1 {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        @keyframes twinkle2 {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.9; }
+        }
+        @keyframes twinkle3 {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Step 9: Shooting stars */
+        #shooting-star {
+            position: fixed;
+            top: 10%;
+            left: 10%;
+            width: 150px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), #ffffff);
+            border-radius: 50%;
+            transform: rotate(-35deg);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            animation: shoot 7s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px #88bbff);
+        }
+
+        #shooting-star-2 {
+            position: fixed;
+            top: 20%;
+            right: 15%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to left, rgba(255,255,255,0), #ffeeaa);
+            border-radius: 50%;
+            transform: rotate(30deg);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            animation: shoot2 9s ease-in-out infinite 4s;
+            filter: drop-shadow(0 0 6px #ffdd88);
+        }
+
+        #shooting-star-3 {
+            position: fixed;
+            bottom: 30%;
+            left: 50%;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), #aaccff);
+            border-radius: 50%;
+            transform: rotate(-20deg);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            animation: shoot3 11s ease-in-out infinite 2s;
+            filter: drop-shadow(0 0 8px #6688dd);
+        }
+
+        @keyframes shoot {
+            0% { opacity: 0; transform: rotate(-35deg) translateX(0) translateY(0); }
+            5% { opacity: 1; }
+            12% { opacity: 1; transform: rotate(-35deg) translateX(600px) translateY(400px); }
+            15% { opacity: 0; transform: rotate(-35deg) translateX(700px) translateY(470px); }
+            100% { opacity: 0; }
+        }
+
+        @keyframes shoot2 {
+            0% { opacity: 0; transform: rotate(30deg) translateX(0) translateY(0); }
+            5% { opacity: 1; }
+            12% { opacity: 1; transform: rotate(30deg) translateX(-500px) translateY(250px); }
+            15% { opacity: 0; transform: rotate(30deg) translateX(-600px) translateY(300px); }
+            100% { opacity: 0; }
+        }
+
+        @keyframes shoot3 {
+            0% { opacity: 0; transform: rotate(-20deg) translateX(0) translateY(0); }
+            5% { opacity: 1; }
+            12% { opacity: 1; transform: rotate(-20deg) translateX(400px) translateY(-300px); }
+            15% { opacity: 0; transform: rotate(-20deg) translateX(480px) translateY(-360px); }
+            100% { opacity: 0; }
+        }
+
+        /* Step 10: Main wrapper - on top of background */
         .main-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -33,37 +222,41 @@
             width: 100%;
             justify-content: center;
             align-items: flex-start;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Step 4: Left panel - TikTok */
+        /* Step 11: Left panel - TikTok (glass effect) */
         .container {
-            background: rgba(20, 20, 40, 0.85);
-            backdrop-filter: blur(6px);
+            background: rgba(20, 20, 40, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 2.5rem 2.8rem;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             max-width: 550px;
             width: 100%;
             text-align: center;
             flex: 1 1 450px;
         }
 
-        /* Step 5: Right panel - Discord */
+        /* Step 12: Right panel - Discord (glass effect) */
         .discord-panel {
-            background: rgba(20, 30, 50, 0.85);
-            backdrop-filter: blur(6px);
+            background: rgba(20, 30, 50, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 2.5rem 2.8rem;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             max-width: 420px;
             width: 100%;
             text-align: center;
             flex: 1 1 350px;
         }
 
-        /* Step 6: Discord header */
+        /* Step 13: Discord header */
         .discord-panel h2 {
             color: #8a9fff;
             font-size: 1.4rem;
@@ -74,13 +267,13 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Step 7: Discord friend items with images */
+        /* Step 14: Discord friend items */
         .discord-friend {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 10px;
             padding: 0.5rem 1rem;
             margin-bottom: 0.5rem;
@@ -90,10 +283,9 @@
         }
 
         .discord-friend:hover {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* Step 8: Discord friend left side (avatar + name) */
         .discord-left {
             display: flex;
             align-items: center;
@@ -101,7 +293,6 @@
             gap: 0.3rem;
         }
 
-        /* Step 9: Discord avatar styling */
         .discord-avatar {
             width: 28px;
             height: 28px;
@@ -113,7 +304,6 @@
             background: #1a1a3a;
         }
 
-        /* Step 10: Status badge - now supports custom text */
         .discord-friend .status {
             font-size: 0.6rem;
             color: #44bb77;
@@ -134,7 +324,7 @@
             background: rgba(85, 102, 136, 0.08);
         }
 
-        /* Step 11: TikTok header */
+        /* Step 15: TikTok header */
         h1 {
             font-size: 1.6rem;
             color: #aabbff;
@@ -142,7 +332,7 @@
             letter-spacing: 3px;
             font-weight: 400;
             margin-bottom: 0.3rem;
-            text-shadow: 0 0 20px rgba(100, 130, 255, 0.3);
+            text-shadow: 0 0 30px rgba(100, 130, 255, 0.4);
         }
 
         .subhead {
@@ -154,7 +344,7 @@
             padding-bottom: 0.8rem;
         }
 
-        /* Step 12: TikTok buttons */
+        /* Step 16: TikTok buttons */
         .friend-grid {
             display: flex;
             flex-direction: column;
@@ -180,7 +370,7 @@
             background: rgba(255, 255, 255, 0.10);
             border-color: rgba(100, 150, 255, 0.3);
             transform: scale(1.02);
-            box-shadow: 0 0 25px rgba(80, 120, 255, 0.15);
+            box-shadow: 0 0 30px rgba(80, 120, 255, 0.2);
         }
 
         .friend-left {
@@ -243,7 +433,7 @@
             opacity: 0.7;
         }
 
-        /* Step 13: Now playing */
+        /* Step 17: Now playing */
         .now-playing {
             margin-top: 1.8rem;
             padding-top: 1rem;
@@ -272,7 +462,7 @@
             color: #7799cc;
         }
 
-        /* Step 14: Go to Discord button */
+        /* Step 18: Go to Discord button */
         .goto-discord-btn {
             display: inline-block;
             margin-top: 1rem;
@@ -303,7 +493,7 @@
             opacity: 0.5;
         }
 
-        /* Step 15: Responsive */
+        /* Step 19: Responsive */
         @media (max-width: 900px) {
             .main-wrapper {
                 flex-direction: column;
@@ -314,7 +504,7 @@
             }
         }
 
-        /* Step 16: Hidden audio */
+        /* Step 20: Audio hidden */
         #bg-music {
             display: none;
         }
@@ -322,8 +512,16 @@
 </head>
 <body>
 
-    <!-- Step 17: Hidden audio element -->
-    <!-- Replace the src with your own song URL -->
+    <!-- Step 21: Galaxy background layers -->
+    <div id="galaxy-bg"></div>
+    <div id="stars-1"></div>
+    <div id="stars-2"></div>
+    <div id="stars-3"></div>
+    <div id="shooting-star"></div>
+    <div id="shooting-star-2"></div>
+    <div id="shooting-star-3"></div>
+
+    <!-- Step 22: Hidden audio element -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://vmlu1.ytmp3free.cc/get.php?cid=6848d2005a0fcfb4231fbb87&t=1782401305&i=MjU1LjI3LjIxNy43NA==" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -391,7 +589,6 @@
 
             <a href="#discord-section" class="goto-discord-btn">→ Go to Discord Friends</a>
 
-            <!-- Step 18: Now playing with functional MUTE button -->
             <div class="now-playing">
                 <span>[ NOW PLAYING ... ]</span>
                 <button class="mute" id="muteBtn">[ MUTE ]</button>
@@ -402,11 +599,10 @@
             </div>
         </div>
 
-        <!-- ====== RIGHT: Discord Panel with Images ====== -->
+        <!-- ====== RIGHT: Discord Panel ====== -->
         <div class="discord-panel" id="discord-section">
             <h2>💬 Discord Friends</h2>
 
-            <!-- Step 19: Your Discord friends with your custom names and statuses -->
             <div class="discord-friend">
                 <span class="discord-left">
                     <img src="https://cdn.discordapp.com/avatars/484124508983394328/5d82e6d4343074f290399870ed048d57.webp?size=4096" alt="avatar" class="discord-avatar" />
@@ -455,7 +651,6 @@
                 <span class="status offline">● he loves prototype</span>
             </div>
 
-            <!-- Step 20: Edit note -->
             <div class="edit-note">
                 ✎ if yur on here you mean something to me
             </div>
@@ -467,13 +662,12 @@
 
     </div>
 
-    <!-- Step 21: JavaScript to control audio -->
+    <!-- Step 23: JavaScript to control audio -->
     <script>
         (function() {
             const audio = document.getElementById('bg-music');
             const muteBtn = document.getElementById('muteBtn');
 
-            // Try to autoplay
             const playAudio = function() {
                 audio.play().catch(function(error) {
                     console.log('Autoplay blocked. Click the page to start music.');
@@ -482,14 +676,12 @@
 
             playAudio();
 
-            // Click anywhere to start if blocked
             document.addEventListener('click', function() {
                 if (audio.paused) {
                     audio.play().catch(function(e) {});
                 }
             }, { once: false });
 
-            // Mute toggle
             muteBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 if (audio.muted) {
