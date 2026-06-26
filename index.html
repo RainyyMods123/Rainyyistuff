@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Friends - TikTok & Discord</title>
+    <title>RAINYY · galaxy friends</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Step 1: Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Step 2: Galaxy background with animated stars and nebula */
         body {
             min-height: 100vh;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -26,123 +26,126 @@
             background: #0a0a1a;
         }
 
-        /* Step 3: Animated galaxy background */
+        /* ----- GALAXY BACKGROUND (enhanced) ----- */
         #galaxy-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
+            overflow: hidden;
             z-index: 0;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(72, 0, 255, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 200, 0.10) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 80%, rgba(0, 100, 255, 0.12) 0%, transparent 55%),
-                radial-gradient(ellipse at 10% 90%, rgba(150, 0, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(ellipse at 90% 70%, rgba(255, 50, 100, 0.06) 0%, transparent 45%),
-                #0a0a1a;
-            animation: nebulaPulse 8s ease-in-out infinite alternate;
+            background: #050816;
+        }
+        #galaxy-bg::before,
+        #galaxy-bg::after {
+            content: "";
+            position: absolute;
+            width: 180%;
+            height: 180%;
+            left: -40%;
+            top: -40%;
+            filter: blur(120px);
+            animation: auroraMove 18s ease-in-out infinite alternate;
+        }
+        #galaxy-bg::before {
+            background:
+                radial-gradient(circle, #00e1ff55 0%, transparent 40%),
+                radial-gradient(circle, #7a00ff55 25%, transparent 45%),
+                radial-gradient(circle, #00ff8855 55%, transparent 45%);
+        }
+        #galaxy-bg::after {
+            background:
+                radial-gradient(circle, #ff00aa33 0%, transparent 40%),
+                radial-gradient(circle, #0044ff33 40%, transparent 45%),
+                radial-gradient(circle, #00ffaa33 70%, transparent 45%);
+            animation-duration: 25s;
         }
 
-        /* Step 4: Nebula pulse animation */
-        @keyframes nebulaPulse {
-            0% { opacity: 0.7; }
-            100% { opacity: 1; }
+        @keyframes auroraMove {
+            0% { transform: translate(-8%, -4%) rotate(0deg) scale(1); }
+            50% { transform: translate(10%, 5%) rotate(20deg) scale(1.2); }
+            100% { transform: translate(-6%, 8%) rotate(-15deg) scale(1); }
         }
 
-        /* Step 5: Stars layer 1 - tiny twinkling stars */
-        #stars-1 {
+        .aurora-glow {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: screen;
+            opacity: .25;
+            background: linear-gradient(120deg, transparent, rgba(0,255,255,.18), transparent, rgba(120,0,255,.15), transparent, rgba(0,255,120,.18), transparent);
+            background-size: 300% 300%;
+            animation: auroraGlow 12s linear infinite;
+        }
+        @keyframes auroraGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Stars layers */
+        #stars-1, #stars-2, #stars-3 {
+            position: fixed;
+            inset: 0;
             z-index: 0;
             pointer-events: none;
-            background-image: 
-                radial-gradient(1px 1px at 10% 20%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 25% 55%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 40% 10%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 55% 80%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 70% 30%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 85% 65%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 15% 90%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 45% 45%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 65% 10%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90% 40%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 5% 35%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 35% 70%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 75% 50%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 95% 85%, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 50% 95%, #fff, rgba(0,0,0,0));
-            background-size: 100% 100%;
             background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        #stars-1 {
+            background-image:
+                radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+                radial-gradient(1px 1px at 25% 55%, #fff, transparent),
+                radial-gradient(1px 1px at 40% 10%, #fff, transparent),
+                radial-gradient(1px 1px at 55% 80%, #fff, transparent),
+                radial-gradient(1px 1px at 70% 30%, #fff, transparent),
+                radial-gradient(1px 1px at 85% 65%, #fff, transparent),
+                radial-gradient(1px 1px at 15% 90%, #fff, transparent),
+                radial-gradient(1px 1px at 45% 45%, #fff, transparent),
+                radial-gradient(1px 1px at 65% 10%, #fff, transparent),
+                radial-gradient(1px 1px at 90% 40%, #fff, transparent),
+                radial-gradient(1px 1px at 5% 35%, #fff, transparent),
+                radial-gradient(1px 1px at 35% 70%, #fff, transparent),
+                radial-gradient(1px 1px at 75% 50%, #fff, transparent),
+                radial-gradient(1px 1px at 95% 85%, #fff, transparent),
+                radial-gradient(1px 1px at 50% 95%, #fff, transparent);
             animation: twinkle1 3s ease-in-out infinite alternate;
         }
-
-        /* Step 6: Stars layer 2 - medium stars */
         #stars-2 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background-image: 
-                radial-gradient(2px 2px at 15% 30%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 30% 65%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 50% 15%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 65% 85%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 80% 25%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 10% 70%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 45% 55%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 75% 75%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 92% 55%, #aaddff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 20% 10%, #aaddff, rgba(0,0,0,0));
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+            background-image:
+                radial-gradient(2px 2px at 15% 30%, #aaddff, transparent),
+                radial-gradient(2px 2px at 30% 65%, #aaddff, transparent),
+                radial-gradient(2px 2px at 50% 15%, #aaddff, transparent),
+                radial-gradient(2px 2px at 65% 85%, #aaddff, transparent),
+                radial-gradient(2px 2px at 80% 25%, #aaddff, transparent),
+                radial-gradient(2px 2px at 10% 70%, #aaddff, transparent),
+                radial-gradient(2px 2px at 45% 55%, #aaddff, transparent),
+                radial-gradient(2px 2px at 75% 75%, #aaddff, transparent),
+                radial-gradient(2px 2px at 92% 55%, #aaddff, transparent),
+                radial-gradient(2px 2px at 20% 10%, #aaddff, transparent);
             animation: twinkle2 4s ease-in-out infinite alternate-reverse;
         }
-
-        /* Step 7: Stars layer 3 - large glowing stars */
         #stars-3 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-            background-image: 
-                radial-gradient(4px 4px at 20% 15%, #ffe9aa, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 60% 45%, #ffe9aa, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 40% 78%, #ffe9aa, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 85% 10%, #ffe9aa, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 8% 85%, #ffe9aa, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 70% 60%, #ffe9aa, rgba(0,0,0,0));
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
+            background-image:
+                radial-gradient(4px 4px at 20% 15%, #ffe9aa, transparent),
+                radial-gradient(3px 3px at 60% 45%, #ffe9aa, transparent),
+                radial-gradient(4px 4px at 40% 78%, #ffe9aa, transparent),
+                radial-gradient(3px 3px at 85% 10%, #ffe9aa, transparent),
+                radial-gradient(4px 4px at 8% 85%, #ffe9aa, transparent),
+                radial-gradient(3px 3px at 70% 60%, #ffe9aa, transparent);
             animation: twinkle3 5s ease-in-out infinite alternate;
         }
+        @keyframes twinkle1 { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes twinkle2 { 0% { opacity: 0.3; } 100% { opacity: 0.9; } }
+        @keyframes twinkle3 { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* Step 8: Twinkling animations */
-        @keyframes twinkle1 {
-            0% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-        @keyframes twinkle2 {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.9; }
-        }
-        @keyframes twinkle3 {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Step 9: Shooting stars */
-        #shooting-star {
+        /* ----- SHOOTING STARS (better) ----- */
+        .shooting-star {
             position: fixed;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            filter: drop-shadow(0 0 8px #88bbff);
+        }
+        #shooting-star {
             top: 10%;
             left: 10%;
             width: 150px;
@@ -150,15 +153,9 @@
             background: linear-gradient(to right, rgba(255,255,255,0), #ffffff);
             border-radius: 50%;
             transform: rotate(-35deg);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0;
             animation: shoot 7s ease-in-out infinite;
-            filter: drop-shadow(0 0 8px #88bbff);
         }
-
         #shooting-star-2 {
-            position: fixed;
             top: 20%;
             right: 15%;
             width: 100px;
@@ -166,15 +163,10 @@
             background: linear-gradient(to left, rgba(255,255,255,0), #ffeeaa);
             border-radius: 50%;
             transform: rotate(30deg);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0;
             animation: shoot2 9s ease-in-out infinite 4s;
             filter: drop-shadow(0 0 6px #ffdd88);
         }
-
         #shooting-star-3 {
-            position: fixed;
             bottom: 30%;
             left: 50%;
             width: 120px;
@@ -182,13 +174,9 @@
             background: linear-gradient(to right, rgba(255,255,255,0), #aaccff);
             border-radius: 50%;
             transform: rotate(-20deg);
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0;
             animation: shoot3 11s ease-in-out infinite 2s;
             filter: drop-shadow(0 0 8px #6688dd);
         }
-
         @keyframes shoot {
             0% { opacity: 0; transform: rotate(-35deg) translateX(0) translateY(0); }
             5% { opacity: 1; }
@@ -196,7 +184,6 @@
             15% { opacity: 0; transform: rotate(-35deg) translateX(700px) translateY(470px); }
             100% { opacity: 0; }
         }
-
         @keyframes shoot2 {
             0% { opacity: 0; transform: rotate(30deg) translateX(0) translateY(0); }
             5% { opacity: 1; }
@@ -204,7 +191,6 @@
             15% { opacity: 0; transform: rotate(30deg) translateX(-600px) translateY(300px); }
             100% { opacity: 0; }
         }
-
         @keyframes shoot3 {
             0% { opacity: 0; transform: rotate(-20deg) translateX(0) translateY(0); }
             5% { opacity: 1; }
@@ -213,50 +199,82 @@
             100% { opacity: 0; }
         }
 
-        /* Step 10: Main wrapper - on top of background */
+        /* ----- MAIN WRAPPER ----- */
         .main-wrapper {
             display: flex;
             flex-wrap: wrap;
             gap: 2rem;
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             justify-content: center;
             align-items: flex-start;
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
-        /* Step 11: Left panel - TikTok (glass effect) */
-        .container {
-            background: rgba(20, 20, 40, 0.75);
+        /* ----- GLASS PANELS (with 3D tilt) ----- */
+        .container, .discord-panel, .profile-card {
+            background: rgba(20, 20, 40, 0.65);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 2.5rem 2.8rem;
-            border-radius: 20px;
+            border-radius: 28px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            max-width: 550px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transform-style: preserve-3d;
+            perspective: 800px;
+        }
+        .container { padding: 2.5rem 2.8rem; max-width: 550px; width: 100%; flex: 1 1 450px; }
+        .discord-panel { padding: 2.5rem 2.8rem; max-width: 420px; width: 100%; flex: 1 1 350px; }
+
+        /* profile card (floating) */
+        .profile-card {
+            padding: 1.8rem 2rem;
+            max-width: 280px;
             width: 100%;
             text-align: center;
-            flex: 1 1 450px;
+            background: rgba(15, 15, 35, 0.75);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.05);
+            margin-bottom: 1.5rem;
         }
-
-        /* Step 12: Right panel - Discord (glass effect) */
-        .discord-panel {
-            background: rgba(20, 30, 50, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 2.5rem 2.8rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            max-width: 420px;
-            width: 100%;
-            text-align: center;
-            flex: 1 1 350px;
+        .profile-card .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            margin: 0 auto 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            color: #1a1a3a;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
+        .profile-card h3 {
+            color: #ffd700;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+        .profile-card .badge {
+            color: #aabbff;
+            font-size: 0.7rem;
+            background: rgba(255,255,255,0.05);
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 0.3rem;
+        }
+        .profile-card .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 1rem 0 0.2rem;
+            color: #8899cc;
+            font-size: 0.8rem;
+        }
+        .profile-card .stats span { display: block; font-size: 1.2rem; color: #ffd700; }
 
-        /* Step 13: Discord header */
+        /* ----- TIKTOK / DISCORD STYLES (keep) ----- */
         .discord-panel h2 {
             color: #8a9fff;
             font-size: 1.4rem;
@@ -266,8 +284,6 @@
             padding-bottom: 0.8rem;
             margin-bottom: 1.5rem;
         }
-
-        /* Step 14: Discord friend items */
         .discord-friend {
             display: flex;
             align-items: center;
@@ -281,432 +297,266 @@
             font-size: 0.95rem;
             transition: background 0.2s;
         }
-
-        .discord-friend:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .discord-left {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.3rem;
-        }
-
+        .discord-friend:hover { background: rgba(255, 255, 255, 0.08); }
+        .discord-left { display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem; }
         .discord-avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 0.7rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            flex-shrink: 0;
-            background: #1a1a3a;
+            width: 28px; height: 28px; border-radius: 50%; object-fit: cover;
+            margin-right: 0.7rem; border: 1px solid rgba(255,255,255,0.06);
+            flex-shrink: 0; background: #1a1a3a;
         }
-
         .discord-friend .status {
-            font-size: 0.6rem;
-            color: #44bb77;
-            background: rgba(68, 187, 119, 0.15);
-            padding: 0.1rem 0.6rem;
-            border-radius: 20px;
-            border: 1px solid rgba(68, 187, 119, 0.15);
-            flex-shrink: 0;
-            max-width: 120px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 0.6rem; color: #44bb77; background: rgba(68, 187, 119, 0.15);
+            padding: 0.1rem 0.6rem; border-radius: 20px; border: 1px solid rgba(68, 187, 119, 0.15);
+            flex-shrink: 0; max-width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
+        .discord-friend .status.offline { color: #556688; border-color: rgba(85,102,136,0.2); background: rgba(85,102,136,0.08); }
 
-        .discord-friend .status.offline {
-            color: #556688;
-            border-color: rgba(85, 102, 136, 0.2);
-            background: rgba(85, 102, 136, 0.08);
-        }
-
-        /* Step 15: TikTok header */
         h1 {
-            font-size: 1.6rem;
-            color: #aabbff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 400;
-            margin-bottom: 0.3rem;
-            text-shadow: 0 0 30px rgba(100, 130, 255, 0.4);
+            font-size: 1.6rem; color: #aabbff; text-transform: uppercase; letter-spacing: 3px;
+            font-weight: 400; margin-bottom: 0.3rem; text-shadow: 0 0 30px rgba(100,130,255,0.4);
         }
-
-        .subhead {
-            color: #6688cc;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            margin-bottom: 1.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 0.8rem;
-        }
-
-        /* Step 16: TikTok buttons */
-        .friend-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            margin: 1.2rem 0;
-        }
-
+        .subhead { color: #6688cc; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.8rem; }
+        .friend-grid { display: flex; flex-direction: column; gap: 0.6rem; margin: 1.2rem 0; }
         .friend-btn {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            padding: 0.6rem 1.2rem;
-            text-decoration: none;
-            color: #c8d4f0;
-            transition: all 0.25s ease;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; padding: 0.6rem 1.2rem; text-decoration: none;
+            color: #c8d4f0; transition: all 0.25s ease; cursor: pointer;
         }
-
         .friend-btn:hover {
-            background: rgba(255, 255, 255, 0.10);
-            border-color: rgba(100, 150, 255, 0.3);
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(80, 120, 255, 0.2);
+            background: rgba(255,255,255,0.10); border-color: rgba(100,150,255,0.3);
+            transform: scale(1.02); box-shadow: 0 0 30px rgba(80,120,255,0.2);
         }
-
-        .friend-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .friend-name {
-            font-size: 1.05rem;
-            font-weight: 500;
-            color: #d0dcff;
-            letter-spacing: 0.5px;
-        }
-
-        .friend-name .at-symbol {
-            color: #6688dd;
-            margin-right: 4px;
-            font-weight: 300;
-        }
-
-        .friend-arrow {
-            color: #445577;
-            font-size: 1.2rem;
-            transition: color 0.2s;
-        }
-
-        .friend-btn:hover .friend-arrow {
-            color: #88bbff;
-        }
-
+        .friend-left { display: flex; align-items: center; }
+        .friend-name { font-size: 1.05rem; font-weight: 500; color: #d0dcff; letter-spacing: 0.5px; }
+        .friend-name .at-symbol { color: #6688dd; margin-right: 4px; font-weight: 300; }
+        .friend-arrow { color: #445577; font-size: 1.2rem; transition: color 0.2s; }
+        .friend-btn:hover .friend-arrow { color: #88bbff; }
         .custom-label {
-            color: #ffb07c;
-            font-weight: 400;
-            font-size: 0.8rem;
-            background: rgba(255, 160, 80, 0.12);
-            padding: 0.1rem 0.7rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 160, 80, 0.15);
-            margin-left: 0.4rem;
+            color: #ffb07c; font-weight: 400; font-size: 0.8rem;
+            background: rgba(255,160,80,0.12); padding: 0.1rem 0.7rem; border-radius: 20px;
+            border: 1px solid rgba(255,160,80,0.15); margin-left: 0.4rem;
+        }
+        .friends-label { color: #5577aa; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; text-align: left; margin-bottom: 0.3rem; opacity: 0.6; }
+        .check-box { color: #334466; font-size: 1.1rem; margin-right: 0.8rem; opacity: 0.3; }
+        .friend-btn:hover .check-box { opacity: 0.7; }
+
+        .now-playing { margin-top: 1.8rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.04); color: #445577; font-size: 0.75rem; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; }
+        .now-playing .mute { color: #334466; background: rgba(255,255,255,0.03); padding: 0.2rem 1rem; border-radius: 20px; font-size: 0.65rem; cursor: pointer; border: none; transition: all 0.2s; }
+        .now-playing .mute:hover { background: rgba(255,255,255,0.08); color: #7799cc; }
+        .goto-discord-btn {
+            display: inline-block; margin-top: 1rem; padding: 0.6rem 1.8rem;
+            background: rgba(88, 101, 242, 0.2); border: 1px solid rgba(88, 101, 242, 0.3);
+            border-radius: 40px; color: #8a9fff; font-size: 0.9rem; letter-spacing: 1px;
+            cursor: pointer; transition: all 0.3s ease; text-decoration: none; font-weight: 500;
+        }
+        .goto-discord-btn:hover { background: rgba(88, 101, 242, 0.35); box-shadow: 0 0 30px rgba(88,101,242,0.2); transform: scale(1.03); }
+        .edit-note { color: #334466; font-size: 0.6rem; letter-spacing: 1px; margin-top: 1.2rem; opacity: 0.5; }
+
+        /* GIANT "RAINYY" BACKGROUND (behind panels) */
+        .giant-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            font-size: 18vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.03);
+            letter-spacing: 20px;
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+            text-shadow: 0 0 80px rgba(100, 150, 255, 0.05);
+            user-select: none;
+            font-family: 'Arial Black', sans-serif;
+        }
+        @media (max-width: 700px) { .giant-text { font-size: 28vw; letter-spacing: 10px; } }
+
+        /* floating planets (decorative) */
+        .floating-planet {
+            position: fixed;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            filter: blur(2px);
+            opacity: 0.25;
+            animation: floatPlanet 20s ease-in-out infinite alternate;
+        }
+        .planet1 { width: 120px; height: 120px; background: radial-gradient(circle at 30% 30%, #ffaa88, #cc5533); top: 10%; left: 5%; }
+        .planet2 { width: 80px; height: 80px; background: radial-gradient(circle at 20% 20%, #88ddff, #2266aa); bottom: 15%; right: 8%; animation-duration: 25s; }
+        .planet3 { width: 50px; height: 50px; background: radial-gradient(circle at 40% 40%, #dd88ff, #8833aa); top: 60%; left: 3%; animation-duration: 18s; }
+        @keyframes floatPlanet {
+            0% { transform: translateY(-20px) rotate(0deg) scale(1); }
+            100% { transform: translateY(40px) rotate(15deg) scale(1.1); }
         }
 
-        .friends-label {
-            color: #5577aa;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            text-align: left;
-            margin-bottom: 0.3rem;
-            opacity: 0.6;
-        }
-
-        .check-box {
-            color: #334466;
-            font-size: 1.1rem;
-            margin-right: 0.8rem;
-            opacity: 0.3;
-        }
-
-        .friend-btn:hover .check-box {
-            opacity: 0.7;
-        }
-
-        /* Step 17: Now playing */
-        .now-playing {
-            margin-top: 1.8rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            color: #445577;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
+        /* clock + quotes */
+        .clock-quote {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .now-playing .mute {
-            color: #334466;
-            background: rgba(255,255,255,0.03);
-            padding: 0.2rem 1rem;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-
-        .now-playing .mute:hover {
-            background: rgba(255,255,255,0.08);
-            color: #7799cc;
-        }
-
-        /* Step 18: Go to Discord button */
-        .goto-discord-btn {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.6rem 1.8rem;
-            background: rgba(88, 101, 242, 0.2);
-            border: 1px solid rgba(88, 101, 242, 0.3);
+            margin: 1rem 0 0.5rem;
+            color: #6688bb;
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.2);
+            padding: 0.4rem 1rem;
             border-radius: 40px;
-            color: #8a9fff;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.03);
         }
+        .clock-quote i { margin-right: 6px; }
 
-        .goto-discord-btn:hover {
-            background: rgba(88, 101, 242, 0.35);
-            box-shadow: 0 0 30px rgba(88, 101, 242, 0.2);
-            transform: scale(1.03);
+        /* friend stats (extra) */
+        .friend-stats {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            margin: 0.8rem 0;
+            color: #8899cc;
+            font-size: 0.7rem;
         }
+        .friend-stats span { background: rgba(255,255,255,0.03); padding: 0.2rem 0.8rem; border-radius: 20px; }
 
-        .edit-note {
-            color: #334466;
-            font-size: 0.6rem;
-            letter-spacing: 1px;
-            margin-top: 1.2rem;
-            opacity: 0.5;
-        }
-
-        /* Step 19: Responsive */
+        /* responsive */
         @media (max-width: 900px) {
-            .main-wrapper {
-                flex-direction: column;
-                align-items: center;
-            }
-            .container, .discord-panel {
-                max-width: 100%;
-            }
+            .main-wrapper { flex-direction: column; align-items: center; }
+            .container, .discord-panel { max-width: 100%; }
         }
-
-        /* Step 20: Audio hidden */
-        #bg-music {
-            display: none;
-        }
+        #bg-music { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Step 21: Galaxy background layers -->
+    <!-- GIANT RAINYY BACKGROUND -->
+    <div class="giant-text">RAINYY</div>
+
+    <!-- floating planets -->
+    <div class="floating-planet planet1"></div>
+    <div class="floating-planet planet2"></div>
+    <div class="floating-planet planet3"></div>
+
+    <!-- aurora & galaxy -->
+    <div class="aurora-glow"></div>
     <div id="galaxy-bg"></div>
     <div id="stars-1"></div>
     <div id="stars-2"></div>
     <div id="stars-3"></div>
-    <div id="shooting-star"></div>
-    <div id="shooting-star-2"></div>
-    <div id="shooting-star-3"></div>
 
-    <!-- Step 22: Hidden audio element -->
+    <!-- shooting stars -->
+    <div id="shooting-star" class="shooting-star"></div>
+    <div id="shooting-star-2" class="shooting-star"></div>
+    <div id="shooting-star-3" class="shooting-star"></div>
+
+    <!-- audio -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://vmlu1.ytmp3free.cc/get.php?cid=6848d2005a0fcfb4231fbb87&t=1782401305&i=MjU1LjI3LjIxNy43NA==" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <div class="main-wrapper">
 
-        <!-- ====== LEFT: TikTok Panel ====== -->
-        <div class="container">
-            <h1>@rainyy.mods</h1>
-            <div class="subhead">THE NAMES A CLICKABLE BTW</div>
+        <!-- LEFT PANEL -->
+        <div class="container" id="tilt-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>@rainyy.mods</h1>
+                <div style="color:#ffd700; font-size:1.2rem;"><i class="fas fa-gem"></i></div>
+            </div>
+            <div class="subhead">✦ THE NAMES ARE CLICKABLE ✦</div>
 
-            <div class="friends-label">[ FRIENDS ]</div>
-
-            <div class="friend-grid">
-                <a href="https://www.tiktok.com/@isolated_just_chillin" target="_blank" class="friend-btn">
-                    <span class="friend-left">
-                        <span class="check-box">☐</span>
-                        <span class="friend-name"><span class="at-symbol">@</span>isolated_just_chillin</span>
-                    </span>
-                    <span class="friend-arrow">▶</span>
-                </a>
-                <a href="https://www.tiktok.com/@rezzslowed" target="_blank" class="friend-btn">
-                    <span class="friend-left">
-                        <span class="check-box">☐</span>
-                        <span class="friend-name"><span class="at-symbol">@</span>rezzslowed</span>
-                    </span>
-                    <span class="friend-arrow">▶</span>
-                </a>
-                <a href="https://tiktok.com/@billyyates09" target="_blank" class="friend-btn">
-                    <span class="friend-left">
-                        <span class="check-box">☐</span>
-                        <span class="friend-name">
-                            <span class="at-symbol">@</span>Rainyy
-                            <span class="custom-label">billyyates09</span>
-                        </span>
-                    </span>
-                    <span class="friend-arrow">▶</span>
-                </a>
-                <a href="https://www.tiktok.com/@sonic.vr21" target="_blank" class="friend-btn">
-                    <span class="friend-left">
-                        <span class="check-box">☐</span>
-                        <span class="friend-name"><span class="at-symbol">@</span>sonic.vr21</span>
-                    </span>
-                    <span class="friend-arrow">▶</span>
-                </a>
-                <a href="https://www.tiktok.com/@4xgm1" target="_blank" class="friend-btn">
-                    <span class="friend-left">
-                        <span class="check-box">☐</span>
-                        <span class="friend-name"><span class="at-symbol">@</span>4xgm1</span>
-                    </span>
-                    <span class="friend-arrow">▶</span>
-                </a>
-                <a href="https://www.tiktok.com/@tragic.on.90hz" target="_blank" class="friend-btn">
-                    <span class="friend-left">
-                        <span class="check-box">☐</span>
-                        <span class="friend-name">
-                            <span class="at-symbol">@</span>Tr4gic
-                            <span class="custom-label">tragic.on.90hz</span>
-                        </span>
-                    </span>
-                    <span class="friend-arrow">▶</span>
-                </a>
+            <!-- clock + quote -->
+            <div class="clock-quote">
+                <span><i class="far fa-clock"></i> <span id="clockDisplay">--:--</span></span>
+                <span><i class="fas fa-quote-left"></i> <span id="quoteDisplay">stardust</span></span>
             </div>
 
-            <a href="#discord-section" class="goto-discord-btn">→ Go to Discord Friends</a>
+            <!-- friend stats -->
+            <div class="friend-stats">
+                <span><i class="fas fa-user-friends"></i> 12 friends</span>
+                <span><i class="fas fa-comment"></i> 8 online</span>
+                <span><i class="fas fa-star"></i> 4.9</span>
+            </div>
+
+            <div class="friends-label">[ FRIENDS ]</div>
+            <div class="friend-grid">
+                <a href="#" class="friend-btn"><span class="friend-left"><span class="check-box">☐</span><span class="friend-name"><span class="at-symbol">@</span>isolated_just_chillin</span></span><span class="friend-arrow">▶</span></a>
+                <a href="#" class="friend-btn"><span class="friend-left"><span class="check-box">☐</span><span class="friend-name"><span class="at-symbol">@</span>rezzslowed</span></span><span class="friend-arrow">▶</span></a>
+                <a href="#" class="friend-btn"><span class="friend-left"><span class="check-box">☐</span><span class="friend-name"><span class="at-symbol">@</span>Rainyy <span class="custom-label">billyyates09</span></span></span><span class="friend-arrow">▶</span></a>
+                <a href="#" class="friend-btn"><span class="friend-left"><span class="check-box">☐</span><span class="friend-name"><span class="at-symbol">@</span>sonic.vr21</span></span><span class="friend-arrow">▶</span></a>
+                <a href="#" class="friend-btn"><span class="friend-left"><span class="check-box">☐</span><span class="friend-name"><span class="at-symbol">@</span>4xgm1</span></span><span class="friend-arrow">▶</span></a>
+                <a href="#" class="friend-btn"><span class="friend-left"><span class="check-box">☐</span><span class="friend-name"><span class="at-symbol">@</span>Tr4gic <span class="custom-label">tragic.on.90hz</span></span></span><span class="friend-arrow">▶</span></a>
+            </div>
+
+            <a href="#discord-section" class="goto-discord-btn"><i class="fab fa-discord"></i> Go to Discord</a>
 
             <div class="now-playing">
                 <span>[ NOW PLAYING ... ]</span>
                 <button class="mute" id="muteBtn">[ MUTE ]</button>
             </div>
-
-            <div style="margin-top:1rem; color:#223355; font-size:0.55rem; letter-spacing:1px; opacity:0.4;">
-                Rainyy taggers = founder
-            </div>
+            <div style="margin-top:1rem; color:#223355; font-size:0.55rem; letter-spacing:1px; opacity:0.4;">Rainyy taggers = founder</div>
         </div>
 
-        <!-- ====== RIGHT: Discord Panel ====== -->
-        <div class="discord-panel" id="discord-section">
-            <h2>💬 Discord Friends</h2>
+        <!-- RIGHT PANEL: Discord + Profile card -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem; flex: 1 1 350px; max-width: 420px; width: 100%;">
 
-            <div class="discord-friend">
-                <span class="discord-left">
-                    <img src="https://cdn.discordapp.com/avatars/484124508983394328/5d82e6d4343074f290399870ed048d57.webp?size=4096" alt="avatar" class="discord-avatar" />
-                    <span>@rezzy.k</span>
-                </span>
-                <span class="status">● My bestfriend</span>
+            <!-- profile card (💎) -->
+            <div class="profile-card" id="profile-tilt">
+                <div class="avatar"><i class="fas fa-crown"></i></div>
+                <h3>RAINYY <i class="fas fa-check-circle" style="color:#4caf50; font-size:0.8rem;"></i></h3>
+                <div class="badge"><i class="fas fa-star"></i> premium · 2.5k</div>
+                <div class="stats">
+                    <div><span>128</span> posts</div>
+                    <div><span>3.4k</span> followers</div>
+                    <div><span>892</span> following</div>
+                </div>
+                <div style="color:#6688bb; font-size:0.7rem; margin-top:0.3rem;"><i class="fas fa-map-pin"></i> floating in space</div>
             </div>
 
-            <div class="discord-friend">
-                <span class="discord-left">
-                    <img src="https://cdn.discordapp.com/avatars/1033882057874620506/c849d6896e07f8ab30b86d6ae6bc40a4.webp?size=4096" alt="avatar" class="discord-avatar" />
-                    <span>@saulcarretero_just_chillin (aka Rebortion)</span>
-                </span>
-                <span class="status offline">● He means alot to me</span>
+            <!-- discord panel -->
+            <div class="discord-panel" id="discord-section">
+                <h2><i class="fab fa-discord"></i> Discord Friends</h2>
+                <div class="discord-friend"><span class="discord-left"><img src="https://cdn.discordapp.com/avatars/484124508983394328/5d82e6d4343074f290399870ed048d57.webp?size=4096" alt="avatar" class="discord-avatar" /><span>@rezzy.k</span></span><span class="status">● My bestfriend</span></div>
+                <div class="discord-friend"><span class="discord-left"><img src="https://cdn.discordapp.com/avatars/1033882057874620506/c849d6896e07f8ab30b86d6ae6bc40a4.webp?size=4096" alt="avatar" class="discord-avatar" /><span>@saulcarretero_just_chillin</span></span><span class="status offline">● He means alot</span></div>
+                <div class="discord-friend"><span class="discord-left"><img src="https://cdn.discordapp.com/avatars/1250196468279677003/c812275413f91d70eac1704195c4ebb1.webp?size=4096" alt="avatar" class="discord-avatar" /><span>@sonicvr_80490</span></span><span class="status">● I love him</span></div>
+                <div class="discord-friend"><span class="discord-left"><img src="https://cdn.discordapp.com/avatars/1093461811703070751/1b4412bea560a97762aa3ec953905c3c.webp?size=4096" alt="avatar" class="discord-avatar" /><span>@4xgm</span></span><span class="status offline">● bestfriend</span></div>
+                <div class="discord-friend"><span class="discord-left"><img src="https://cdn.discordapp.com/avatars/1502278594246742040/05fe705bf7992d67489b9308f54d7765.webp?size=4096" alt="avatar" class="discord-avatar" /><span>@frenzy.zzz</span></span><span class="status">● Online</span></div>
+                <div class="discord-friend"><span class="discord-left"><img src="https://cdn.discordapp.com/avatars/1223785569172328539/0d3f3fd863b4765a181b1731cc4be432.webp?size=4096" alt="avatar" class="discord-avatar" /><span>@navy_playz</span></span><span class="status offline">● loves prototype</span></div>
+                <div class="edit-note"><i class="fas fa-pencil-alt"></i> if yur on here you mean something to me</div>
+                <a href="#" style="display:inline-block; margin-top:1rem; color:#445577; font-size:0.7rem; text-decoration:none; letter-spacing:1px; border:1px solid rgba(255,255,255,0.04); padding:0.3rem 1.2rem; border-radius:30px;"><i class="fas fa-arrow-up"></i> Back to TikTok</a>
             </div>
-
-            <div class="discord-friend">
-                <span class="discord-left">
-                    <img src="https://cdn.discordapp.com/avatars/1250196468279677003/c812275413f91d70eac1704195c4ebb1.webp?size=4096" alt="avatar" class="discord-avatar" />
-                    <span>@sonicvr_80490</span>
-                </span>
-                <span class="status">● I love him (nothing gay)</span>
-            </div>
-
-            <div class="discord-friend">
-                <span class="discord-left">
-                    <img src="https://cdn.discordapp.com/avatars/1093461811703070751/1b4412bea560a97762aa3ec953905c3c.webp?size=4096" alt="avatar" class="discord-avatar" />
-                    <span>@4xgm</span>
-                </span>
-                <span class="status offline">● One of my bestfriends</span>
-            </div>
-
-            <div class="discord-friend">
-                <span class="discord-left">
-                    <img src="https://cdn.discordapp.com/avatars/1502278594246742040/05fe705bf7992d67489b9308f54d7765.webp?size=4096" alt="avatar" class="discord-avatar" />
-                    <span>@frenzy.zzz</span>
-                </span>
-                <span class="status">● Online</span>
-            </div>
-
-            <div class="discord-friend">
-                <span class="discord-left">
-                    <img src="https://cdn.discordapp.com/avatars/1223785569172328539/0d3f3fd863b4765a181b1731cc4be432.webp?size=4096" alt="avatar" class="discord-avatar" />
-                    <span>@navy_playz</span>
-                </span>
-                <span class="status offline">● he loves prototype</span>
-            </div>
-
-            <div class="edit-note">
-                ✎ if yur on here you mean something to me
-            </div>
-
-            <a href="#" style="display:inline-block; margin-top:1rem; color:#445577; font-size:0.7rem; text-decoration:none; letter-spacing:1px; border:1px solid rgba(255,255,255,0.04); padding:0.3rem 1.2rem; border-radius:30px;">
-                ↑ Back to TikTok
-            </a>
         </div>
-
     </div>
 
-    <!-- Step 23: JavaScript to control audio -->
     <script>
         (function() {
+            // --- AUDIO ---
             const audio = document.getElementById('bg-music');
             const muteBtn = document.getElementById('muteBtn');
-
-            const playAudio = function() {
-                audio.play().catch(function(error) {
-                    console.log('Autoplay blocked. Click the page to start music.');
-                });
-            };
-
+            const playAudio = () => { audio.play().catch(() => {}); };
             playAudio();
-
-            document.addEventListener('click', function() {
-                if (audio.paused) {
-                    audio.play().catch(function(e) {});
-                }
-            }, { once: false });
-
-            muteBtn.addEventListener('click', function(e) {
+            document.addEventListener('click', () => { if (audio.paused) audio.play().catch(() => {}); });
+            muteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                if (audio.muted) {
-                    audio.muted = false;
-                    muteBtn.textContent = '[ MUTE ]';
-                } else {
-                    audio.muted = true;
-                    muteBtn.textContent = '[ UNMUTE ]';
-                }
+                audio.muted = !audio.muted;
+                muteBtn.textContent = audio.muted ? '[ UNMUTE ]' : '[ MUTE ]';
             });
 
-            audio.addEventListener('volumechange', function() {
-                if (audio.muted) {
-                    muteBtn.textContent = '[ UNMUTE ]';
-                } else {
-                    muteBtn.textContent = '[ MUTE ]';
-                }
-            });
+            // --- CLOCK ---
+            function updateClock() {
+                const now = new Date();
+                document.getElementById('clockDisplay').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+            updateClock();
+            setInterval(updateClock, 10000);
 
-            audio.addEventListener('ended', function() {
-                audio.currentTime = 0;
-                audio.play().catch(function(e) {});
-            });
-        })();
-    </script>
+            // --- QUOTES ---
+            const quotes = [
+                "stardust", "moonchild", "nebula", "cosmic", "dreamer",
+                "infinity", "lunar", "galactic", "supernova", "gravity"
+            ];
+            document.getElementById('quoteDisplay').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            setInterval(() => {
+                document.getElementById('quoteDisplay').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+            }, 20000);
 
-</body>
-</html>
+            // --- 3D CARD TILT (profile & main card) ---
+            const tiltCards = document.querySelectorAll('#tilt-card, #profile-tilt');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (
