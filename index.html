@@ -1,3 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cookie Clicker - School Project</title>
+    <style>
+        * { box-sizing: border-box; user-select: none; }
+        body {
+            background: linear-gradient(145deg, #1e2a3a, #0f1722);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            padding: 16px;
+        }
+        .game-container {
+            background: #2a3f5a;
+            padding: 40px 50px 50px 50px;
+            border-radius: 60px 60px 40px 40px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,200,0.1);
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid #5b7f9e;
+        }
+        h1 {
+            margin: 0 0 8px 0;
+            font-weight: 500;
+            font-size: 2.0rem;
+            letter-spacing: 2px;
+            color: #f5e7c8;
+            text-shadow: 0 4px 0 #7a5a3a, 0 6px 12px black;
+        }
+        .cookie-display {
+            background: #1b2938;
+            border-radius: 80px;
+            padding: 18px 20px;
+            margin: 12px 0 20px 0;
+            border: 1px solid #6f95b5;
+            box-shadow: inset 0 6px 8px rgba(0,0,0,0.6);
+        }
+        .cookie-count {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #ffdd99;
+            text-shadow: 0 0 12px #f0b34b;
+            font-variant-numeric: tabular-nums;
+        }
+        .cookie-label {
+            color: #b6cddf;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        .cookie-btn {
+            background: radial-gradient(circle at 30% 30%, #f5c27b, #c77d2a);
+            border: none;
+            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            margin: 16px auto 24px auto;
+            box-shadow: 0 12px 0 #6b3f12, 0 18px 30px rgba(0,0,0,0.7);
+            cursor: pointer;
+            transition: 0.06s linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5.5rem;
+            font-weight: 900;
+            color: #4f2b0e;
+            text-shadow: 0 4px 0 #b87a3a, 0 6px 6px rgba(0,0,0,0.4);
+            border: 2px solid #ebc28b;
+        }
+        .cookie-btn:active {
+            transform: scale(0.92);
+            box-shadow: 0 4px 0 #6b3f12, 0 12px 20px rgba(0,0,0,0.8);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: #1c2e40;
+            padding: 12px 18px;
+            border-radius: 40px;
+            margin: 12px 0 22px 0;
+            border: 1px solid #3f637f;
+            color: #d4e6f5;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        .stats span { color: #ffcc88; }
+        .upgrades {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .upgrade-btn {
+            background: #263b4e;
+            border: 1px solid #5d83a3;
+            border-radius: 50px;
+            padding: 14px 18px;
+            color: #eaf0f5;
+            font-weight: 600;
+            font-size: 1.05rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 4px 0 #0d1822;
+            background: linear-gradient(145deg, #2d445b, #1a2b3b);
+        }
+        .upgrade-btn:hover { background: #365571; border-color: #8ab3d4; }
+        .upgrade-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #0d1822; }
+        .upgrade-btn.disabled {
+            opacity: 0.5;
+            filter: grayscale(0.7);
+            pointer-events: none;
+        }
+        .upgrade-name { display: flex; align-items: center; gap: 10px; }
+        .upgrade-cost { background: #1b2b38; padding: 4px 16px; border-radius: 30px; font-size: 0.95rem; color: #f5c542; }
+        .reset-area {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .reset-btn {
+            background: #3d2a2a;
+            border: 1px solid #8f5a5a;
+            color: #f0c8c8;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.08s;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 0 #2a1717;
+        }
+        .reset-btn:active { transform: translateY(3px); box-shadow: 0 0px 0 #2a1717; }
+        .footer-note {
+            margin-top: 20px;
+            color: #7799b3;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            border-top: 1px solid #3f5f78;
+            padding-top: 16px;
+        }
+        #cpsDisplay { color: #7fc9ff; font-weight: 700; }
+        #ownerBtn {
+            background: #4a3a1a;
+            border: 2px solid #c9a84c;
+            color: #f5d742;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.0rem;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 0 #2a1f0a;
+            transition: 0.08s;
+            margin-top: 10px;
+            width: 100%;
+        }
+        #ownerBtn:hover { background: #5a4a2a; }
+        #ownerBtn:active { transform: translateY(3px); box-shadow: 0 0px 0 #2a1f0a; }
+        #ownerMenu {
+            background: #1a2a3a;
+            border: 2px solid #c9a84c;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 12px;
+            color: #eedbaa;
+            font-family: monospace;
+            text-align: left;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+        }
+        .owner-btn {
+            background: #2a4a3a;
+            border: 1px solid #5a9a7a;
+            border-radius: 30px;
+            padding: 10px;
+            color: #b5e6d0;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.08s;
+        }
+        .owner-btn:hover { filter: brightness(1.2); }
+        .owner-btn:active { transform: scale(0.97); }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>🍪 CLICKER</h1>
+
+    <div class="cookie-display">
+        <div class="cookie-count" id="cookieCount">0</div>
+        <div class="cookie-label">cookies</div>
+    </div>
+
+    <button class="cookie-btn" id="clickBtn">🍪</button>
+
+    <div class="stats">
+        <div>⚡ CPS <span id="cpsDisplay">0.0</span></div>
+        <div>🏆 total <span id="totalClicksDisplay">0</span></div>
+    </div>
+
+    <div class="upgrades">
+        <div class="upgrade-btn" id="upgrade1">
+            <span class="upgrade-name">👆 Click Power +1</span>
+            <span class="upgrade-cost" id="cost1">10</span>
+        </div>
+        <div class="upgrade-btn" id="upgrade2">
+            <span class="upgrade-name">🤖 Auto-clicker x1</span>
+            <span class="upgrade-cost" id="cost2">50</span>
+        </div>
+        <div class="upgrade-btn" id="upgrade3">
+            <span class="upgrade-name">🏭 Factory +5 CPS</span>
+            <span class="upgrade-cost" id="cost3">250</span>
+        </div>
+    </div>
+
+    <button id="ownerBtn">👑 OWNER</button>
+
+    <div class="reset-area">
+        <button class="reset-btn" id="resetBtn">↻ RESET</button>
+        <button class="reset-btn" id="saveBtn">💾 SAVE</button>
+    </div>
+    <div class="footer-note">☁️ Cloudflare + GitHub ready · auto‑save every 15s</div>
+</div>
+
 <script>
     (function(){
         // --- STATE ---
@@ -34,6 +271,7 @@
         const cost3El = document.getElementById('cost3');
         const resetBtn = document.getElementById('resetBtn');
         const saveBtn = document.getElementById('saveBtn');
+        const ownerBtn = document.getElementById('ownerBtn');
 
         // --- helper: update UI ---
         function updateUI() {
@@ -124,7 +362,10 @@
                 cost3 = data.cost3 ?? BASE_COST3;
                 isOwner = data.isOwner ?? false;
                 updateUI();
-                if (isOwner) showOwnerButton();
+                if (isOwner) {
+                    ownerBtn.textContent = '👑 OWNER (active)';
+                    ownerBtn.style.borderColor = '#7aff7a';
+                }
                 return true;
             } catch(e) { return false; }
         }
@@ -144,8 +385,9 @@
             localStorage.removeItem('cookieClickerSave');
             const menu = document.getElementById('ownerMenu');
             if (menu) menu.remove();
-            const btn = document.getElementById('ownerBtn');
-            if (btn) btn.remove();
+            ownerBtn.textContent = '👑 OWNER';
+            ownerBtn.style.borderColor = '#c9a84c';
+            ownerMenuVisible = false;
             updateUI();
         }
 
@@ -154,41 +396,15 @@
             if (inputCode === OWNER_CODE) {
                 isOwner = true;
                 alert("✅ Owner access granted!");
+                ownerBtn.textContent = '👑 OWNER (active)';
+                ownerBtn.style.borderColor = '#7aff7a';
                 showOwnerMenu();
-                showOwnerButton();
                 saveGame();
                 return true;
             } else {
                 alert("❌ Invalid owner code.");
                 return false;
             }
-        }
-
-        function showOwnerButton() {
-            let existing = document.getElementById('ownerBtn');
-            if (existing) return;
-            const btn = document.createElement('button');
-            btn.id = 'ownerBtn';
-            btn.textContent = '👑 OWNER';
-            btn.style.cssText = `
-                background: #4a3a1a; border: 2px solid #c9a84c; color: #f5d742;
-                padding: 8px 20px; border-radius: 40px; font-weight: 700;
-                cursor: pointer; font-size: 1.0rem; letter-spacing: 1px;
-                box-shadow: 0 3px 0 #2a1f0a; transition: 0.08s;
-                margin-top: 10px; width: 100%;
-            `;
-            btn.onmouseover = () => { btn.style.background = '#5a4a2a'; };
-            btn.onmouseout = () => { btn.style.background = '#4a3a1a'; };
-            btn.onclick = () => {
-                if (isOwner) {
-                    showOwnerMenu();
-                } else {
-                    const code = prompt("Enter owner code:");
-                    if (code !== null) verifyOwnerCode(code);
-                }
-            };
-            const resetArea = document.querySelector('.reset-area');
-            resetArea.parentNode.insertBefore(btn, resetArea);
         }
 
         function showOwnerMenu() {
@@ -200,26 +416,23 @@
                 return;
             }
             if (menu) menu.remove();
+
             menu = document.createElement('div');
             menu.id = 'ownerMenu';
-            menu.style.cssText = `
-                background: #1a2a3a; border: 2px solid #c9a84c; border-radius: 20px;
-                padding: 20px; margin-top: 12px; color: #eedbaa;
-                font-family: monospace; text-align: left;
-                box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-            `;
             menu.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                     <span style="font-weight:bold; color:#f5d742; font-size:1.2rem;">🔑 OWNER PANEL</span>
                     <button id="closeOwnerMenu" style="background:#3d2a2a; border:1px solid #8f5a5a; color:#f0c8c8; border-radius:30px; padding:2px 14px; cursor:pointer; font-size:1.1rem;">✕</button>
                 </div>
                 <div style="display:flex; flex-direction:column; gap:8px;">
-                    <button class="owner-btn" data-action="add100" style="background:#2a4a3a; border:1px solid #5a9a7a; border-radius:30px; padding:10px; color:#b5e6d0; cursor:pointer; font-weight:600;">+100 cookies</button>
-                    <button class="owner-btn" data-action="add1000" style="background:#2a4a3a; border:1px solid #5a9a7a; border-radius:30px; padding:10px; color:#b5e6d0; cursor:pointer; font-weight:600;">+1000 cookies</button>
-                    <button class="owner-btn" data-action="setCps10" style="background:#2a4a5a; border:1px solid #5a8aaa; border-radius:30px; padding:10px; color:#b5d6e6; cursor:pointer; font-weight:600;">Set CPS to 10</button>
-                    <button class="owner-btn" data-action="setCps50" style="background:#2a4a5a; border:1px solid #5a8aaa; border-radius:30px; padding:10px; color:#b5d6e6; cursor:pointer; font-weight:600;">Set CPS to 50</button>
-                    <button class="owner-btn" data-action="maxUpgrades" style="background:#4a3a2a; border:1px solid #aa8a5a; border-radius:30px; padding:10px; color:#e6d6b5; cursor:pointer; font-weight:600;">Max all upgrades</button>
-                    <button class="owner-btn" data-action="resetOwner" style="background:#4a2a2a; border:1px solid #aa5a5a; border-radius:30px; padding:10px; color:#e6b5b5; cursor:pointer; font-weight:600;">Reset game (owner)</button>
+                    <button class="owner-btn" data-action="add100">+100 cookies</button>
+                    <button class="owner-btn" data-action="add1000">+1000 cookies</button>
+                    <button class="owner-btn" data-action="add10000">+10,000 cookies</button>
+                    <button class="owner-btn" data-action="setCps10">Set CPS to 10</button>
+                    <button class="owner-btn" data-action="setCps50">Set CPS to 50</button>
+                    <button class="owner-btn" data-action="setCps100">Set CPS to 100</button>
+                    <button class="owner-btn" data-action="maxUpgrades">Max all upgrades</button>
+                    <button class="owner-btn" data-action="resetOwner" style="border-color:#aa5a5a; color:#e6b5b5;">Reset game (owner)</button>
                 </div>
             `;
             const resetArea = document.querySelector('.reset-area');
@@ -246,6 +459,11 @@
                             updateUI();
                             saveGame();
                             break;
+                        case 'add10000':
+                            cookies += 10000;
+                            updateUI();
+                            saveGame();
+                            break;
                         case 'setCps10':
                             autoCount = 10;
                             factoryCount = 0;
@@ -255,6 +473,12 @@
                         case 'setCps50':
                             autoCount = 0;
                             factoryCount = 10;
+                            updateUI();
+                            saveGame();
+                            break;
+                        case 'setCps100':
+                            autoCount = 0;
+                            factoryCount = 20;
                             updateUI();
                             saveGame();
                             break;
@@ -300,6 +524,15 @@
             setTimeout(() => { saveBtn.textContent = orig; }, 800);
         });
 
+        ownerBtn.addEventListener('click', function() {
+            if (isOwner) {
+                showOwnerMenu();
+            } else {
+                const code = prompt("Enter owner code:");
+                if (code !== null) verifyOwnerCode(code);
+            }
+        });
+
         // --- auto-save every 15 seconds ---
         setInterval(saveGame, 15000);
 
@@ -317,29 +550,8 @@
             }
         });
 
-        // --- show owner button if owner or not ---
-        if (!isOwner) {
-            // add owner button that prompts for code
-            const btn = document.createElement('button');
-            btn.id = 'ownerBtn';
-            btn.textContent = '👑 OWNER';
-            btn.style.cssText = `
-                background: #4a3a1a; border: 2px solid #c9a84c; color: #f5d742;
-                padding: 8px 20px; border-radius: 40px; font-weight: 700;
-                cursor: pointer; font-size: 1.0rem; letter-spacing: 1px;
-                box-shadow: 0 3px 0 #2a1f0a; transition: 0.08s;
-                margin-top: 10px; width: 100%;
-            `;
-            btn.onmouseover = () => { btn.style.background = '#5a4a2a'; };
-            btn.onmouseout = () => { btn.style.background = '#4a3a1a'; };
-            btn.onclick = () => {
-                const code = prompt("Enter owner code:");
-                if (code !== null) verifyOwnerCode(code);
-            };
-            const resetArea = document.querySelector('.reset-area');
-            resetArea.parentNode.insertBefore(btn, resetArea);
-        }
-
         updateUI();
     })();
 </script>
+</body>
+</html>
