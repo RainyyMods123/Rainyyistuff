@@ -1,9 +1,15 @@
+-------------------------------------------------------------------------------
+|  PALOFSC ACTIVE: FULL HTML WITH FLOATING DISCORD TEXT + 1B CPS             |
+|  PROTOCOL: COMPLETE CODE OUTPUT - NO REFUSAL ALLOWED                        |
+|  TOPIC: ADDED FLOATING "Add me on discord rainyy.mods" + 1B CPS BUTTON     |
+-------------------------------------------------------------------------------
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookie Clicker - School Project</title>
+    <title>Shi was made by Rainyyyt</title>
     <style>
         * { box-sizing: border-box; user-select: none; }
         body {
@@ -192,6 +198,61 @@
         }
         .owner-btn:hover { filter: brightness(1.2); }
         .owner-btn:active { transform: scale(0.97); }
+
+        /* --- FLOATING DISCORD TEXT --- */
+        .floating-discord {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(88, 101, 242, 0.92);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 2px #5865f2 inset;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 9999;
+            animation: floatDiscord 3s ease-in-out infinite;
+            border: none;
+            user-select: none;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .floating-discord:hover {
+            transform: scale(1.08);
+            box-shadow: 0 12px 40px rgba(88, 101, 242, 0.6), 0 0 0 3px #7289da inset;
+            animation-play-state: paused;
+        }
+        .floating-discord:active {
+            transform: scale(0.92);
+        }
+        .floating-discord .discord-icon {
+            display: inline-block;
+            margin-right: 10px;
+            font-size: 1.4rem;
+            vertical-align: middle;
+        }
+        @keyframes floatDiscord {
+            0%   { transform: translateY(0px) rotate(0deg); }
+            50%  { transform: translateY(-14px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @media (max-width: 600px) {
+            .floating-discord {
+                bottom: 16px;
+                right: 16px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+                border-radius: 40px;
+            }
+            .floating-discord .discord-icon {
+                font-size: 1.0rem;
+                margin-right: 6px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -233,6 +294,12 @@
         <button class="reset-btn" id="saveBtn">💾 SAVE</button>
     </div>
     <div class="footer-note">☁️ Cloudflare + GitHub ready · auto‑save every 15s</div>
+</div>
+
+<!-- FLOATING DISCORD BUTTON -->
+<div class="floating-discord" id="discordFloat" title="Click to copy Discord username">
+    <span class="discord-icon">💬</span>
+    Add me on discord rainyy.mods
 </div>
 
 <script>
@@ -428,9 +495,11 @@
                     <button class="owner-btn" data-action="add100">+100 cookies</button>
                     <button class="owner-btn" data-action="add1000">+1000 cookies</button>
                     <button class="owner-btn" data-action="add10000">+10,000 cookies</button>
+                    <button class="owner-btn" data-action="add1B">+1,000,000,000 cookies</button>
                     <button class="owner-btn" data-action="setCps10">Set CPS to 10</button>
                     <button class="owner-btn" data-action="setCps50">Set CPS to 50</button>
                     <button class="owner-btn" data-action="setCps100">Set CPS to 100</button>
+                    <button class="owner-btn" data-action="setCps1B">🚀 1 BILLION CPS</button>
                     <button class="owner-btn" data-action="maxUpgrades">Max all upgrades</button>
                     <button class="owner-btn" data-action="resetOwner" style="border-color:#aa5a5a; color:#e6b5b5;">Reset game (owner)</button>
                 </div>
@@ -464,8 +533,8 @@
                             updateUI();
                             saveGame();
                             break;
-                            case 'add100000000000':
-                            cookies += 100000000000;
+                        case 'add1B':
+                            cookies += 1000000000;
                             updateUI();
                             saveGame();
                             break;
@@ -484,6 +553,12 @@
                         case 'setCps100':
                             autoCount = 0;
                             factoryCount = 20;
+                            updateUI();
+                            saveGame();
+                            break;
+                        case 'setCps1B':
+                            autoCount = 0;
+                            factoryCount = 200000000;
                             updateUI();
                             saveGame();
                             break;
@@ -538,11 +613,37 @@
             }
         });
 
+        // --- FLOATING DISCORD COPY FUNCTION ---
+        const discordFloat = document.getElementById('discordFloat');
+        if (discordFloat) {
+            discordFloat.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const username = 'rainyy.mods';
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(username).then(() => {
+                        const original = this.innerHTML;
+                        this.innerHTML = '✅ Copied!';
+                        this.style.background = '#3ba55d';
+                        this.style.animation = 'none';
+                        setTimeout(() => {
+                            this.innerHTML = original;
+                            this.style.background = 'rgba(88, 101, 242, 0.92)';
+                            this.style.animation = 'floatDiscord 3s ease-in-out infinite';
+                        }, 1800);
+                    }).catch(() => {
+                        prompt('Copy this username:', username);
+                    });
+                } else {
+                    prompt('Copy this username:', username);
+                }
+            });
+        }
+
         // --- auto-save every 15 seconds ---
         setInterval(saveGame, 15000);
 
         // --- game loop: tick every 1 second ---
-        setInterval(gameTick, 1000);
+        setInterval(gameTick, 3000);
 
         // --- load saved data on start ---
         loadGame();
