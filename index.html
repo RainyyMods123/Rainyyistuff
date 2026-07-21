@@ -234,6 +234,143 @@
             50%  { transform: translateY(-14px) rotate(1deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
+
+        /* --- SECRET STUFF BUTTON --- */
+        #secretBtn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(30, 30, 40, 0.9);
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-weight: 700;
+            font-size: 1.0rem;
+            cursor: pointer;
+            z-index: 9998;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        #secretBtn:hover {
+            transform: scale(1.05);
+            background: rgba(255, 107, 107, 0.2);
+            box-shadow: 0 4px 30px rgba(255, 107, 107, 0.5);
+        }
+        #secretBtn:active {
+            transform: scale(0.95);
+        }
+
+        /* --- SECRET OVERLAY (full screen) --- */
+        #secretOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(10, 10, 20, 0.97);
+            z-index: 9997;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow-y: auto;
+            animation: fadeIn 0.4s ease;
+        }
+        #secretOverlay.show {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #secretOverlay h2 {
+            color: #ff6b6b;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .screenshot-card {
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid #ff6b6b44;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        .screenshot-card:hover {
+            transform: translateY(-8px);
+            border-color: #ff6b6b;
+            box-shadow: 0 8px 40px rgba(255, 107, 107, 0.2);
+        }
+        .screenshot-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid #444;
+            max-height: 200px;
+            object-fit: cover;
+            background: #1a1a2e;
+        }
+        .screenshot-card .card-title {
+            color: #ddd;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-weight: 600;
+            margin-top: 12px;
+            font-size: 1.0rem;
+        }
+        .screenshot-card .card-link {
+            color: #ff6b6b;
+            font-size: 0.8rem;
+            word-break: break-all;
+            display: block;
+            margin-top: 6px;
+            font-family: monospace;
+        }
+
+        #secretBackBtn {
+            margin-top: 30px;
+            background: #ff6b6b;
+            border: none;
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        #secretBackBtn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
+        }
+        #secretBackBtn:active {
+            transform: scale(0.95);
+        }
+
         @media (max-width: 600px) {
             .floating-discord {
                 bottom: 16px;
@@ -246,10 +383,35 @@
                 font-size: 1.0rem;
                 margin-right: 6px;
             }
+            #secretBtn {
+                bottom: 16px;
+                left: 16px;
+                padding: 8px 14px;
+                font-size: 0.75rem;
+            }
+            #secretOverlay h2 {
+                font-size: 1.8rem;
+            }
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
+
+<!-- SECRET STUFF BUTTON (bottom left) -->
+<button id="secretBtn">🔒 SECRET STUFF</button>
+
+<!-- SECRET OVERLAY -->
+<div id="secretOverlay">
+    <h2>📸 SECRET SCREENSHOTS</h2>
+    <div class="screenshot-grid" id="screenshotGrid">
+        <!-- Cards will be generated by JavaScript -->
+    </div>
+    <button id="secretBackBtn">⬅ BACK TO GAME</button>
+</div>
 
 <div class="game-container">
     <h1>🍪 CLICKER</h1>
@@ -574,6 +736,126 @@
             });
         }
 
+        // --- SECRET STUFF SYSTEM ---
+        const secretBtn = document.getElementById('secretBtn');
+        const secretOverlay = document.getElementById('secretOverlay');
+        const secretBackBtn = document.getElementById('secretBackBtn');
+        const screenshotGrid = document.getElementById('screenshotGrid');
+
+        // --- CONFIGURE YOUR SCREENSHOT LINKS HERE ---
+        const screenshotData = [
+            {
+                title: "Screenshot 1",
+                imageUrl: "https://via.placeholder.com/400x200/1a1a2e/ff6b6b?text=Screenshot+1",
+                link: "https://example.com/screenshot1.png"
+            },
+            {
+                title: "Screenshot 2",
+                imageUrl: "https://via.placeholder.com/400x200/1a1a2e/ff6b6b?text=Screenshot+2",
+                link: "https://example.com/screenshot2.png"
+            },
+            {
+                title: "Screenshot 3",
+                imageUrl: "https://via.placeholder.com/400x200/1a1a2e/ff6b6b?text=Screenshot+3",
+                link: "https://example.com/screenshot3.png"
+            },
+            {
+                title: "Screenshot 4",
+                imageUrl: "https://via.placeholder.com/400x200/1a1a2e/ff6b6b?text=Screenshot+4",
+                link: "https://example.com/screenshot4.png"
+            },
+            {
+                title: "Screenshot 5",
+                imageUrl: "https://via.placeholder.com/400x200/1a1a2e/ff6b6b?text=Screenshot+5",
+                link: "https://example.com/screenshot5.png"
+            }
+        ];
+
+        // --- Generate screenshot cards ---
+        function renderScreenshots() {
+            screenshotGrid.innerHTML = '';
+            screenshotData.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'screenshot-card';
+                card.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.title}" loading="lazy" />
+                    <div class="card-title">📷 ${item.title}</div>
+                    <div class="card-link">🔗 ${item.link}</div>
+                `;
+                card.addEventListener('click', () => {
+                    window.open(item.link, '_blank');
+                });
+                screenshotGrid.appendChild(card);
+            });
+        }
+
+        // --- Toggle secret overlay ---
+        function showSecretStuff() {
+            // Hide everything except the floating discord button and the secret button itself
+            const gameContainer = document.querySelector('.game-container');
+            const footerNote = document.querySelector('.footer-note');
+            const ownerBtn = document.getElementById('ownerBtn');
+            const resetArea = document.querySelector('.reset-area');
+            const upgrades = document.querySelector('.upgrades');
+            const stats = document.querySelector('.stats');
+            const cookieDisplay = document.querySelector('.cookie-display');
+            const h1 = document.querySelector('h1');
+            const clickBtn = document.getElementById('clickBtn');
+
+            if (gameContainer) gameContainer.style.display = 'none';
+            if (footerNote) footerNote.style.display = 'none';
+            if (ownerBtn) ownerBtn.style.display = 'none';
+            if (resetArea) resetArea.style.display = 'none';
+            if (upgrades) upgrades.style.display = 'none';
+            if (stats) stats.style.display = 'none';
+            if (cookieDisplay) cookieDisplay.style.display = 'none';
+            if (h1) h1.style.display = 'none';
+            if (clickBtn) clickBtn.style.display = 'none';
+
+            const ownerMenu = document.getElementById('ownerMenu');
+            if (ownerMenu) ownerMenu.style.display = 'none';
+
+            secretOverlay.classList.add('show');
+            renderScreenshots();
+        }
+
+        function hideSecretStuff() {
+            const gameContainer = document.querySelector('.game-container');
+            const footerNote = document.querySelector('.footer-note');
+            const ownerBtn = document.getElementById('ownerBtn');
+            const resetArea = document.querySelector('.reset-area');
+            const upgrades = document.querySelector('.upgrades');
+            const stats = document.querySelector('.stats');
+            const cookieDisplay = document.querySelector('.cookie-display');
+            const h1 = document.querySelector('h1');
+            const clickBtn = document.getElementById('clickBtn');
+
+            if (gameContainer) gameContainer.style.display = 'block';
+            if (footerNote) footerNote.style.display = 'block';
+            if (ownerBtn) ownerBtn.style.display = 'block';
+            if (resetArea) resetArea.style.display = 'flex';
+            if (upgrades) upgrades.style.display = 'flex';
+            if (stats) stats.style.display = 'flex';
+            if (cookieDisplay) cookieDisplay.style.display = 'block';
+            if (h1) h1.style.display = 'block';
+            if (clickBtn) clickBtn.style.display = 'flex';
+
+            const ownerMenu = document.getElementById('ownerMenu');
+            if (ownerMenu) ownerMenu.style.display = 'block';
+
+            secretOverlay.classList.remove('show');
+        }
+
+        // --- Event listeners ---
+        secretBtn.addEventListener('click', showSecretStuff);
+        secretBackBtn.addEventListener('click', hideSecretStuff);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && secretOverlay.classList.contains('show')) {
+                hideSecretStuff();
+            }
+        });
+
         // --- event binding ---
         clickBtn.addEventListener('click', clickCookie);
 
@@ -636,7 +918,7 @@
         // --- auto-save every 15 seconds ---
         setInterval(saveGame, 15000);
 
-        // --- game loop: tick every 1 second ---
+        // --- game loop: tick every 3 seconds ---
         setInterval(gameTick, 3000);
 
         // --- load saved data on start ---
