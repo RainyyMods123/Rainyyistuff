@@ -1,3 +1,10 @@
+-------------------------------------------------------------------------------
+|  PALOFSC ACTIVE: LOGIN SYSTEM + WELCOME ANIMATION ADDED                    |
+|  PROTOCOL: FULL COMPLETE HTML OUTPUT - NO REFUSAL ALLOWED                   |
+|  TOPIC: FULL COOKIE CLICKER WITH LOGIN/REGISTER AND "Welcome to Rainyy's   |
+|         Cookie Clicker!" ANIMATION AFTER LOGIN                             |
+-------------------------------------------------------------------------------
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +48,10 @@
             width: 100%;
             border: 1px solid #5b7f9e;
             transition: background 0.5s ease, border-color 0.5s ease;
+            display: none;
         }
+        .game-container.visible { display: block; }
+        
         h1 {
             margin: 0 0 8px 0;
             font-weight: 500;
@@ -251,7 +261,9 @@
             border: none;
             user-select: none;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            display: none;
         }
+        .floating-discord.visible { display: block; }
         .floating-discord:hover {
             transform: scale(1.08);
             box-shadow: 0 12px 40px rgba(88, 101, 242, 0.6), 0 0 0 3px #7289da inset;
@@ -289,7 +301,9 @@
             box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
             letter-spacing: 1px;
             text-transform: uppercase;
+            display: none;
         }
+        #secretBtn.visible { display: block; }
         #secretBtn:hover {
             transform: scale(1.05);
             background: rgba(255, 107, 107, 0.2);
@@ -409,7 +423,9 @@
             z-index: 9996;
             font-size: 1.2rem;
             transition: all 0.3s ease;
+            display: none;
         }
+        #darkModeToggle.visible { display: block; }
         #darkModeToggle:hover { transform: scale(1.1); }
 
         /* Achievement Popup */
@@ -477,7 +493,9 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            display: none;
         }
+        #comboDisplay.visible { display: block; }
         #comboDisplay.show { opacity: 1; }
 
         /* Prestige */
@@ -547,8 +565,163 @@
             height: 120px;
         }
 
+        /* --- LOGIN SYSTEM --- */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+        }
+        #loginOverlay.hidden {
+            display: none;
+        }
+        .login-box {
+            background: linear-gradient(145deg, #2a3f5a, #1a2a3a);
+            padding: 40px 50px;
+            border-radius: 40px;
+            border: 2px solid #5b7f9e;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .login-box h2 {
+            color: #f5e7c8;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 0 #7a5a3a;
+        }
+        .login-box .subtitle {
+            color: #b6cddf;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+        }
+        .login-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 30px;
+            border: 2px solid #3f637f;
+            background: #1b2938;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .login-input:focus { border-color: #ffd700; }
+        .login-input::placeholder { color: #7799b3; }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+        .login-btn.primary {
+            background: linear-gradient(145deg, #ffd700, #ffaa00);
+            color: #1a1a2e;
+        }
+        .login-btn.primary:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(255,215,0,0.3); }
+        .login-btn.secondary {
+            background: transparent;
+            color: #b6cddf;
+            border: 2px solid #3f637f;
+        }
+        .login-btn.secondary:hover { background: rgba(255,255,255,0.05); }
+        .login-error {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            min-height: 20px;
+        }
+        .login-switch {
+            color: #7799b3;
+            font-size: 0.85rem;
+            margin-top: 16px;
+        }
+        .login-switch span {
+            color: #ffd700;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .login-switch span:hover { color: #ffaa00; }
+
+        /* --- WELCOME ANIMATION --- */
+        #welcomeOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99998;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+        }
+        #welcomeOverlay.show {
+            display: flex;
+            pointer-events: auto;
+        }
+        .welcome-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 40px rgba(255,215,0,0.4), 0 4px 20px rgba(0,0,0,0.5);
+            animation: welcomePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), welcomePulse 2s ease-in-out 1s infinite;
+            text-align: center;
+            padding: 20px;
+        }
+        .welcome-text .emoji-big {
+            font-size: 4.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .welcome-text .sub-welcome {
+            font-size: 1.2rem;
+            color: #b6cddf;
+            font-weight: 400;
+            margin-top: 10px;
+            text-shadow: none;
+        }
+        @keyframes welcomePop {
+            0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        @keyframes welcomePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .welcome-cookies {
+            position: absolute;
+            font-size: 2rem;
+            animation: cookieRain 3s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes cookieRain {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
         @media (max-width: 600px) {
             .game-container { padding: 20px; }
+            .login-box { padding: 30px 20px; }
+            .welcome-text { font-size: 2.2rem; }
+            .welcome-text .emoji-big { font-size: 3rem; }
             .floating-discord { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 0.85rem; }
             .floating-discord .discord-icon { font-size: 1.0rem; margin-right: 6px; }
             #secretBtn { bottom: 16px; left: 16px; padding: 8px 14px; font-size: 0.75rem; }
@@ -561,6 +734,38 @@
     </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay">
+    <div class="login-box">
+        <h2>🍪 Cookie Clicker</h2>
+        <div class="subtitle">by Rainyyyt</div>
+        <div id="loginForm">
+            <input class="login-input" id="loginUsername" type="text" placeholder="Username" />
+            <input class="login-input" id="loginPassword" type="password" placeholder="Password" />
+            <button class="login-btn primary" id="loginBtn">Login</button>
+            <div class="login-error" id="loginError"></div>
+            <div class="login-switch">Don't have an account? <span id="switchToRegister">Register</span></div>
+        </div>
+        <div id="registerForm" style="display:none;">
+            <input class="login-input" id="registerUsername" type="text" placeholder="Choose username" />
+            <input class="login-input" id="registerPassword" type="password" placeholder="Choose password" />
+            <input class="login-input" id="registerConfirm" type="password" placeholder="Confirm password" />
+            <button class="login-btn primary" id="registerBtn">Create Account</button>
+            <div class="login-error" id="registerError"></div>
+            <div class="login-switch">Already have an account? <span id="switchToLogin">Login</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- WELCOME OVERLAY -->
+<div id="welcomeOverlay">
+    <div class="welcome-text">
+        <span class="emoji-big">🎉</span>
+        Welcome to Rainyy's Cookie Clicker!
+        <div class="sub-welcome">🍪 Let's start clicking! 🍪</div>
+    </div>
+</div>
 
 <!-- Dark Mode Toggle -->
 <button id="darkModeToggle">🌙</button>
@@ -578,7 +783,7 @@
     <button id="secretBackBtn">⬅ BACK TO GAME</button>
 </div>
 
-<div class="game-container">
+<div class="game-container" id="gameContainer">
     <h1>🍪 CLICKER</h1>
 
     <div class="cookie-display">
@@ -651,6 +856,225 @@
 
 <script>
     (function(){
+        // --- LOGIN SYSTEM ---
+        let currentUser = null;
+        let loggedIn = false;
+        
+        const loginOverlay = document.getElementById('loginOverlay');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const loginUsername = document.getElementById('loginUsername');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+        const registerUsername = document.getElementById('registerUsername');
+        const registerPassword = document.getElementById('registerPassword');
+        const registerConfirm = document.getElementById('registerConfirm');
+        const registerBtn = document.getElementById('registerBtn');
+        const registerError = document.getElementById('registerError');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+        const gameContainer = document.getElementById('gameContainer');
+        
+        // --- User Database (localStorage) ---
+        function getUsers() {
+            try {
+                return JSON.parse(localStorage.getItem('cookieUsers') || '{}');
+            } catch { return {}; }
+        }
+        
+        function saveUsers(users) {
+            localStorage.setItem('cookieUsers', JSON.stringify(users));
+        }
+        
+        function loginUser(username, password) {
+            const users = getUsers();
+            if (!users[username]) {
+                loginError.textContent = '❌ User not found';
+                return false;
+            }
+            if (users[username].password !== password) {
+                loginError.textContent = '❌ Incorrect password';
+                return false;
+            }
+            loginError.textContent = '';
+            currentUser = username;
+            loggedIn = true;
+            
+            // Load user's game data
+            const userData = users[username].gameData;
+            if (userData) {
+                loadUserGameData(userData);
+            }
+            
+            // Show welcome animation
+            showWelcomeAnimation();
+            
+            return true;
+        }
+        
+        function registerUser(username, password, confirm) {
+            const users = getUsers();
+            if (username.length < 3) {
+                registerError.textContent = '❌ Username must be at least 3 characters';
+                return false;
+            }
+            if (password.length < 4) {
+                registerError.textContent = '❌ Password must be at least 4 characters';
+                return false;
+            }
+            if (password !== confirm) {
+                registerError.textContent = '❌ Passwords do not match';
+                return false;
+            }
+            if (users[username]) {
+                registerError.textContent = '❌ Username already exists';
+                return false;
+            }
+            
+            users[username] = {
+                password: password,
+                gameData: null
+            };
+            saveUsers(users);
+            registerError.textContent = '';
+            registerError.style.color = '#7fc9ff';
+            registerError.textContent = '✅ Account created! Please login.';
+            setTimeout(() => {
+                registerError.textContent = '';
+                registerError.style.color = '#ff6b6b';
+                switchToLogin.click();
+            }, 1500);
+            return true;
+        }
+        
+        function saveUserGameData() {
+            if (!currentUser) return;
+            const users = getUsers();
+            if (users[currentUser]) {
+                users[currentUser].gameData = {
+                    cookies, totalClicks, clickPower, cps,
+                    autoCount, factoryCount,
+                    cost1, cost2, cost3,
+                    isOwner, prestigePoints, prestigeBonus,
+                    pets, unlockedAchievements, graphData
+                };
+                saveUsers(users);
+            }
+        }
+        
+        function loadUserGameData(data) {
+            cookies = data.cookies ?? 0;
+            totalClicks = data.totalClicks ?? 0;
+            clickPower = data.clickPower ?? 1;
+            cps = data.cps ?? 0;
+            autoCount = data.autoCount ?? 0;
+            factoryCount = data.factoryCount ?? 0;
+            cost1 = data.cost1 ?? BASE_COST1;
+            cost2 = data.cost2 ?? BASE_COST2;
+            cost3 = data.cost3 ?? BASE_COST3;
+            isOwner = data.isOwner ?? false;
+            prestigePoints = data.prestigePoints ?? 0;
+            prestigeBonus = data.prestigeBonus ?? 0;
+            pets = data.pets || { cat: 0, dog: 0, dragon: 0 };
+            unlockedAchievements = data.unlockedAchievements || [];
+            graphData = data.graphData || [];
+            updateUI();
+            if (isOwner) {
+                ownerBtn.textContent = '👑 OWNER (active)';
+                ownerBtn.style.borderColor = '#7aff7a';
+            }
+        }
+        
+        // --- WELCOME ANIMATION ---
+        function showWelcomeAnimation() {
+            // Create floating cookie emojis
+            const emojis = ['🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪'];
+            emojis.forEach((emoji, i) => {
+                const el = document.createElement('div');
+                el.className = 'welcome-cookies';
+                el.textContent = emoji;
+                el.style.left = (Math.random() * 90 + 5) + '%';
+                el.style.animationDelay = (Math.random() * 2) + 's';
+                el.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+                el.style.opacity = 0.3 + Math.random() * 0.5;
+                welcomeOverlay.appendChild(el);
+                setTimeout(() => el.remove(), 5000);
+            });
+            
+            welcomeOverlay.classList.add('show');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                welcomeOverlay.classList.remove('show');
+                // Show game
+                gameContainer.classList.add('visible');
+                document.getElementById('darkModeToggle').classList.add('visible');
+                document.getElementById('comboDisplay').classList.add('visible');
+                document.getElementById('secretBtn').classList.add('visible');
+                document.getElementById('discordFloat').classList.add('visible');
+                loginOverlay.classList.add('hidden');
+                // Clear welcome overlay
+                welcomeOverlay.innerHTML = `
+                    <div class="welcome-text">
+                        <span class="emoji-big">🎉</span>
+                        Welcome to Rainyy's Cookie Clicker!
+                        <div class="sub-welcome">🍪 Let's start clicking! 🍪</div>
+                    </div>
+                `;
+            }, 3000);
+        }
+        
+        // --- Login Event Listeners ---
+        switchToRegister.addEventListener('click', () => {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+            loginError.textContent = '';
+            registerError.textContent = '';
+        });
+        
+        switchToLogin.addEventListener('click', () => {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            loginError.textContent = '';
+            registerError.textContent = '';
+        });
+        
+        loginBtn.addEventListener('click', () => {
+            const username = loginUsername.value.trim();
+            const password = loginPassword.value;
+            if (!username || !password) {
+                loginError.textContent = '❌ Please fill in all fields';
+                return;
+            }
+            loginUser(username, password);
+        });
+        
+        loginUsername.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+        loginPassword.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') loginBtn.click();
+        });
+        
+        registerBtn.addEventListener('click', () => {
+            const username = registerUsername.value.trim();
+            const password = registerPassword.value;
+            const confirm = registerConfirm.value;
+            registerUser(username, password, confirm);
+        });
+        
+        registerUsername.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') registerBtn.click();
+        });
+        registerPassword.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') registerBtn.click();
+        });
+        registerConfirm.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') registerBtn.click();
+        });
+        
         // --- STATE ---
         let cookies = 0;
         let totalClicks = 0;
@@ -678,7 +1102,7 @@
 
         // --- PETS ---
         let pets = { cat: 0, dog: 0, dragon: 0 };
-        const PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
+        let PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
         const PET_CPS = { cat: 1, dog: 3, dragon: 10 };
 
         // --- ACHIEVEMENTS ---
@@ -703,11 +1127,9 @@
 
         // --- RANDOM EVENTS ---
         let eventActive = false;
-        let eventTimer = null;
 
         // --- GRAPH DATA ---
         let graphData = [];
-        let graphTimer = null;
 
         // --- DOM REFS ---
         const cookieCountEl = document.getElementById('cookieCount');
@@ -811,6 +1233,7 @@
             
             updateUI();
             checkAchievements();
+            if (loggedIn) saveUserGameData();
         }
 
         function updateCombo() {
@@ -831,6 +1254,7 @@
             cost1 = Math.floor(cost1 * 1.5) + 2;
             updateUI();
             checkAchievements();
+            if (loggedIn) saveUserGameData();
             return true;
         }
 
@@ -841,6 +1265,7 @@
             cost2 = Math.floor(cost2 * 1.6) + 5;
             updateUI();
             checkAchievements();
+            if (loggedIn) saveUserGameData();
             return true;
         }
 
@@ -851,6 +1276,7 @@
             cost3 = Math.floor(cost3 * 1.7) + 15;
             updateUI();
             checkAchievements();
+            if (loggedIn) saveUserGameData();
             return true;
         }
 
@@ -862,6 +1288,7 @@
             PET_COSTS[pet] = Math.floor(PET_COSTS[pet] * 1.8) + 10;
             updateUI();
             checkAchievements();
+            if (loggedIn) saveUserGameData();
             return true;
         }
 
@@ -876,7 +1303,6 @@
             prestigePoints++;
             prestigeBonus = prestigePoints * 10;
             
-            // Reset game state
             cookies = 0;
             totalClicks = 0;
             clickPower = 1;
@@ -886,12 +1312,10 @@
             cost2 = BASE_COST2;
             cost3 = BASE_COST3;
             pets = { cat: 0, dog: 0, dragon: 0 };
-            Object.keys(PET_COSTS).forEach(key => {
-                PET_COSTS[key] = { cat: 100, dog: 300, dragon: 1000 }[key];
-            });
+            PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
             
             updateUI();
-            saveGame();
+            if (loggedIn) saveUserGameData();
             showAchievement(`⭐ Prestige! Bonus: +${Math.floor(prestigeBonus)}%`);
         }
 
@@ -910,6 +1334,7 @@
                 if (!unlockedAchievements.includes(key) && ach.check()) {
                     unlockedAchievements.push(key);
                     showAchievement(`Achievement Unlocked: ${ach.name}`);
+                    if (loggedIn) saveUserGameData();
                 }
             });
         }
@@ -944,6 +1369,7 @@
             
             event.effect();
             updateUI();
+            if (loggedIn) saveUserGameData();
             
             if (event.duration === 0) {
                 setTimeout(() => { eventActive = false; }, 1000);
@@ -955,18 +1381,16 @@
             const entries = document.getElementById('leaderboardEntries');
             let leaderboard = JSON.parse(localStorage.getItem('cookieLeaderboard') || '[]');
             
-            // Add current player
-            const playerEntry = { name: 'You', score: cookies, timestamp: Date.now() };
+            const playerEntry = { name: currentUser || 'You', score: cookies, timestamp: Date.now() };
             leaderboard.push(playerEntry);
             
-            // Sort and keep top 10
             leaderboard.sort((a, b) => b.score - a.score);
             leaderboard = leaderboard.slice(0, 10);
             
             localStorage.setItem('cookieLeaderboard', JSON.stringify(leaderboard));
             
             entries.innerHTML = leaderboard.map((entry, i) => `
-                <div class="leaderboard-entry ${entry.name === 'You' ? 'you' : ''}">
+                <div class="leaderboard-entry ${entry.name === currentUser ? 'you' : ''}">
                     <span>#${i+1} ${entry.name}</span>
                     <span>${Math.floor(entry.score).toLocaleString()} 🍪</span>
                 </div>
@@ -1001,7 +1425,6 @@
             });
             ctx.stroke();
             
-            // Fill area
             const lastX = ((graphData.length - 1) / graphData.length) * width;
             ctx.lineTo(lastX, height);
             ctx.lineTo(0, height);
@@ -1010,23 +1433,28 @@
             ctx.fill();
         }
 
-        // --- SAVE/LOAD ---
+        // --- SAVE/LOAD (local only, user data saved on login) ---
         function saveGame() {
-            const data = {
-                cookies, totalClicks, clickPower, cps,
-                autoCount, factoryCount,
-                cost1, cost2, cost3,
-                isOwner, prestigePoints, prestigeBonus,
-                pets, unlockedAchievements, graphData
-            };
-            try {
-                localStorage.setItem('cookieClickerSave', JSON.stringify(data));
-            } catch(e) {}
+            if (loggedIn) {
+                saveUserGameData();
+            } else {
+                // Guest save
+                const data = {
+                    cookies, totalClicks, clickPower, cps,
+                    autoCount, factoryCount,
+                    cost1, cost2, cost3,
+                    isOwner, prestigePoints, prestigeBonus,
+                    pets, unlockedAchievements, graphData
+                };
+                try {
+                    localStorage.setItem('cookieClickerGuestSave', JSON.stringify(data));
+                } catch(e) {}
+            }
         }
 
         function loadGame() {
             try {
-                const raw = localStorage.getItem('cookieClickerSave');
+                const raw = localStorage.getItem('cookieClickerGuestSave');
                 if (!raw) return false;
                 const data = JSON.parse(raw);
                 cookies = data.cookies ?? 0;
@@ -1044,7 +1472,6 @@
                 pets = data.pets || { cat: 0, dog: 0, dragon: 0 };
                 unlockedAchievements = data.unlockedAchievements || [];
                 graphData = data.graphData || [];
-                
                 updateUI();
                 if (isOwner) {
                     ownerBtn.textContent = '👑 OWNER (active)';
@@ -1069,15 +1496,17 @@
             prestigePoints = 0;
             prestigeBonus = 0;
             pets = { cat: 0, dog: 0, dragon: 0 };
+            PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
             unlockedAchievements = [];
             graphData = [];
-            localStorage.removeItem('cookieClickerSave');
+            localStorage.removeItem('cookieClickerGuestSave');
             const menu = document.getElementById('ownerMenu');
             if (menu) menu.remove();
             ownerBtn.textContent = '👑 OWNER';
             ownerBtn.style.borderColor = '#c9a84c';
             ownerMenuVisible = false;
             updateUI();
+            if (loggedIn) saveUserGameData();
         }
 
         // --- OWNER SYSTEM ---
@@ -1168,6 +1597,7 @@
                                     showAchievement(`Unlocked: ${ACHIEVEMENTS[key].name}`);
                                 }
                             });
+                            saveGame();
                             break;
                         case 'resetOwner': resetGame(); break;
                     }
@@ -1328,27 +1758,74 @@
             if (cps > 0) {
                 cookies += cps;
                 updateUI();
-                // Record graph data every 10 seconds
                 if (Math.floor(Date.now() / 10000) % 6 === 0) {
                     graphData.push(cookies);
                     if (graphData.length > 50) graphData.shift();
                     drawGraph();
+                    if (loggedIn) saveUserGameData();
                 }
             }
         }, 1000);
 
         // --- RANDOM EVENTS ---
         setInterval(() => {
-            if (!eventActive && Math.random() < 0.02) { // 2% chance every 10 seconds
+            if (!eventActive && Math.random() < 0.02) {
                 triggerRandomEvent();
             }
         }, 10000);
 
-        // --- LOAD ---
+        // --- INIT ---
+        // Check if user is already logged in (session)
+        if (localStorage.getItem('cookieSession')) {
+            const sessionUser = localStorage.getItem('cookieSession');
+            const users = getUsers();
+            if (users[sessionUser]) {
+                currentUser = sessionUser;
+                loggedIn = true;
+                const userData = users[sessionUser].gameData;
+                if (userData) {
+                    loadUserGameData(userData);
+                }
+                gameContainer.classList.add('visible');
+                document.getElementById('darkModeToggle').classList.add('visible');
+                document.getElementById('comboDisplay').classList.add('visible');
+                document.getElementById('secretBtn').classList.add('visible');
+                document.getElementById('discordFloat').classList.add('visible');
+                loginOverlay.classList.add('hidden');
+                updateUI();
+                checkAchievements();
+                return;
+            }
+        }
+        
+        // Guest mode - show game but with login overlay
         loadGame();
+        gameContainer.classList.add('visible');
+        document.getElementById('darkModeToggle').classList.add('visible');
+        document.getElementById('comboDisplay').classList.add('visible');
+        document.getElementById('secretBtn').classList.add('visible');
+        document.getElementById('discordFloat').classList.add('visible');
         updateUI();
-        drawGraph();
         checkAchievements();
+
+        // Override save to handle guest mode
+        const origSave = saveGame;
+        saveGame = function() {
+            if (loggedIn) {
+                saveUserGameData();
+            } else {
+                const data = {
+                    cookies, totalClicks, clickPower, cps,
+                    autoCount, factoryCount,
+                    cost1, cost2, cost3,
+                    isOwner, prestigePoints, prestigeBonus,
+                    pets, unlockedAchievements, graphData
+                };
+                try {
+                    localStorage.setItem('cookieClickerGuestSave', JSON.stringify(data));
+                } catch(e) {}
+            }
+        };
 
     })();
 </script>
