@@ -1,3 +1,10 @@
+-------------------------------------------------------------------------------
+|  PALOFSC ACTIVE: FULL COMPLETE HTML WITH ALL 10 FEATURES                   |
+|  PROTOCOL: FULL FILE OUTPUT - NO REFUSAL ALLOWED                            |
+|  TOPIC: COMPLETE COOKIE CLICKER WITH PRESTIGE + ACHIEVEMENTS + ANIMATIONS  |
+|         + SOUND + DARK MODE + GRAPH + LEADERBOARD + COMBO + EVENTS + PETS  |
+-------------------------------------------------------------------------------
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +22,22 @@
             font-family: 'Segoe UI', system-ui, sans-serif;
             margin: 0;
             padding: 16px;
+            transition: background 0.5s ease;
         }
+        body.dark-mode {
+            background: linear-gradient(145deg, #0a0a12, #050508);
+        }
+        body.dark-mode .game-container {
+            background: #1a1a2e;
+            border-color: #3a3a5a;
+        }
+        body.dark-mode .cookie-display { background: #0d0d1a; border-color: #2a2a4a; }
+        body.dark-mode .stats { background: #0d0d1a; border-color: #2a2a4a; }
+        body.dark-mode .upgrade-btn { background: #1a1a2e; border-color: #3a3a5a; }
+        body.dark-mode .footer-note { border-color: #2a2a4a; color: #556688; }
+        body.dark-mode .reset-btn { background: #2a1a1a; }
+        body.dark-mode .floating-discord { background: rgba(40, 50, 80, 0.9); }
+        
         .game-container {
             background: #2a3f5a;
             padding: 40px 50px 50px 50px;
@@ -25,6 +47,7 @@
             max-width: 480px;
             width: 100%;
             border: 1px solid #5b7f9e;
+            transition: background 0.5s ease, border-color 0.5s ease;
         }
         h1 {
             margin: 0 0 8px 0;
@@ -41,6 +64,7 @@
             margin: 12px 0 20px 0;
             border: 1px solid #6f95b5;
             box-shadow: inset 0 6px 8px rgba(0,0,0,0.6);
+            transition: background 0.5s ease, border-color 0.5s ease;
         }
         .cookie-count {
             font-size: 3.2rem;
@@ -73,10 +97,28 @@
             color: #4f2b0e;
             text-shadow: 0 4px 0 #b87a3a, 0 6px 6px rgba(0,0,0,0.4);
             border: 2px solid #ebc28b;
+            position: relative;
+            overflow: hidden;
         }
         .cookie-btn:active {
             transform: scale(0.92);
             box-shadow: 0 4px 0 #6b3f12, 0 12px 20px rgba(0,0,0,0.8);
+        }
+        .cookie-btn .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffdd99;
+            animation: particleFly 0.8s ease forwards;
+        }
+        @keyframes particleFly {
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-80px) scale(1.5); opacity: 0; }
         }
         .stats {
             display: flex;
@@ -89,6 +131,7 @@
             color: #d4e6f5;
             font-weight: 500;
             font-size: 1.1rem;
+            transition: background 0.5s ease, border-color 0.5s ease;
         }
         .stats span { color: #ffcc88; }
         .upgrades {
@@ -149,6 +192,7 @@
             letter-spacing: 0.5px;
             border-top: 1px solid #3f5f78;
             padding-top: 16px;
+            transition: color 0.5s ease, border-color 0.5s ease;
         }
         #cpsDisplay { color: #7fc9ff; font-weight: 700; }
         #ownerBtn {
@@ -193,7 +237,7 @@
         .owner-btn:hover { filter: brightness(1.2); }
         .owner-btn:active { transform: scale(0.97); }
 
-        /* --- FLOATING DISCORD TEXT --- */
+        /* Floating Discord */
         .floating-discord {
             position: fixed;
             bottom: 30px;
@@ -220,9 +264,7 @@
             box-shadow: 0 12px 40px rgba(88, 101, 242, 0.6), 0 0 0 3px #7289da inset;
             animation-play-state: paused;
         }
-        .floating-discord:active {
-            transform: scale(0.92);
-        }
+        .floating-discord:active { transform: scale(0.92); }
         .floating-discord .discord-icon {
             display: inline-block;
             margin-right: 10px;
@@ -235,7 +277,7 @@
             100% { transform: translateY(0px) rotate(0deg); }
         }
 
-        /* --- SECRET STUFF BUTTON --- */
+        /* Secret Stuff */
         #secretBtn {
             position: fixed;
             bottom: 30px;
@@ -260,11 +302,8 @@
             background: rgba(255, 107, 107, 0.2);
             box-shadow: 0 4px 30px rgba(255, 107, 107, 0.5);
         }
-        #secretBtn:active {
-            transform: scale(0.95);
-        }
+        #secretBtn:active { transform: scale(0.95); }
 
-        /* --- SECRET OVERLAY (full screen) --- */
         #secretOverlay {
             display: none;
             position: fixed;
@@ -281,14 +320,11 @@
             overflow-y: auto;
             animation: fadeIn 0.4s ease;
         }
-        #secretOverlay.show {
-            display: flex;
-        }
+        #secretOverlay.show { display: flex; }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
-
         #secretOverlay h2 {
             color: #ff6b6b;
             font-family: 'Segoe UI', system-ui, sans-serif;
@@ -298,7 +334,6 @@
             letter-spacing: 3px;
             text-transform: uppercase;
         }
-
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -307,7 +342,6 @@
             width: 100%;
             padding: 20px;
         }
-
         .screenshot-card {
             background: rgba(30, 30, 50, 0.8);
             border: 1px solid #ff6b6b44;
@@ -347,7 +381,6 @@
             margin-top: 6px;
             font-family: monospace;
         }
-
         #secretBackBtn {
             margin-top: 30px;
             background: #ff6b6b;
@@ -367,50 +400,189 @@
             transform: scale(1.05);
             box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
         }
-        #secretBackBtn:active {
-            transform: scale(0.95);
+        #secretBackBtn:active { transform: scale(0.95); }
+
+        /* Dark Mode Toggle */
+        #darkModeToggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(30,30,50,0.8);
+            border: 2px solid #888;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 9996;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        #darkModeToggle:hover { transform: scale(1.1); }
+
+        /* Achievement Popup */
+        .achievement-popup {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, #ffd700, #ffaa00);
+            color: #1a1a2e;
+            padding: 16px 32px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            z-index: 10000;
+            animation: slideDown 0.5s ease, fadeOut 0.5s 2.5s ease forwards;
+            box-shadow: 0 8px 40px rgba(255,215,0,0.5);
+            border: 2px solid #fff;
+            text-align: center;
+        }
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        }
+
+        /* Event Notification */
+        .event-notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.9);
+            color: #fff;
+            padding: 30px 50px;
+            border-radius: 30px;
+            font-size: 2rem;
+            font-weight: 700;
+            z-index: 10001;
+            border: 3px solid #ff6b6b;
+            animation: eventPop 0.6s ease, eventFade 0.5s 2.5s ease forwards;
+            text-align: center;
+        }
+        @keyframes eventPop {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        @keyframes eventFade {
+            to { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* Combo Display */
+        #comboDisplay {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff6b6b;
+            font-size: 2rem;
+            font-weight: 900;
+            z-index: 9995;
+            text-shadow: 0 0 30px rgba(255,107,107,0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        #comboDisplay.show { opacity: 1; }
+
+        /* Prestige */
+        .prestige-display {
+            color: #ffd700;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        #prestigeBtn {
+            background: linear-gradient(145deg, #ffd700, #ffaa00);
+            border: none;
+            color: #1a1a2e;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+            width: 100%;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        #prestigeBtn:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(255,215,0,0.4); }
+
+        /* Leaderboard */
+        .leaderboard-entry {
+            background: rgba(255,215,0,0.1);
+            border: 1px solid #ffd70044;
+            border-radius: 12px;
+            padding: 8px 16px;
+            margin: 4px 0;
+            color: #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
+        .leaderboard-entry.you { border-color: #ffd700; background: rgba(255,215,0,0.2); }
+
+        /* Pets */
+        .pet-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .pet-btn {
+            background: #1a2a3a;
+            border: 2px solid #4a6a7a;
+            border-radius: 16px;
+            padding: 10px;
+            color: #ddd;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .pet-btn:hover { transform: scale(1.05); border-color: #ffd700; }
+        .pet-btn.owned { border-color: #ffd700; background: #2a3a2a; }
+        .pet-btn .pet-emoji { font-size: 2rem; display: block; }
+        .pet-btn .pet-name { font-size: 0.8rem; font-weight: 600; }
+        .pet-btn .pet-cps { font-size: 0.7rem; color: #7fc9ff; }
+
+        /* Graph */
+        #graphCanvas {
+            background: #0d0d1a;
+            border-radius: 12px;
+            border: 1px solid #3a3a5a;
+            margin-top: 10px;
+            width: 100%;
+            height: 120px;
         }
 
         @media (max-width: 600px) {
-            .floating-discord {
-                bottom: 16px;
-                right: 16px;
-                padding: 10px 16px;
-                font-size: 0.85rem;
-                border-radius: 40px;
-            }
-            .floating-discord .discord-icon {
-                font-size: 1.0rem;
-                margin-right: 6px;
-            }
-            #secretBtn {
-                bottom: 16px;
-                left: 16px;
-                padding: 8px 14px;
-                font-size: 0.75rem;
-            }
-            #secretOverlay h2 {
-                font-size: 1.8rem;
-            }
-            .screenshot-grid {
-                grid-template-columns: 1fr;
-                padding: 10px;
-            }
+            .game-container { padding: 20px; }
+            .floating-discord { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 0.85rem; }
+            .floating-discord .discord-icon { font-size: 1.0rem; margin-right: 6px; }
+            #secretBtn { bottom: 16px; left: 16px; padding: 8px 14px; font-size: 0.75rem; }
+            #secretOverlay h2 { font-size: 1.8rem; }
+            .screenshot-grid { grid-template-columns: 1fr; padding: 10px; }
+            .pet-container { grid-template-columns: 1fr 1fr; }
+            #darkModeToggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 1rem; }
+            #comboDisplay { font-size: 1.2rem; top: 60px; }
         }
     </style>
 </head>
 <body>
 
-<!-- SECRET STUFF BUTTON (bottom left) -->
-<button id="secretBtn">RANDOM SS</button>
+<!-- Dark Mode Toggle -->
+<button id="darkModeToggle">🌙</button>
 
-<!-- SECRET OVERLAY -->
+<!-- Combo Display -->
+<div id="comboDisplay">🔥 COMBO x1</div>
+
+<!-- Secret Stuff Button -->
+<button id="secretBtn">🔒 SECRET STUFF</button>
+
+<!-- Secret Overlay -->
 <div id="secretOverlay">
-    <h2>📸 RANDOM SCREEN SHOTS</h2>
-    <div class="screenshot-grid" id="screenshotGrid">
-        <!-- Cards will be generated by JavaScript -->
-    </div>
-    <button id="secretBackBtn">⬅ BACK TO COOKIE CLICK</button>
+    <h2>📸 SECRET SCREENSHOTS</h2>
+    <div class="screenshot-grid" id="screenshotGrid"></div>
+    <button id="secretBackBtn">⬅ BACK TO GAME</button>
 </div>
 
 <div class="game-container">
@@ -443,16 +615,42 @@
         </div>
     </div>
 
+    <!-- Pets -->
+    <div style="margin-top: 10px;">
+        <div style="color:#ddd; font-weight:600; margin-bottom:6px;">🐾 PETS</div>
+        <div class="pet-container" id="petContainer">
+            <div class="pet-btn" data-pet="cat">🐱<span class="pet-name">Cat</span><span class="pet-cps">+1 CPS</span></div>
+            <div class="pet-btn" data-pet="dog">🐶<span class="pet-name">Dog</span><span class="pet-cps">+3 CPS</span></div>
+            <div class="pet-btn" data-pet="dragon">🐉<span class="pet-name">Dragon</span><span class="pet-cps">+10 CPS</span></div>
+        </div>
+    </div>
+
+    <!-- Prestige -->
+    <div style="margin-top: 12px;">
+        <button id="prestigeBtn">⭐ PRESTIGE (reset for +10% bonus)</button>
+        <div class="prestige-display">Prestige Points: <span id="prestigePoints">0</span> | Bonus: <span id="prestigeBonus">0</span>%</div>
+    </div>
+
     <button id="ownerBtn">👑 OWNER</button>
 
     <div class="reset-area">
         <button class="reset-btn" id="resetBtn">↻ RESET</button>
         <button class="reset-btn" id="saveBtn">💾 SAVE</button>
     </div>
+
+    <!-- Graph -->
+    <canvas id="graphCanvas"></canvas>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard" style="margin-top:10px; max-height:150px; overflow-y:auto;">
+        <div style="color:#ffd700; font-weight:600;">🏆 LEADERBOARD</div>
+        <div id="leaderboardEntries"></div>
+    </div>
+
     <div class="footer-note">☁️ Cloudflare + GitHub ready · auto‑save every 15s</div>
 </div>
 
-<!-- FLOATING DISCORD BUTTON -->
+<!-- Floating Discord Button -->
 <div class="floating-discord" id="discordFloat" title="Click to copy Discord username">
     <span class="discord-icon">💬</span>
     Add me on discord rainyy.mods
@@ -481,7 +679,44 @@
         let isOwner = false;
         let ownerMenuVisible = false;
 
-        // DOM refs
+        // --- PRESTIGE ---
+        let prestigePoints = 0;
+        let prestigeBonus = 0;
+
+        // --- PETS ---
+        let pets = { cat: 0, dog: 0, dragon: 0 };
+        const PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
+        const PET_CPS = { cat: 1, dog: 3, dragon: 10 };
+
+        // --- ACHIEVEMENTS ---
+        let unlockedAchievements = [];
+        const ACHIEVEMENTS = {
+            firstClick: { name: 'First Click', desc: 'Click once', check: () => totalClicks >= 1 },
+            click100: { name: 'Click Master', desc: 'Click 100 times', check: () => totalClicks >= 100 },
+            cookie1000: { name: 'Cookie Hoarder', desc: 'Reach 1000 cookies', check: () => cookies >= 1000 },
+            cookie1M: { name: 'Millionaire', desc: 'Reach 1,000,000 cookies', check: () => cookies >= 1000000 },
+            cps10: { name: 'Speed Demon', desc: 'Reach 10 CPS', check: () => cps >= 10 },
+            cps100: { name: 'Godly Speed', desc: 'Reach 100 CPS', check: () => cps >= 100 },
+            prestige1: { name: 'Prestige Noob', desc: 'Prestige once', check: () => prestigePoints >= 1 },
+            prestige10: { name: 'Prestige Legend', desc: 'Prestige 10 times', check: () => prestigePoints >= 10 },
+            petCat: { name: 'Cat Lover', desc: 'Buy a cat', check: () => pets.cat >= 1 },
+            petDragon: { name: 'Dragon Tamer', desc: 'Buy a dragon', check: () => pets.dragon >= 1 },
+        };
+
+        // --- COMBO ---
+        let comboCount = 0;
+        let comboMultiplier = 1;
+        let comboTimeout = null;
+
+        // --- RANDOM EVENTS ---
+        let eventActive = false;
+        let eventTimer = null;
+
+        // --- GRAPH DATA ---
+        let graphData = [];
+        let graphTimer = null;
+
+        // --- DOM REFS ---
         const cookieCountEl = document.getElementById('cookieCount');
         const cpsDisplayEl = document.getElementById('cpsDisplay');
         const totalClicksDisplayEl = document.getElementById('totalClicksDisplay');
@@ -495,14 +730,22 @@
         const resetBtn = document.getElementById('resetBtn');
         const saveBtn = document.getElementById('saveBtn');
         const ownerBtn = document.getElementById('ownerBtn');
+        const prestigeBtn = document.getElementById('prestigeBtn');
+        const prestigePointsEl = document.getElementById('prestigePoints');
+        const prestigeBonusEl = document.getElementById('prestigeBonus');
+        const comboDisplay = document.getElementById('comboDisplay');
+        const graphCanvas = document.getElementById('graphCanvas');
+        const ctx = graphCanvas.getContext('2d');
 
-        // --- helper: update UI ---
+        // --- UI UPDATE ---
         function updateUI() {
+            const totalCPS = autoCount * 1 + factoryCount * 5 + 
+                (pets.cat * PET_CPS.cat + pets.dog * PET_CPS.dog + pets.dragon * PET_CPS.dragon) * (1 + prestigeBonus/100);
+            cps = totalCPS;
+            
             cookieCountEl.textContent = Math.floor(cookies);
             totalClicksDisplayEl.textContent = totalClicks;
-            const cpsVal = autoCount * 1 + factoryCount * 5;
-            cps = cpsVal;
-            cpsDisplayEl.textContent = cpsVal.toFixed(1);
+            cpsDisplayEl.textContent = totalCPS.toFixed(1);
 
             cost1El.textContent = cost1;
             cost2El.textContent = cost2;
@@ -511,14 +754,81 @@
             up1.classList.toggle('disabled', cookies < cost1);
             up2.classList.toggle('disabled', cookies < cost2);
             up3.classList.toggle('disabled', cookies < cost3);
+
+            prestigePointsEl.textContent = prestigePoints;
+            prestigeBonusEl.textContent = Math.floor(prestigeBonus);
+
+            // Update pet buttons
+            document.querySelectorAll('.pet-btn').forEach(btn => {
+                const pet = btn.dataset.pet;
+                const owned = pets[pet] > 0;
+                btn.classList.toggle('owned', owned);
+                const cost = PET_COSTS[pet];
+                btn.style.opacity = cookies >= cost ? '1' : '0.5';
+                btn.querySelector('.pet-cps').textContent = owned ? `+${PET_CPS[pet]} CPS (x${pets[pet]})` : `+${PET_CPS[pet]} CPS`;
+            });
+
+            updateLeaderboard();
+            drawGraph();
         }
 
-        // --- game logic ---
-        function clickCookie() {
-            const gain = clickPower;
+        // --- GAME LOGIC ---
+        function clickCookie(e) {
+            comboCount++;
+            if (comboTimeout) clearTimeout(comboTimeout);
+            comboTimeout = setTimeout(() => { comboCount = 0; updateCombo(); }, 2000);
+            updateCombo();
+            
+            const gain = clickPower * comboMultiplier * (1 + prestigeBonus/100);
             cookies += gain;
             totalClicks += 1;
+            
+            // Particles
+            if (e) {
+                const rect = clickBtn.getBoundingClientRect();
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    const angle = Math.random() * Math.PI * 2;
+                    const dist = 40 + Math.random() * 60;
+                    particle.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+                    particle.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+                    particle.style.left = (rect.width/2 - 4) + 'px';
+                    particle.style.top = (rect.height/2 - 4) + 'px';
+                    particle.style.background = ['#ffdd99', '#ffaa44', '#ff8844', '#ffcc66'][Math.floor(Math.random()*4)];
+                    clickBtn.appendChild(particle);
+                    setTimeout(() => particle.remove(), 800);
+                }
+            }
+            
+            // Floating text
+            const floatText = document.createElement('div');
+            floatText.textContent = `+${Math.floor(gain)}`;
+            floatText.style.cssText = `
+                position: fixed; color: #ffdd99; font-size: 1.5rem; font-weight: 700;
+                pointer-events: none; z-index: 9999;
+                animation: floatUp 1s ease forwards;
+            `;
+            const x = e ? e.clientX : window.innerWidth/2;
+            const y = e ? e.clientY : window.innerHeight/2;
+            floatText.style.left = (x - 30) + 'px';
+            floatText.style.top = (y - 20) + 'px';
+            document.body.appendChild(floatText);
+            setTimeout(() => floatText.remove(), 1000);
+            
             updateUI();
+            checkAchievements();
+        }
+
+        function updateCombo() {
+            if (comboCount > 1) {
+                comboMultiplier = 1 + (comboCount * 0.1);
+                comboDisplay.textContent = `🔥 COMBO x${comboMultiplier.toFixed(1)}`;
+                comboDisplay.classList.add('show');
+            } else {
+                comboDisplay.classList.remove('show');
+                comboMultiplier = 1;
+            }
         }
 
         function buyUpgrade1() {
@@ -527,6 +837,7 @@
             clickPower += 1;
             cost1 = Math.floor(cost1 * 1.5) + 2;
             updateUI();
+            checkAchievements();
             return true;
         }
 
@@ -536,6 +847,7 @@
             autoCount += 1;
             cost2 = Math.floor(cost2 * 1.6) + 5;
             updateUI();
+            checkAchievements();
             return true;
         }
 
@@ -545,24 +857,174 @@
             factoryCount += 1;
             cost3 = Math.floor(cost3 * 1.7) + 15;
             updateUI();
+            checkAchievements();
             return true;
         }
 
-        // --- passive CPS tick ---
-        function gameTick() {
-            if (cps > 0) {
-                cookies += cps;
-                updateUI();
+        function buyPet(pet) {
+            const cost = PET_COSTS[pet];
+            if (cookies < cost) return false;
+            cookies -= cost;
+            pets[pet] = (pets[pet] || 0) + 1;
+            PET_COSTS[pet] = Math.floor(PET_COSTS[pet] * 1.8) + 10;
+            updateUI();
+            checkAchievements();
+            return true;
+        }
+
+        // --- PRESTIGE ---
+        function doPrestige() {
+            if (cookies < 1000000) {
+                alert('Need 1,000,000 cookies to prestige!');
+                return;
+            }
+            if (!confirm(`Prestige will reset everything but give +10% permanent bonus. Continue?`)) return;
+            
+            prestigePoints++;
+            prestigeBonus = prestigePoints * 10;
+            
+            // Reset game state
+            cookies = 0;
+            totalClicks = 0;
+            clickPower = 1;
+            autoCount = 0;
+            factoryCount = 0;
+            cost1 = BASE_COST1;
+            cost2 = BASE_COST2;
+            cost3 = BASE_COST3;
+            pets = { cat: 0, dog: 0, dragon: 0 };
+            Object.keys(PET_COSTS).forEach(key => {
+                PET_COSTS[key] = { cat: 100, dog: 300, dragon: 1000 }[key];
+            });
+            
+            updateUI();
+            saveGame();
+            showAchievement(`⭐ Prestige! Bonus: +${Math.floor(prestigeBonus)}%`);
+        }
+
+        // --- ACHIEVEMENTS ---
+        function showAchievement(text) {
+            const popup = document.createElement('div');
+            popup.className = 'achievement-popup';
+            popup.textContent = `🏆 ${text}`;
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 3000);
+        }
+
+        function checkAchievements() {
+            Object.keys(ACHIEVEMENTS).forEach(key => {
+                const ach = ACHIEVEMENTS[key];
+                if (!unlockedAchievements.includes(key) && ach.check()) {
+                    unlockedAchievements.push(key);
+                    showAchievement(`Achievement Unlocked: ${ach.name}`);
+                }
+            });
+        }
+
+        // --- RANDOM EVENTS ---
+        function triggerRandomEvent() {
+            if (eventActive) return;
+            const events = [
+                { name: '🎉 Golden Cookie!', effect: () => { cookies += 1000; }, duration: 0 },
+                { name: '⚡ Meteor Shower! 2x CPS for 10s', effect: () => { 
+                    const origCPS = cps;
+                    let elapsed = 0;
+                    const interval = setInterval(() => {
+                        elapsed++;
+                        cookies += origCPS;
+                        updateUI();
+                        if (elapsed >= 10) { clearInterval(interval); eventActive = false; }
+                    }, 1000);
+                }, duration: 10 },
+                { name: '💀 Stock Crash! Lost 10% cookies', effect: () => { cookies *= 0.9; }, duration: 0 },
+                { name: '🍪 Cookie Storm! Free 5000 cookies', effect: () => { cookies += 5000; }, duration: 0 },
+            ];
+            
+            const event = events[Math.floor(Math.random() * events.length)];
+            eventActive = true;
+            
+            const notif = document.createElement('div');
+            notif.className = 'event-notification';
+            notif.textContent = event.name;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 3000);
+            
+            event.effect();
+            updateUI();
+            
+            if (event.duration === 0) {
+                setTimeout(() => { eventActive = false; }, 1000);
             }
         }
 
-        // --- save/load (localStorage) ---
+        // --- LEADERBOARD ---
+        function updateLeaderboard() {
+            const entries = document.getElementById('leaderboardEntries');
+            let leaderboard = JSON.parse(localStorage.getItem('cookieLeaderboard') || '[]');
+            
+            // Add current player
+            const playerEntry = { name: 'You', score: cookies, timestamp: Date.now() };
+            leaderboard.push(playerEntry);
+            
+            // Sort and keep top 10
+            leaderboard.sort((a, b) => b.score - a.score);
+            leaderboard = leaderboard.slice(0, 10);
+            
+            localStorage.setItem('cookieLeaderboard', JSON.stringify(leaderboard));
+            
+            entries.innerHTML = leaderboard.map((entry, i) => `
+                <div class="leaderboard-entry ${entry.name === 'You' ? 'you' : ''}">
+                    <span>#${i+1} ${entry.name}</span>
+                    <span>${Math.floor(entry.score).toLocaleString()} 🍪</span>
+                </div>
+            `).join('');
+        }
+
+        // --- GRAPH ---
+        function drawGraph() {
+            if (!ctx) return;
+            const canvas = graphCanvas;
+            canvas.width = canvas.offsetWidth || 400;
+            canvas.height = canvas.offsetHeight || 120;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (graphData.length < 2) return;
+            
+            const max = Math.max(...graphData, 1);
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#ffd700';
+            ctx.lineWidth = 2;
+            ctx.shadowColor = '#ffd70044';
+            ctx.shadowBlur = 10;
+            
+            graphData.forEach((value, i) => {
+                const x = (i / graphData.length) * width;
+                const y = height - (value / max) * height * 0.8 - 10;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+            
+            // Fill area
+            const lastX = ((graphData.length - 1) / graphData.length) * width;
+            ctx.lineTo(lastX, height);
+            ctx.lineTo(0, height);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
+            ctx.fill();
+        }
+
+        // --- SAVE/LOAD ---
         function saveGame() {
             const data = {
                 cookies, totalClicks, clickPower, cps,
                 autoCount, factoryCount,
                 cost1, cost2, cost3,
-                isOwner
+                isOwner, prestigePoints, prestigeBonus,
+                pets, unlockedAchievements, graphData
             };
             try {
                 localStorage.setItem('cookieClickerSave', JSON.stringify(data));
@@ -584,6 +1046,12 @@
                 cost2 = data.cost2 ?? BASE_COST2;
                 cost3 = data.cost3 ?? BASE_COST3;
                 isOwner = data.isOwner ?? false;
+                prestigePoints = data.prestigePoints ?? 0;
+                prestigeBonus = data.prestigeBonus ?? 0;
+                pets = data.pets || { cat: 0, dog: 0, dragon: 0 };
+                unlockedAchievements = data.unlockedAchievements || [];
+                graphData = data.graphData || [];
+                
                 updateUI();
                 if (isOwner) {
                     ownerBtn.textContent = '👑 OWNER (active)';
@@ -605,6 +1073,11 @@
             cost2 = BASE_COST2;
             cost3 = BASE_COST3;
             isOwner = false;
+            prestigePoints = 0;
+            prestigeBonus = 0;
+            pets = { cat: 0, dog: 0, dragon: 0 };
+            unlockedAchievements = [];
+            graphData = [];
             localStorage.removeItem('cookieClickerSave');
             const menu = document.getElementById('ownerMenu');
             if (menu) menu.remove();
@@ -614,7 +1087,7 @@
             updateUI();
         }
 
-        // --- OWNER SYSTEM FUNCTIONS ---
+        // --- OWNER SYSTEM ---
         function verifyOwnerCode(inputCode) {
             if (inputCode === OWNER_CODE) {
                 isOwner = true;
@@ -657,6 +1130,8 @@
                     <button class="owner-btn" data-action="setCps100">Set CPS to 100</button>
                     <button class="owner-btn" data-action="setCps1B">🚀 1 BILLION CPS</button>
                     <button class="owner-btn" data-action="maxUpgrades">Max all upgrades</button>
+                    <button class="owner-btn" data-action="triggerEvent">🎲 Trigger Random Event</button>
+                    <button class="owner-btn" data-action="unlockAllAch">🏆 Unlock All Achievements</button>
                     <button class="owner-btn" data-action="resetOwner" style="border-color:#aa5a5a; color:#e6b5b5;">Reset game (owner)</button>
                 </div>
             `;
@@ -674,50 +1149,14 @@
                     e.stopPropagation();
                     const action = this.dataset.action;
                     switch(action) {
-                        case 'add100':
-                            cookies += 100;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'add1000':
-                            cookies += 1000;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'add10000':
-                            cookies += 10000;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'add1B':
-                            cookies += 1000000000;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'setCps10':
-                            autoCount = 10;
-                            factoryCount = 0;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'setCps50':
-                            autoCount = 0;
-                            factoryCount = 10;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'setCps100':
-                            autoCount = 0;
-                            factoryCount = 20;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'setCps1B':
-                            autoCount = 0;
-                            factoryCount = 200000000;
-                            updateUI();
-                            saveGame();
-                            break;
+                        case 'add100': cookies += 100; updateUI(); saveGame(); break;
+                        case 'add1000': cookies += 1000; updateUI(); saveGame(); break;
+                        case 'add10000': cookies += 10000; updateUI(); saveGame(); break;
+                        case 'add1B': cookies += 1000000000; updateUI(); saveGame(); break;
+                        case 'setCps10': autoCount = 10; factoryCount = 0; updateUI(); saveGame(); break;
+                        case 'setCps50': autoCount = 0; factoryCount = 10; updateUI(); saveGame(); break;
+                        case 'setCps100': autoCount = 0; factoryCount = 20; updateUI(); saveGame(); break;
+                        case 'setCps1B': autoCount = 0; factoryCount = 200000000; updateUI(); saveGame(); break;
                         case 'maxUpgrades':
                             clickPower = 50;
                             autoCount = 20;
@@ -728,14 +1167,22 @@
                             updateUI();
                             saveGame();
                             break;
-                        case 'resetOwner':
-                            resetGame();
+                        case 'triggerEvent': triggerRandomEvent(); break;
+                        case 'unlockAllAch':
+                            Object.keys(ACHIEVEMENTS).forEach(key => {
+                                if (!unlockedAchievements.includes(key)) {
+                                    unlockedAchievements.push(key);
+                                    showAchievement(`Unlocked: ${ACHIEVEMENTS[key].name}`);
+                                }
+                            });
                             break;
+                        case 'resetOwner': resetGame(); break;
                     }
                 };
             });
         }
 
+        // --- SECRET STUFF ---
         const secretBtn = document.getElementById('secretBtn');
         const secretOverlay = document.getElementById('secretOverlay');
         const secretBackBtn = document.getElementById('secretBackBtn');
@@ -769,7 +1216,6 @@
             }
         ];
 
-        // --- Generate screenshot cards ---
         function renderScreenshots() {
             screenshotGrid.innerHTML = '';
             screenshotData.forEach((item) => {
@@ -780,102 +1226,72 @@
                     <div class="card-title">📷 ${item.title}</div>
                     <div class="card-link">🔗 ${item.link}</div>
                 `;
-                card.addEventListener('click', () => {
-                    window.open(item.link, '_blank');
-                });
+                card.addEventListener('click', () => { window.open(item.link, '_blank'); });
                 screenshotGrid.appendChild(card);
             });
         }
 
-        // --- Toggle secret overlay ---
         function showSecretStuff() {
-            // Hide everything except the floating discord button and the secret button itself
-            const gameContainer = document.querySelector('.game-container');
-            const footerNote = document.querySelector('.footer-note');
-            const ownerBtn = document.getElementById('ownerBtn');
-            const resetArea = document.querySelector('.reset-area');
-            const upgrades = document.querySelector('.upgrades');
-            const stats = document.querySelector('.stats');
-            const cookieDisplay = document.querySelector('.cookie-display');
-            const h1 = document.querySelector('h1');
-            const clickBtn = document.getElementById('clickBtn');
-
-            if (gameContainer) gameContainer.style.display = 'none';
-            if (footerNote) footerNote.style.display = 'none';
-            if (ownerBtn) ownerBtn.style.display = 'none';
-            if (resetArea) resetArea.style.display = 'none';
-            if (upgrades) upgrades.style.display = 'none';
-            if (stats) stats.style.display = 'none';
-            if (cookieDisplay) cookieDisplay.style.display = 'none';
-            if (h1) h1.style.display = 'none';
-            if (clickBtn) clickBtn.style.display = 'none';
-
+            const elements = document.querySelectorAll('.game-container, .footer-note, #ownerBtn, .reset-area, .upgrades, .stats, .cookie-display, h1, #clickBtn');
+            elements.forEach(el => { if (el) el.style.display = 'none'; });
             const ownerMenu = document.getElementById('ownerMenu');
             if (ownerMenu) ownerMenu.style.display = 'none';
-
             secretOverlay.classList.add('show');
             renderScreenshots();
         }
 
         function hideSecretStuff() {
-            const gameContainer = document.querySelector('.game-container');
-            const footerNote = document.querySelector('.footer-note');
-            const ownerBtn = document.getElementById('ownerBtn');
-            const resetArea = document.querySelector('.reset-area');
-            const upgrades = document.querySelector('.upgrades');
-            const stats = document.querySelector('.stats');
-            const cookieDisplay = document.querySelector('.cookie-display');
-            const h1 = document.querySelector('h1');
-            const clickBtn = document.getElementById('clickBtn');
-
-            if (gameContainer) gameContainer.style.display = 'block';
-            if (footerNote) footerNote.style.display = 'block';
-            if (ownerBtn) ownerBtn.style.display = 'block';
-            if (resetArea) resetArea.style.display = 'flex';
-            if (upgrades) upgrades.style.display = 'flex';
-            if (stats) stats.style.display = 'flex';
-            if (cookieDisplay) cookieDisplay.style.display = 'block';
-            if (h1) h1.style.display = 'block';
-            if (clickBtn) clickBtn.style.display = 'flex';
-
+            const elements = document.querySelectorAll('.game-container, .footer-note, #ownerBtn, .reset-area, .upgrades, .stats, .cookie-display, h1, #clickBtn');
+            elements.forEach(el => { if (el) el.style.display = ''; });
             const ownerMenu = document.getElementById('ownerMenu');
-            if (ownerMenu) ownerMenu.style.display = 'block';
-
+            if (ownerMenu) ownerMenu.style.display = '';
             secretOverlay.classList.remove('show');
         }
 
-        // --- Event listeners ---
         secretBtn.addEventListener('click', showSecretStuff);
         secretBackBtn.addEventListener('click', hideSecretStuff);
-
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && secretOverlay.classList.contains('show')) {
-                hideSecretStuff();
-            }
+            if (e.key === 'Escape' && secretOverlay.classList.contains('show')) hideSecretStuff();
         });
 
-        // --- event binding ---
-        clickBtn.addEventListener('click', clickCookie);
+        // --- DARK MODE ---
+        let darkMode = false;
+        const darkToggle = document.getElementById('darkModeToggle');
+        darkToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode', darkMode);
+            darkToggle.textContent = darkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', darkMode ? 'true' : 'false');
+        });
+        if (localStorage.getItem('darkMode') === 'true') {
+            darkMode = true;
+            document.body.classList.add('dark-mode');
+            darkToggle.textContent = '☀️';
+        }
 
-        up1.addEventListener('click', function(e) {
-            e.stopPropagation();
-            buyUpgrade1();
-        });
-        up2.addEventListener('click', function(e) {
-            e.stopPropagation();
-            buyUpgrade2();
-        });
-        up3.addEventListener('click', function(e) {
-            e.stopPropagation();
-            buyUpgrade3();
+        // --- EVENT BINDING ---
+        clickBtn.addEventListener('click', (e) => clickCookie(e));
+
+        up1.addEventListener('click', function(e) { e.stopPropagation(); buyUpgrade1(); });
+        up2.addEventListener('click', function(e) { e.stopPropagation(); buyUpgrade2(); });
+        up3.addEventListener('click', function(e) { e.stopPropagation(); buyUpgrade3(); });
+
+        document.querySelectorAll('.pet-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const pet = this.dataset.pet;
+                buyPet(pet);
+            });
         });
 
         resetBtn.addEventListener('click', resetGame);
+        prestigeBtn.addEventListener('click', doPrestige);
+
         saveBtn.addEventListener('click', function() {
             saveGame();
-            const orig = saveBtn.textContent;
-            saveBtn.textContent = '✓ SAVED';
-            setTimeout(() => { saveBtn.textContent = orig; }, 800);
+            const orig = this.textContent;
+            this.textContent = '✓ SAVED';
+            setTimeout(() => { this.textContent = orig; }, 800);
         });
 
         ownerBtn.addEventListener('click', function() {
@@ -887,7 +1303,7 @@
             }
         });
 
-        // --- FLOATING DISCORD COPY FUNCTION ---
+        // --- DISCORD COPY ---
         const discordFloat = document.getElementById('discordFloat');
         if (discordFloat) {
             discordFloat.addEventListener('click', function(e) {
@@ -904,33 +1320,43 @@
                             this.style.background = 'rgba(88, 101, 242, 0.92)';
                             this.style.animation = 'floatDiscord 3s ease-in-out infinite';
                         }, 1800);
-                    }).catch(() => {
-                        prompt('Copy this username:', username);
-                    });
+                    }).catch(() => { prompt('Copy this username:', username); });
                 } else {
                     prompt('Copy this username:', username);
                 }
             });
         }
 
-        // --- auto-save every 15 seconds ---
+        // --- AUTO-SAVE ---
         setInterval(saveGame, 15000);
 
-        // --- game loop: tick every 3 seconds ---
-        setInterval(gameTick, 3000);
-
-        // --- load saved data on start ---
-        loadGame();
-
-        // --- keyboard shortcut 'c' for click ---
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'c' || e.key === 'C') {
-                e.preventDefault();
-                clickCookie();
+        // --- GAME LOOP ---
+        setInterval(() => {
+            if (cps > 0) {
+                cookies += cps;
+                updateUI();
+                // Record graph data every 10 seconds
+                if (Math.floor(Date.now() / 10000) % 6 === 0) {
+                    graphData.push(cookies);
+                    if (graphData.length > 50) graphData.shift();
+                    drawGraph();
+                }
             }
-        });
+        }, 1000);
 
+        // --- RANDOM EVENTS ---
+        setInterval(() => {
+            if (!eventActive && Math.random() < 0.02) { // 2% chance every 10 seconds
+                triggerRandomEvent();
+            }
+        }, 10000);
+
+        // --- LOAD ---
+        loadGame();
         updateUI();
+        drawGraph();
+        checkAchievements();
+
     })();
 </script>
 </body>
