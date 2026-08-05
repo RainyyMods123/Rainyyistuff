@@ -1,9 +1,268 @@
-<!doctype html><html><head></head><body><!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Class of 2025 · roll call</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<head></head>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0f;
+            font-family: 'Share Tech Mono', monospace;
+            padding: 1.5rem;
+            background-image:
+                linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: relative;
+        }
 
-<body><iframe
-		src="https://tiktok.com/@billyyates09"
-		style="position:fixed;top:0;left:0;width:100vw;height:100vh;border:0;"></iframe></body>
-<html></body><html>
+        /* scanline overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.15) 0px,
+                    rgba(0, 0, 0, 0.15) 2px,
+                    transparent 2px,
+                    transparent 6px);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0, 200, 255, 0.25);
+            box-shadow: 0 0 60px rgba(0, 200, 255, 0.12), inset 0 0 60px rgba(0, 200, 255, 0.03);
+            padding: 3rem 2.5rem;
+            border-radius: 28px;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+            transition: box-shadow 0.3s ease;
+            animation: borderPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes borderPulse {
+            0% { border-color: rgba(0, 200, 255, 0.2); }
+            50% { border-color: rgba(0, 200, 255, 0.5); }
+            100% { border-color: rgba(0, 200, 255, 0.2); }
+        }
+
+        .container:hover {
+            box-shadow: 0 0 80px rgba(0, 200, 255, 0.25);
+        }
+
+        /* ─── TITLE ─── */
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.2rem, 8vw, 3.8rem);
+            letter-spacing: 0.06em;
+            background: linear-gradient(135deg, #00ccff, #0099ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 40px rgba(0, 200, 255, 0.3);
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+        }
+
+        .sub-head {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.2em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ─── BUTTON GRID ─── */
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.9rem 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .pill {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            background: rgba(0, 200, 255, 0.08);
+            color: #b0e0ff;
+            padding: 0.7rem 1.8rem;
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-radius: 60px;
+            transition: all 0.25s ease;
+            cursor: default;
+            letter-spacing: 0.04em;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 200, 255, 0.02);
+            backdrop-filter: blur(2px);
+            user-select: none;
+        }
+
+        .pill:hover {
+            transform: scale(1.08) translateY(-3px);
+            background: rgba(0, 200, 255, 0.18);
+            border-color: #00ccff;
+            box-shadow: 0 0 40px rgba(0, 200, 255, 0.25);
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
+        }
+
+        .pill:active {
+            transform: scale(0.95);
+        }
+
+        /* special treatment for rey with emoji */
+        .pill.emoji {
+            background: rgba(255, 100, 100, 0.1);
+            border-color: rgba(255, 100, 100, 0.3);
+            color: #ffb0b0;
+        }
+        .pill.emoji:hover {
+            background: rgba(255, 100, 100, 0.25);
+            border-color: #ff6666;
+            box-shadow: 0 0 40px rgba(255, 100, 100, 0.25);
+            color: #fff;
+        }
+
+        /* ─── HONORABLE MENTION ─── */
+        .honor-section {
+            border-top: 1px solid rgba(255, 215, 0, 0.15);
+            padding-top: 1.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .honor-label {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            color: #ffd700;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            margin-bottom: 0.8rem;
+        }
+
+        .honor-pill {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 180, 0, 0.05));
+            color: #ffd700;
+            padding: 0.7rem 2.5rem;
+            border: 2px solid rgba(255, 215, 0, 0.25);
+            border-radius: 60px;
+            display: inline-block;
+            letter-spacing: 0.1em;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .honor-pill:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 70px rgba(255, 215, 0, 0.3);
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        /* ─── FOOTER (optional) ─── */
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 0.1em;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.2rem;
+                border-radius: 20px;
+            }
+            .grid {
+                gap: 0.6rem 0.8rem;
+            }
+            .pill {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            .honor-pill {
+                padding: 0.5rem 1.5rem;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- TITLE -->
+        <div class="main-title">
+            people from my class from 2025
+        </div>
+        <div class="sub-head">
+            (that i can remember)
+        </div>
+
+        <!-- NAME PILLS -->
+        <div class="grid">
+            <span class="pill">aidan</span>
+            <span class="pill">cris</span>
+            <span class="pill">ryan</span>
+            <span class="pill">andrea</span>
+            <span class="pill">jalauni</span>
+            <span class="pill">vanessa</span>
+            <span class="pill">isabella</span>
+            <span class="pill">julian</span>
+            <span class="pill emoji">rey🤢</span>
+            <span class="pill">alivayah</span>
+            <span class="pill">taylor</span>
+        </div>
+
+        <!-- HONORABLE MENTION -->
+        <div class="honor-section">
+            <div class="honor-label">★ HONORABLE MENTION ★</div>
+            <div class="honor-pill">Marquis</div>
+        </div>
+
+        <div class="footer-note">✦ roll call ✦</div>
+
+    </div>
+
+    <!-- (Optional) tiny script to log clicks if you want, but not needed -->
+    <script>
+        // You could add a click handler to each pill for fun, but the design is static.
+        // If you want, you can uncomment this to show a toast on click:
+        /*
+        document.querySelectorAll('.pill, .honor-pill').forEach(el => {
+            el.addEventListener('click', () => {
+                const name = el.textContent.trim();
+                alert(`👋 ${name} remembered!`);
+            });
+        });
+        */
+    </script>
+</body>
+</html>
