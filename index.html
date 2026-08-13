@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Class of 2025 · roll call</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <title>Will you date me? 💕</title>
     <style>
         * {
             margin: 0;
@@ -19,196 +16,142 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #0a0a0f;
-            font-family: 'Share Tech Mono', monospace;
-            padding: 1.5rem;
-            background-image:
-                linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(145deg, #f9b8d4 0%, #ffdde1 100%);
+            padding: 1rem;
+            user-select: none;
+            overflow: hidden;
             position: relative;
-        }
-
-        /* scanline overlay */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(0deg,
-                    rgba(0, 0, 0, 0.15) 0px,
-                    rgba(0, 0, 0, 0.15) 2px,
-                    transparent 2px,
-                    transparent 6px);
-            pointer-events: none;
-            z-index: 10;
         }
 
         .container {
-            max-width: 820px;
-            width: 100%;
-            background: rgba(10, 10, 20, 0.85);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(0, 200, 255, 0.25);
-            box-shadow: 0 0 60px rgba(0, 200, 255, 0.12), inset 0 0 60px rgba(0, 200, 255, 0.03);
-            padding: 3rem 2.5rem;
-            border-radius: 28px;
-            text-align: center;
-            position: relative;
-            z-index: 5;
-            transition: box-shadow 0.3s ease;
-            animation: borderPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes borderPulse {
-            0% { border-color: rgba(0, 200, 255, 0.2); }
-            50% { border-color: rgba(0, 200, 255, 0.5); }
-            100% { border-color: rgba(0, 200, 255, 0.2); }
-        }
-
-        .container:hover {
-            box-shadow: 0 0 80px rgba(0, 200, 255, 0.25);
-        }
-
-        /* ─── TITLE ─── */
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: clamp(2.2rem, 8vw, 3.8rem);
-            letter-spacing: 0.06em;
-            background: linear-gradient(135deg, #00ccff, #0099ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 40px rgba(0, 200, 255, 0.3);
-            margin-bottom: 0.3rem;
-            line-height: 1.2;
-        }
-
-        .sub-head {
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 0.2em;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        /* ─── BUTTON GRID ─── */
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.9rem 1.2rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .pill {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
-            background: rgba(0, 200, 255, 0.08);
-            color: #b0e0ff;
-            padding: 0.7rem 1.8rem;
-            border: 1px solid rgba(0, 200, 255, 0.2);
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(6px);
+            padding: 3rem 4rem;
             border-radius: 60px;
-            transition: all 0.25s ease;
-            cursor: default;
-            letter-spacing: 0.04em;
-            text-shadow: 0 0 10px rgba(0, 200, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 200, 255, 0.02);
-            backdrop-filter: blur(2px);
-            user-select: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .pill:hover {
-            transform: scale(1.08) translateY(-3px);
-            background: rgba(0, 200, 255, 0.18);
-            border-color: #00ccff;
-            box-shadow: 0 0 40px rgba(0, 200, 255, 0.25);
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #a02c5a;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 12px rgba(160, 44, 90, 0.15);
         }
 
-        .pill:active {
-            transform: scale(0.95);
+        .buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
-        /* special treatment for rey with emoji */
-        .pill.emoji {
-            background: rgba(255, 100, 100, 0.1);
-            border-color: rgba(255, 100, 100, 0.3);
-            color: #ffb0b0;
+        .btn {
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.2s;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
-        .pill.emoji:hover {
-            background: rgba(255, 100, 100, 0.25);
-            border-color: #ff6666;
-            box-shadow: 0 0 40px rgba(255, 100, 100, 0.25);
+
+        .btn-yes {
+            background: #4caf50;
             color: #fff;
         }
+        .btn-yes:hover {
+            transform: scale(1.06);
+            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.35);
+        }
 
-        /* ─── HONORABLE MENTION ─── */
-        .honor-section {
-            border-top: 1px solid rgba(255, 215, 0, 0.15);
-            padding-top: 1.8rem;
+        .btn-no {
+            background: #e74c3c;
+            color: #fff;
+            position: relative;
+            transition: left 0.15s ease, top 0.15s ease;
+            /* will be moved via JS */;
+        }
+        .btn-no:hover {
+            /* we will override with JS repositioning */
+        }
+
+        /* Result screen (hidden initially) */
+        .result {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+        .result.active {
+            display: block;
+        }
+
+        .result h2 {
+            font-size: 3rem;
+            color: #a02c5a;
+            margin-bottom: 0.5rem;
+        }
+        .result p {
+            font-size: 1.5rem;
+            color: #444;
+            margin-top: 1rem;
+            line-height: 1.5;
+        }
+        .result .wet-concrete {
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.04);
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            display: inline-block;
             margin-top: 0.5rem;
         }
 
-        .honor-label {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: clamp(0.9rem, 2vw, 1.2rem);
-            color: #ffd700;
-            letter-spacing: 0.2em;
-            text-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
-            margin-bottom: 0.8rem;
+        /* Confetti emoji sprinkles */
+        .sparkle {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: floatUp 2s ease-out forwards;
+            z-index: 999;
+        }
+        @keyframes floatUp {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-200px) scale(0.3); }
         }
 
-        .honor-pill {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 180, 0, 0.05));
-            color: #ffd700;
-            padding: 0.7rem 2.5rem;
-            border: 2px solid rgba(255, 215, 0, 0.25);
-            border-radius: 60px;
-            display: inline-block;
-            letter-spacing: 0.1em;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: default;
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
-        .honor-pill:hover {
-            transform: scale(1.06);
-            box-shadow: 0 0 70px rgba(255, 215, 0, 0.3);
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.2);
-        }
-
-        /* ─── FOOTER (optional) ─── */
-        .footer-note {
-            margin-top: 2rem;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.15);
-            letter-spacing: 0.1em;
-        }
-
-        /* ─── RESPONSIVE ─── */
-        @media (max-width: 480px) {
+        /* Responsive */
+        @media (max-width: 500px) {
             .container {
-                padding: 2rem 1.2rem;
-                border-radius: 20px;
+                padding: 2rem 1.5rem;
             }
-            .grid {
-                gap: 0.6rem 0.8rem;
+            h1 {
+                font-size: 2.4rem;
             }
-            .pill {
-                padding: 0.5rem 1.2rem;
-                font-size: 0.85rem;
+            .btn {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.8rem;
             }
-            .honor-pill {
-                padding: 0.5rem 1.5rem;
+            .buttons {
+                gap: 1.2rem;
+            }
+            .result h2 {
+                font-size: 2.2rem;
+            }
+            .result p {
                 font-size: 1.2rem;
             }
         }
@@ -216,53 +159,147 @@
 </head>
 <body>
 
-    <div class="container">
-
-        <!-- TITLE -->
-        <div class="main-title">
-            people from my class from 2025
-        </div>
-        <div class="sub-head">
-            (that i can remember)
-        </div>
-
-        <!-- NAME PILLS -->
-        <div class="grid">
-            <span class="pill">aidan</span>
-            <span class="pill">cris</span>
-            <span class="pill">ryan</span>
-            <span class="pill">andrea</span>
-            <span class="pill">jalauni</span>
-            <span class="pill">vanessa</span>
-            <span class="pill">isabella</span>
-            <span class="pill">julian</span>
-            <span class="pill emoji">rey🤢</span>
-            <span class="pill">alivayah</span>
-            <span class="pill">taylor</span>
+    <div class="container" id="mainContainer">
+        <!-- Main question -->
+        <div id="questionArea">
+            <h1>💕 Will you date me?</h1>
+            <div class="buttons">
+                <button class="btn btn-yes" id="yesBtn">Yes</button>
+                <button class="btn btn-no" id="noBtn">No</button>
+            </div>
         </div>
 
-        <!-- HONORABLE MENTION -->
-        <div class="honor-section">
-            <div class="honor-label">★ HONORABLE MENTION ★</div>
-            <div class="honor-pill">Marquis</div>
+        <!-- Result area (hidden) -->
+        <div class="result" id="resultArea">
+            <h2>Wait you said yes? 🥺</h2>
+            <p>
+                You understand I look like <span class="wet-concrete">wet concrete</span> right?
+            </p>
+            <div style="margin-top: 2rem; font-size: 3rem;">💀💕</div>
         </div>
-
-        <div class="footer-note">✦ roll call ✦</div>
-
     </div>
 
-    <!-- (Optional) tiny script to log clicks if you want, but not needed -->
     <script>
-        // You could add a click handler to each pill for fun, but the design is static.
-        // If you want, you can uncomment this to show a toast on click:
-        /*
-        document.querySelectorAll('.pill, .honor-pill').forEach(el => {
-            el.addEventListener('click', () => {
-                const name = el.textContent.trim();
-                alert(`👋 ${name} remembered!`);
+        (function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const questionArea = document.getElementById('questionArea');
+            const resultArea = document.getElementById('resultArea');
+            const container = document.getElementById('mainContainer');
+
+            // ─── "No" button flee logic ───
+            // We track mouse position globally to know where the cursor is.
+            let mouseX = 0, mouseY = 0;
+
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
             });
-        });
-        */
+
+            function moveNoButtonAway() {
+                // Get container bounds (to keep button inside viewport roughly)
+                const rect = container.getBoundingClientRect();
+                const btnRect = noBtn.getBoundingClientRect();
+
+                // We want to place the button somewhere in the viewport, but not under the cursor.
+                // We'll pick a random position within the viewport, but we'll check if it overlaps the cursor.
+                // To keep it simple, we move it to a random spot with a margin.
+                const margin = 80;
+                const viewportW = window.innerWidth;
+                const viewportH = window.innerHeight;
+
+                // We'll try up to 20 times to find a spot far from the cursor.
+                let placed = false;
+                let attempts = 0;
+                const btnW = btnRect.width || 100;  // fallback if rect not ready
+                const btnH = btnRect.height || 50;
+
+                while (!placed && attempts < 30) {
+                    attempts++;
+                    // Random position within viewport, keeping button fully visible.
+                    let left = Math.random() * (viewportW - btnW - margin * 2) + margin;
+                    let top = Math.random() * (viewportH - btnH - margin * 2) + margin;
+
+                    // Calculate distance from cursor (center of button roughly)
+                    const btnCenterX = left + btnW / 2;
+                    const btnCenterY = top + btnH / 2;
+                    const dx = btnCenterX - mouseX;
+                    const dy = btnCenterY - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    // If distance is greater than 150px, we place it there.
+                    if (dist > 150) {
+                        noBtn.style.position = 'fixed';
+                        noBtn.style.left = left + 'px';
+                        noBtn.style.top = top + 'px';
+                        noBtn.style.transform = 'none'; // remove any transform scaling
+                        placed = true;
+                    }
+                }
+
+                // If we couldn't find a good spot, just move it to a random corner.
+                if (!placed) {
+                    const left = Math.random() * (viewportW - btnW - 40) + 20;
+                    const top = Math.random() * (viewportH - btnH - 40) + 20;
+                    noBtn.style.position = 'fixed';
+                    noBtn.style.left = left + 'px';
+                    noBtn.style.top = top + 'px';
+                }
+            }
+
+            // When the user hovers the "No" button, we move it.
+            noBtn.addEventListener('mouseover', function(e) {
+                moveNoButtonAway();
+            });
+
+            // Also move away if the button is touched on mobile (touchstart) – optional.
+            noBtn.addEventListener('touchstart', function(e) {
+                e.preventDefault(); // prevent default touch behavior
+                moveNoButtonAway();
+            });
+
+            // ─── "Yes" button: show result ───
+            yesBtn.addEventListener('click', function() {
+                // Hide question, show result
+                questionArea.style.display = 'none';
+                resultArea.classList.add('active');
+
+                // Sprinkle some emoji love
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        createSparkle();
+                    }, i * 80);
+                }
+            });
+
+            // ─── Sparkle effect ───
+            function createSparkle() {
+                const emojis = ['💖', '💕', '✨', '💗', '🌸', '🎉', '💘', '💝'];
+                const el = document.createElement('div');
+                el.className = 'sparkle';
+                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                el.style.left = (Math.random() * 100) + 'vw';
+                el.style.top = (Math.random() * 100) + 'vh';
+                el.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
+                document.body.appendChild(el);
+                // Remove after animation
+                setTimeout(() => el.remove(), 2200);
+            }
+
+            // ─── Initial placement of "No" button (avoid cursor on load) ───
+            // We'll just set a fixed position away from the center.
+            setTimeout(() => {
+                // Place it somewhere to the right/bottom.
+                const vw = window.innerWidth;
+                const vh = window.innerHeight;
+                // but we want it inside the container originally, so we don't override the flex layout unless moved.
+                // Actually we want it to stay in the flex layout until the first hover.
+                // We'll just keep it in flow. The mouseover will reposition it fixed.
+                // But if we want it to start in a safe place, we can add a slight offset.
+                // But it's fine.
+            }, 100);
+        })();
     </script>
+
 </body>
 </html>
