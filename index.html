@@ -1,305 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Will you date me? 💕</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Owners for Rainyy TAGG</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(145deg, #f9b8d4 0%, #ffdde1 100%);
-            padding: 1rem;
-            user-select: none;
-            overflow: hidden;
-            position: relative;
-        }
+    body {
+      background: linear-gradient(145deg, #0d0d0d 0%, #1a1a1a 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
 
-        .container {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(6px);
-            padding: 3rem 4rem;
-            border-radius: 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+    .main-container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      border-radius: 3rem;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: #a02c5a;
-            letter-spacing: 1px;
-            margin-bottom: 2rem;
-            text-shadow: 0 4px 12px rgba(160, 44, 90, 0.15);
-        }
+    /* ----- TOP BIG HEADING ----- */
+    .top-heading {
+      font-size: clamp(2.2rem, 8vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ff2d55, #ff6b8a, #ffb3c6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(255, 45, 85, 0.3);
+      margin-bottom: 2.5rem;
+      line-height: 1.2;
+    }
+    .top-heading span {
+      display: inline-block;
+    }
 
-        .buttons {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+    /* ----- MIDDLE PLACEHOLDER (Rainyy + TR4GIC) ----- */
+    .names-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem 3rem;
+      margin: 2.5rem 0 3rem 0;
+    }
 
-        .btn {
-            border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.6rem;
-            font-weight: 700;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.2s;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
+    .name-card {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 1.2rem 2.8rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease;
+    }
+    .name-card:hover {
+      transform: scale(1.03);
+      border-color: rgba(255, 45, 85, 0.4);
+    }
 
-        .btn-yes {
-            background: #4caf50;
-            color: #fff;
-        }
-        .btn-yes:hover {
-            transform: scale(1.06);
-            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.35);
-        }
+    .name-card h2 {
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
 
-        .btn-no {
-            background: #e74c3c;
-            color: #fff;
-            position: relative;
-            transition: left 0.15s ease, top 0.15s ease;
-            /* will be moved via JS */;
-        }
-        .btn-no:hover {
-            /* we will override with JS repositioning */
-        }
+    .name-card.rainyy h2 {
+      color: #ff6b8a;
+      text-shadow: 0 0 30px rgba(255, 107, 138, 0.4);
+    }
+    .name-card.tr4gic h2 {
+      color: #7a9eff;
+      text-shadow: 0 0 30px rgba(122, 158, 255, 0.4);
+    }
 
-        /* Result screen (hidden initially) */
-        .result {
-            display: none;
-            animation: fadeIn 0.6s ease;
-        }
-        .result.active {
-            display: block;
-        }
+    /* ----- TIKTOK BUTTONS ----- */
+    .tiktok-section {
+      margin-top: 1rem;
+    }
 
-        .result h2 {
-            font-size: 3rem;
-            color: #a02c5a;
-            margin-bottom: 0.5rem;
-        }
-        .result p {
-            font-size: 1.5rem;
-            color: #444;
-            margin-top: 1rem;
-            line-height: 1.5;
-        }
-        .result .wet-concrete {
-            font-style: italic;
-            background: rgba(0, 0, 0, 0.04);
-            padding: 0.5rem 1rem;
-            border-radius: 40px;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
+    .tiktok-section p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
 
-        /* Confetti emoji sprinkles */
-        .sparkle {
-            position: fixed;
-            font-size: 2rem;
-            pointer-events: none;
-            animation: floatUp 2s ease-out forwards;
-            z-index: 999;
-        }
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-200px) scale(0.3); }
-        }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+    }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+    .tiktok-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #000;
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 0 #1a1a1a;
+    }
 
-        /* Responsive */
-        @media (max-width: 500px) {
-            .container {
-                padding: 2rem 1.5rem;
-            }
-            h1 {
-                font-size: 2.4rem;
-            }
-            .btn {
-                font-size: 1.2rem;
-                padding: 0.8rem 1.8rem;
-            }
-            .buttons {
-                gap: 1.2rem;
-            }
-            .result h2 {
-                font-size: 2.2rem;
-            }
-            .result p {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+    .tiktok-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 0 #1a1a1a, 0 0 25px rgba(255, 45, 85, 0.3);
+      border-color: #ff2d55;
+    }
+
+    .tiktok-btn .icon {
+      font-size: 1.6rem;
+    }
+
+    /* small note */
+    .footer-note {
+      margin-top: 2.5rem;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* responsive tweaks */
+    @media (max-width: 500px) {
+      .main-container {
+        padding: 2rem 1.2rem;
+      }
+      .name-card {
+        padding: 0.8rem 1.8rem;
+      }
+      .tiktok-btn {
+        padding: 0.7rem 1.6rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="main-container">
 
-    <div class="container" id="mainContainer">
-        <!-- Main question -->
-        <div id="questionArea">
-            <h1>💕 Will you date me?</h1>
-            <div class="buttons">
-                <button class="btn btn-yes" id="yesBtn">Yes</button>
-                <button class="btn btn-no" id="noBtn">No</button>
-            </div>
-        </div>
+    <!-- TOP: BIG LETTERS -->
+    <h1 class="top-heading">
+      OWNERS FOR RAINYY TAGG<br />
+      <span style="font-size:0.45em; -webkit-text-fill-color: rgba(255,255,255,0.2); background: none; text-shadow: none;">
+        (with tiktok links)
+      </span>
+    </h1>
 
-        <!-- Result area (hidden) -->
-        <div class="result" id="resultArea">
-            <h2>Wait you said yes? 🥺</h2>
-            <p>
-                You understand I look like <span class="wet-concrete">wet concrete</span> right?
-            </p>
-            <div style="margin-top: 2rem; font-size: 3rem;">💀💕</div>
-        </div>
+    <!-- MIDDLE: Rainyy + TR4GIC placeholder -->
+    <div class="names-wrapper">
+      <div class="name-card rainyy">
+        <h2>🌧️ Rainyy</h2>
+      </div>
+      <div class="name-card tr4gic">
+        <h2>⚡ TR4GIC</h2>
+      </div>
     </div>
 
-    <script>
-        (function() {
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            const questionArea = document.getElementById('questionArea');
-            const resultArea = document.getElementById('resultArea');
-            const container = document.getElementById('mainContainer');
+    <!-- TIKTOK LINKS -->
+    <div class="tiktok-section">
+      <p>👇 Go to TikTok 👇</p>
+      <div class="btn-group">
+        <!-- Replace the href="#" with your actual TikTok URL -->
+        <a href="https://tiktok.com/@billyyates09" class="tiktok-btn" target="_blank">
+          <span class="icon">🎵</span> Rainyy's TikTok
+        </a>
+        <!-- Replace the href="#" with TR4GIC's actual TikTok URL -->
+        <a href="https://www.tiktok.com/@tragic.on.90hz" class="tiktok-btn" target="_blank">
+          <span class="icon">🎵</span> TR4GIC's TikTok
+        </a>
+      </div>
+    </div>
 
-            // ─── "No" button flee logic ───
-            // We track mouse position globally to know where the cursor is.
-            let mouseX = 0, mouseY = 0;
-
-            document.addEventListener('mousemove', function(e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function moveNoButtonAway() {
-                // Get container bounds (to keep button inside viewport roughly)
-                const rect = container.getBoundingClientRect();
-                const btnRect = noBtn.getBoundingClientRect();
-
-                // We want to place the button somewhere in the viewport, but not under the cursor.
-                // We'll pick a random position within the viewport, but we'll check if it overlaps the cursor.
-                // To keep it simple, we move it to a random spot with a margin.
-                const margin = 80;
-                const viewportW = window.innerWidth;
-                const viewportH = window.innerHeight;
-
-                // We'll try up to 20 times to find a spot far from the cursor.
-                let placed = false;
-                let attempts = 0;
-                const btnW = btnRect.width || 100;  // fallback if rect not ready
-                const btnH = btnRect.height || 50;
-
-                while (!placed && attempts < 30) {
-                    attempts++;
-                    // Random position within viewport, keeping button fully visible.
-                    let left = Math.random() * (viewportW - btnW - margin * 2) + margin;
-                    let top = Math.random() * (viewportH - btnH - margin * 2) + margin;
-
-                    // Calculate distance from cursor (center of button roughly)
-                    const btnCenterX = left + btnW / 2;
-                    const btnCenterY = top + btnH / 2;
-                    const dx = btnCenterX - mouseX;
-                    const dy = btnCenterY - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    // If distance is greater than 150px, we place it there.
-                    if (dist > 150) {
-                        noBtn.style.position = 'fixed';
-                        noBtn.style.left = left + 'px';
-                        noBtn.style.top = top + 'px';
-                        noBtn.style.transform = 'none'; // remove any transform scaling
-                        placed = true;
-                    }
-                }
-
-                // If we couldn't find a good spot, just move it to a random corner.
-                if (!placed) {
-                    const left = Math.random() * (viewportW - btnW - 40) + 20;
-                    const top = Math.random() * (viewportH - btnH - 40) + 20;
-                    noBtn.style.position = 'fixed';
-                    noBtn.style.left = left + 'px';
-                    noBtn.style.top = top + 'px';
-                }
-            }
-
-            // When the user hovers the "No" button, we move it.
-            noBtn.addEventListener('mouseover', function(e) {
-                moveNoButtonAway();
-            });
-
-            // Also move away if the button is touched on mobile (touchstart) – optional.
-            noBtn.addEventListener('touchstart', function(e) {
-                e.preventDefault(); // prevent default touch behavior
-                moveNoButtonAway();
-            });
-
-            // ─── "Yes" button: show result ───
-            yesBtn.addEventListener('click', function() {
-                // Hide question, show result
-                questionArea.style.display = 'none';
-                resultArea.classList.add('active');
-
-                // Sprinkle some emoji love
-                for (let i = 0; i < 20; i++) {
-                    setTimeout(() => {
-                        createSparkle();
-                    }, i * 80);
-                }
-            });
-
-            // ─── Sparkle effect ───
-            function createSparkle() {
-                const emojis = ['💖', '💕', '✨', '💗', '🌸', '🎉', '💘', '💝'];
-                const el = document.createElement('div');
-                el.className = 'sparkle';
-                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                el.style.left = (Math.random() * 100) + 'vw';
-                el.style.top = (Math.random() * 100) + 'vh';
-                el.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
-                document.body.appendChild(el);
-                // Remove after animation
-                setTimeout(() => el.remove(), 2200);
-            }
-
-            // ─── Initial placement of "No" button (avoid cursor on load) ───
-            // We'll just set a fixed position away from the center.
-            setTimeout(() => {
-                // Place it somewhere to the right/bottom.
-                const vw = window.innerWidth;
-                const vh = window.innerHeight;
-                // but we want it inside the container originally, so we don't override the flex layout unless moved.
-                // Actually we want it to stay in the flex layout until the first hover.
-                // We'll just keep it in flow. The mouseover will reposition it fixed.
-                // But if we want it to start in a safe place, we can add a slight offset.
-                // But it's fine.
-            }, 100);
-        })();
-    </script>
-
+    <div class="footer-note">
+      🔗 paste your real TikTok links in the href="..."
+    </div>
+  </div>
 </body>
 </html>
