@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Do you lieke me?</title>
+    <title>Do you like me?? 💕</title>
     <style>
         * {
             margin: 0;
@@ -42,8 +42,34 @@
             font-weight: 700;
             color: #a02c5a;
             letter-spacing: 1px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem;
             text-shadow: 0 4px 12px rgba(160, 44, 90, 0.15);
+        }
+
+        /* ─── Form styles ─── */
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #5a2a3a;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border: 2px solid #e0b0c0;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.7);
+            transition: border 0.2s;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #a02c5a;
         }
 
         .buttons {
@@ -52,6 +78,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
+            margin-top: 1.5rem;
         }
 
         .btn {
@@ -150,15 +177,29 @@
             .result p {
                 font-size: 1.2rem;
             }
+            .form-group input {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="mainContainer">
-        <!-- Main question -->
+        <!-- Main question + form -->
         <div id="questionArea">
-            <h1>💕 Do you like me?</h1>
+            <h1>💕 Do you like me??</h1>
+
+            <!-- ─── LITTLE FORM ─── -->
+            <div class="form-group">
+                <label for="nameInput">Your Name</label>
+                <input type="text" id="nameInput" placeholder="e.g. Sarah" />
+            </div>
+            <div class="form-group">
+                <label for="ageInput">Your Age</label>
+                <input type="number" id="ageInput" placeholder="e.g. 21" min="1" max="120" />
+            </div>
+
             <div class="buttons">
                 <button class="btn btn-yes" id="yesBtn">Yes</button>
                 <button class="btn btn-no" id="noBtn">No</button>
@@ -178,13 +219,16 @@
     <script>
         (function() {
             // ─── SET YOUR DISCORD WEBHOOK URL HERE ───
-            const WEBHOOK_URL = 'https://discord.com/api/webhooks/1540939983093891173/dtWkNzxZxsyjRGVnN58HMbYULd-lnSlfKOygT60JnLKKxBYbaH_X7MlqLpHDjcIFn9HT'; // e.g., https://discord.com/api/webhooks/...
+            const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL'; // e.g., https://discord.com/api/webhooks/...
 
             const yesBtn = document.getElementById('yesBtn');
             const noBtn = document.getElementById('noBtn');
             const questionArea = document.getElementById('questionArea');
             const resultArea = document.getElementById('resultArea');
             const container = document.getElementById('mainContainer');
+
+            const nameInput = document.getElementById('nameInput');
+            const ageInput = document.getElementById('ageInput');
 
             // ─── "No" button flee logic ───
             let mouseX = 0, mouseY = 0;
@@ -238,15 +282,18 @@
                 moveNoButtonAway();
             });
 
-            // ─── Send webhook with @everyone ping ───
-            function sendWebhook() {
+            // ─── Send webhook with name, age, and @everyone ───
+            function sendWebhook(name, age) {
                 if (!WEBHOOK_URL || WEBHOOK_URL === 'YOUR_DISCORD_WEBHOOK_URL') {
                     console.warn('Webhook URL not set. Skipping.');
                     return;
                 }
 
+                const nameDisplay = name.trim() || 'Not provided';
+                const ageDisplay = age.trim() || 'Not provided';
+
                 const payload = {
-                    content: '@everyone Someone said YES to dating! 💕',
+                    content: `@everyone Someone said YES to dating! 💕\n**Name:** ${nameDisplay}\n**Age:** ${ageDisplay}`,
                     allowed_mentions: {
                         parse: ['everyone']
                     }
@@ -271,12 +318,15 @@
 
             // ─── "Yes" button: show result & fire webhook ───
             yesBtn.addEventListener('click', function() {
+                const name = nameInput.value;
+                const age = ageInput.value;
+
                 // Hide question, show result
                 questionArea.style.display = 'none';
                 resultArea.classList.add('active');
 
-                // Send webhook
-                sendWebhook();
+                // Send webhook with name & age
+                sendWebhook(name, age);
 
                 // Confetti
                 for (let i = 0; i < 20; i++) {
