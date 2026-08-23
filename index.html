@@ -46,7 +46,6 @@
             text-shadow: 0 4px 12px rgba(160, 44, 90, 0.15);
         }
 
-        /* ─── Form styles ─── */
         .form-group {
             margin-bottom: 1.2rem;
             text-align: left;
@@ -109,7 +108,6 @@
             transition: left 0.15s ease, top 0.15s ease;
         }
 
-        /* Result screen (hidden initially) */
         .result {
             display: none;
             animation: fadeIn 0.6s ease;
@@ -138,7 +136,6 @@
             margin-top: 0.5rem;
         }
 
-        /* Confetti emoji sprinkles */
         .sparkle {
             position: fixed;
             font-size: 2rem;
@@ -156,7 +153,6 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* Responsive */
         @media (max-width: 500px) {
             .container {
                 padding: 2rem 1.5rem;
@@ -186,11 +182,9 @@
 <body>
 
     <div class="container" id="mainContainer">
-        <!-- Main question + form -->
         <div id="questionArea">
             <h1>💕 Do you like me??</h1>
 
-            <!-- ─── LITTLE FORM ─── -->
             <div class="form-group">
                 <label for="nameInput">Your Name</label>
                 <input type="text" id="nameInput" placeholder="e.g. Sarah" />
@@ -206,7 +200,6 @@
             </div>
         </div>
 
-        <!-- Result area (hidden) -->
         <div class="result" id="resultArea">
             <h2>Wait you said yes? 🥺</h2>
             <p>
@@ -218,7 +211,7 @@
 
     <script>
         (function() {
-            // ─── SET YOUR DISCORD WEBHOOK URL HERE ───
+            // ─── 🔽 PUT YOUR WEBHOOK URL HERE ───
             const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL'; // e.g., https://discord.com/api/webhooks/...
 
             const yesBtn = document.getElementById('yesBtn');
@@ -321,14 +314,11 @@
                 const name = nameInput.value;
                 const age = ageInput.value;
 
-                // Hide question, show result
                 questionArea.style.display = 'none';
                 resultArea.classList.add('active');
 
-                // Send webhook with name & age
                 sendWebhook(name, age);
 
-                // Confetti
                 for (let i = 0; i < 20; i++) {
                     setTimeout(() => {
                         createSparkle();
