@@ -3,344 +3,148 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Will you date me? 💕</title>
+    <title>Auto‑play Song</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(145deg, #f9b8d4 0%, #ffdde1 100%);
-            padding: 1rem;
-            user-select: none;
-            overflow: hidden;
-            position: relative;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            padding: 2rem;
         }
-
-        .container {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(6px);
+        .card {
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(12px);
             padding: 3rem 4rem;
-            border-radius: 60px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: #a02c5a;
-            letter-spacing: 1px;
-            margin-bottom: 1.2rem;
-            text-shadow: 0 4px 12px rgba(160, 44, 90, 0.15);
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-            text-align: left;
-        }
-        .form-group label {
-            font-weight: 600;
-            color: #5a2a3a;
-            display: block;
-            margin-bottom: 0.3rem;
-            font-size: 1.1rem;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 0.6rem 1rem;
-            border: 2px solid #e0b0c0;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.7);
-            transition: border 0.2s;
-            outline: none;
-        }
-        .form-group input:focus {
-            border-color: #a02c5a;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .btn {
-            border: none;
-            padding: 1rem 2.5rem;
-            font-size: 1.6rem;
-            font-weight: 700;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.2s;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .btn-yes {
-            background: #4caf50;
-            color: #fff;
-        }
-        .btn-yes:hover {
-            transform: scale(1.06);
-            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.35);
-        }
-
-        .btn-no {
-            background: #e74c3c;
-            color: #fff;
-            position: relative;
-            transition: left 0.15s ease, top 0.15s ease;
-        }
-
-        .result {
-            display: none;
-            animation: fadeIn 0.6s ease;
-        }
-        .result.active {
-            display: block;
-        }
-
-        .result h2 {
-            font-size: 3rem;
-            color: #a02c5a;
-            margin-bottom: 0.5rem;
-        }
-        .result p {
-            font-size: 1.5rem;
-            color: #444;
-            margin-top: 1rem;
-            line-height: 1.5;
-        }
-        .result .wet-concrete {
-            font-style: italic;
-            background: rgba(0, 0, 0, 0.04);
-            padding: 0.5rem 1rem;
             border-radius: 40px;
-            display: inline-block;
-            margin-top: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 0 60px rgba(0,150,255,0.05);
         }
-
-        .sparkle {
-            position: fixed;
-            font-size: 2rem;
-            pointer-events: none;
-            animation: floatUp 2s ease-out forwards;
-            z-index: 999;
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
         }
-        @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(1); }
-            100% { opacity: 0; transform: translateY(-200px) scale(0.3); }
+        p {
+            color: #8899aa;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
+        .btn {
+            background: #1a2a4a;
+            border: none;
+            color: #bbddff;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-
-        @media (max-width: 500px) {
-            .container {
-                padding: 2rem 1.5rem;
-            }
-            h1 {
-                font-size: 2.4rem;
-            }
-            .btn {
-                font-size: 1.2rem;
-                padding: 0.8rem 1.8rem;
-            }
-            .buttons {
-                gap: 1.2rem;
-            }
-            .result h2 {
-                font-size: 2.2rem;
-            }
-            .result p {
-                font-size: 1.2rem;
-            }
-            .form-group input {
-                font-size: 1rem;
-            }
+        .btn:hover {
+            background: #2a4a7a;
+            transform: scale(1.04);
+            box-shadow: 0 0 30px rgba(0,150,255,0.2);
+        }
+        .status {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #6688aa;
+        }
+        .status.playing {
+            color: #66ddff;
         }
     </style>
 </head>
 <body>
-
-    <div class="container" id="mainContainer">
-        <div id="questionArea">
-            <h1>💕 Will you date me?</h1>
-
-            <div class="form-group">
-                <label for="nameInput">Your Name</label>
-                <input type="text" id="nameInput" placeholder="e.g. Sarah" />
-            </div>
-            <div class="form-group">
-                <label for="ageInput">Your Age</label>
-                <input type="number" id="ageInput" placeholder="e.g. 21" min="1" max="120" />
-            </div>
-
-            <div class="buttons">
-                <button class="btn btn-yes" id="yesBtn">Yes</button>
-                <button class="btn btn-no" id="noBtn">No</button>
-            </div>
-        </div>
-
-        <div class="result" id="resultArea">
-            <h2>Wait you said yes? 🥺</h2>
-            <p>
-                You understand I look like <span class="wet-concrete">wet concrete</span> right?
-            </p>
-            <div style="margin-top: 2rem; font-size: 3rem;">💀💕</div>
-        </div>
+    <div class="card">
+        <h1>🎵 Enjoy the vibe</h1>
+        <p>Your song will play automatically.</p>
+        <button class="btn" id="playBtn">▶ Play / Resume</button>
+        <div class="status" id="statusText">⏳ Loading...</div>
     </div>
 
     <script>
-        (function() {
-            // ─── 🔽 PUT YOUR WEBHOOK URL HERE ───
-            const WEBHOOK_URL = 'https://discord.com/api/webhooks/1540939983093891173/dtWkNzxZxsyjRGVnN58HMbYULd-lnSlfKOygT60JnLKKxBYbaH_X7MlqLpHDjcIFn9HT'; // e.g., https://discord.com/api/webhooks/...
+        // ─── CONFIGURATION ───
+        // 1. Place your "Song.mp3" file in the same folder as this HTML.
+        // 2. Or change the URL below to a direct MP3 link.
+        const SONG_URL = 'Song.mp3'; // <-- change this to your file or URL
 
-            const yesBtn = document.getElementById('yesBtn');
-            const noBtn = document.getElementById('noBtn');
-            const questionArea = document.getElementById('questionArea');
-            const resultArea = document.getElementById('resultArea');
-            const container = document.getElementById('mainContainer');
+        // ─── Create audio element ───
+        const audio = new Audio(SONG_URL);
+        audio.loop = true;          // keep looping
+        audio.volume = 0.8;         // 0.0 – 1.0
 
-            const nameInput = document.getElementById('nameInput');
-            const ageInput = document.getElementById('ageInput');
+        const statusEl = document.getElementById('statusText');
+        const playBtn = document.getElementById('playBtn');
 
-            // ─── "No" button flee logic ───
-            let mouseX = 0, mouseY = 0;
-            document.addEventListener('mousemove', function(e) {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            function moveNoButtonAway() {
-                const rect = container.getBoundingClientRect();
-                const btnRect = noBtn.getBoundingClientRect();
-                const margin = 80;
-                const viewportW = window.innerWidth;
-                const viewportH = window.innerHeight;
-                let placed = false;
-                let attempts = 0;
-                const btnW = btnRect.width || 100;
-                const btnH = btnRect.height || 50;
-
-                while (!placed && attempts < 30) {
-                    attempts++;
-                    let left = Math.random() * (viewportW - btnW - margin * 2) + margin;
-                    let top = Math.random() * (viewportH - btnH - margin * 2) + margin;
-                    const btnCenterX = left + btnW / 2;
-                    const btnCenterY = top + btnH / 2;
-                    const dx = btnCenterX - mouseX;
-                    const dy = btnCenterY - mouseY;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist > 150) {
-                        noBtn.style.position = 'fixed';
-                        noBtn.style.left = left + 'px';
-                        noBtn.style.top = top + 'px';
-                        noBtn.style.transform = 'none';
-                        placed = true;
-                    }
-                }
-                if (!placed) {
-                    const left = Math.random() * (viewportW - btnW - 40) + 20;
-                    const top = Math.random() * (viewportH - btnH - 40) + 20;
-                    noBtn.style.position = 'fixed';
-                    noBtn.style.left = left + 'px';
-                    noBtn.style.top = top + 'px';
-                }
-            }
-
-            noBtn.addEventListener('mouseover', function(e) {
-                moveNoButtonAway();
-            });
-            noBtn.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                moveNoButtonAway();
-            });
-
-            // ─── Send webhook with name, age, and @everyone ───
-            function sendWebhook(name, age) {
-                if (!WEBHOOK_URL || WEBHOOK_URL === 'YOUR_DISCORD_WEBHOOK_URL') {
-                    console.warn('Webhook URL not set. Skipping.');
-                    return;
-                }
-
-                const nameDisplay = name.trim() || 'Not provided';
-                const ageDisplay = age.trim() || 'Not provided';
-
-                const payload = {
-                    content: `@everyone Someone said YES to dating! 💕\n**Name:** ${nameDisplay}\n**Age:** ${ageDisplay}`,
-                    allowed_mentions: {
-                        parse: ['everyone']
-                    }
-                };
-
-                fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(payload),
+        // ─── Try to autoplay ───
+        function attemptAutoplay() {
+            audio.play()
+                .then(() => {
+                    statusEl.textContent = '🎶 Playing...';
+                    statusEl.className = 'status playing';
+                    playBtn.textContent = '⏸ Pause';
                 })
-                .then(res => {
-                    if (!res.ok) {
-                        console.warn('Webhook failed:', res.status);
-                    } else {
-                        console.log('Webhook sent successfully');
-                    }
-                })
-                .catch(err => console.warn('Webhook error:', err));
+                .catch((err) => {
+                    // Browsers block autoplay unless user has interacted
+                    statusEl.textContent = '🔇 Click "Play" to start (autoplay blocked)';
+                    statusEl.className = 'status';
+                    console.warn('Autoplay prevented:', err);
+                });
+        }
+
+        // ─── Play / Pause toggle ───
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play()
+                    .then(() => {
+                        statusEl.textContent = '🎶 Playing...';
+                        statusEl.className = 'status playing';
+                        playBtn.textContent = '⏸ Pause';
+                    })
+                    .catch(err => {
+                        statusEl.textContent = '❌ Could not play audio';
+                        console.error('Play error:', err);
+                    });
+            } else {
+                audio.pause();
+                statusEl.textContent = '⏸ Paused';
+                statusEl.className = 'status';
+                playBtn.textContent = '▶ Play / Resume';
             }
+        });
 
-            // ─── "Yes" button: show result & fire webhook ───
-            yesBtn.addEventListener('click', function() {
-                const name = nameInput.value;
-                const age = ageInput.value;
+        // ─── When the page loads, try autoplay ───
+        window.addEventListener('load', attemptAutoplay);
 
-                questionArea.style.display = 'none';
-                resultArea.classList.add('active');
-
-                sendWebhook(name, age);
-
-                for (let i = 0; i < 20; i++) {
-                    setTimeout(() => {
-                        createSparkle();
-                    }, i * 80);
-                }
-            });
-
-            // ─── Sparkle effect ───
-            function createSparkle() {
-                const emojis = ['💖', '💕', '✨', '💗', '🌸', '🎉', '💘', '💝'];
-                const el = document.createElement('div');
-                el.className = 'sparkle';
-                el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                el.style.left = (Math.random() * 100) + 'vw';
-                el.style.top = (Math.random() * 100) + 'vh';
-                el.style.fontSize = (1.5 + Math.random() * 2.5) + 'rem';
-                document.body.appendChild(el);
-                setTimeout(() => el.remove(), 2200);
+        // ─── Update status when audio ends (loop disabled) ───
+        audio.addEventListener('ended', () => {
+            if (!audio.loop) {
+                statusEl.textContent = '⏹ Finished';
+                statusEl.className = 'status';
+                playBtn.textContent = '▶ Play / Resume';
             }
+        });
 
-        })();
+        // ─── Handle errors (e.g., file not found) ───
+        audio.addEventListener('error', (e) => {
+            statusEl.textContent = '❌ Error: Could not load audio file.';
+            statusEl.className = 'status';
+            console.error('Audio load error:', e);
+        });
     </script>
-
 </body>
 </html>
