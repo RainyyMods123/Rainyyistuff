@@ -3,147 +3,275 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Auto‑play Song</title>
+    <title>Rainyy.mods · MA BOYZ</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a14;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            padding: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ─── Background glow ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 30%, #1a1040, #0a0a14 70%);
+            z-index: 0;
+        }
+
+        /* ─── ENTRY OVERLAY ─── */
+        #entryOverlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(10, 10, 20, 0.92);
+            backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', sans-serif;
-            background: #0a0a1a;
-            color: #fff;
-            padding: 2rem;
-        }
-        .card {
-            background: rgba(255,255,255,0.04);
-            backdrop-filter: blur(12px);
-            padding: 3rem 4rem;
-            border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.06);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 0 60px rgba(0,150,255,0.05);
-        }
-        h1 {
-            font-size: 2.4rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
-        }
-        p {
-            color: #8899aa;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-        }
-        .btn {
-            background: #1a2a4a;
-            border: none;
-            color: #bbddff;
-            padding: 0.8rem 2.2rem;
-            border-radius: 60px;
-            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid rgba(255,255,255,0.05);
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+            user-select: none;
         }
-        .btn:hover {
-            background: #2a4a7a;
+        #entryOverlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .entry-text {
+            font-size: clamp(2.4rem, 8vw, 4.8rem);
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #66d9ff, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulseGlow 2.2s ease-in-out infinite;
+            text-shadow: 0 0 60px rgba(168, 85, 247, 0.2);
+        }
+        .entry-sub {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 1rem;
+            letter-spacing: 6px;
+            margin-top: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.03); text-shadow: 0 0 80px rgba(168, 85, 247, 0.4); }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+
+        /* ─── MAIN CARD ─── */
+        .card {
+            position: relative;
+            z-index: 5;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            padding: 2.8rem 3.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 80px rgba(0, 150, 255, 0.04);
+            text-align: center;
+            max-width: 580px;
+            width: 100%;
+            transition: all 0.4s ease;
+        }
+        .card:hover {
+            box-shadow: 0 0 100px rgba(100, 180, 255, 0.06);
+        }
+
+        /* PFP */
+        .pfp {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 60px rgba(100, 180, 255, 0.08);
+            margin-bottom: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .pfp:hover {
             transform: scale(1.04);
-            box-shadow: 0 0 30px rgba(0,150,255,0.2);
         }
-        .status {
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: #6688aa;
+
+        /* Title */
+        .title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a855f7, #66d9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            margin-bottom: 0.2rem;
         }
-        .status.playing {
-            color: #66ddff;
+
+        /* Subtitle */
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffd966;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Divider */
+        .divider {
+            width: 60px;
+            height: 2px;
+            margin: 0 auto 1.2rem auto;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        }
+
+        /* Description / Names */
+        .desc {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+        .desc span {
+            color: #b0c4ff;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .desc span:hover {
+            color: #fff;
+        }
+
+        /* ─── Music status (tiny) ─── */
+        .music-status {
+            margin-top: 1.8rem;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.12);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .music-status.playing {
+            color: rgba(100, 220, 255, 0.3);
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 480px) {
+            .card {
+                padding: 2rem 1.5rem;
+                border-radius: 32px;
+            }
+            .title {
+                font-size: 2rem;
+            }
+            .pfp {
+                width: 90px;
+                height: 90px;
+            }
+            .desc {
+                font-size: 0.95rem;
+            }
+            .entry-text {
+                font-size: 2.4rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- ─── ENTRY OVERLAY ─── -->
+    <div id="entryOverlay">
+        <div class="entry-text">✧ CLICK TO ENTER ✧</div>
+        <div class="entry-sub">tap anywhere</div>
+    </div>
+
+    <!-- ─── MAIN CARD ─── -->
     <div class="card">
-        <h1>🎵 Enjoy the vibe</h1>
-        <p>Your song will play automatically.</p>
-        <button class="btn" id="playBtn">▶ Play / Resume</button>
-        <div class="status" id="statusText">⏳ Loading...</div>
+        <img src="tuffimage.png" alt="Rainyy" class="pfp" />
+        <div class="title">Rainyy.mods</div>
+        <div class="subtitle">MA BOYZ</div>
+        <div class="divider"></div>
+        <div class="desc">
+            <span>Vice</span>, <span>Rebortion pickles</span>, <span>Wrld</span>, <span>Virus</span>,<br />
+            <span>Tr4gic</span>, <span>BoweryPlayz</span>, <span>llonca</span>, and <span>Hauntrex</span>
+        </div>
+        <div class="music-status" id="musicStatus">🎵 waiting for you...</div>
     </div>
 
     <script>
-        // ─── CONFIGURATION ───
-        // 1. Place your "Song.mp3" file in the same folder as this HTML.
-        // 2. Or change the URL below to a direct MP3 link.
-        const SONG_URL = 'Song.mp3'; // <-- change this to your file or URL
+        // ─── CONFIG ───
+        const SONG_URL = 'Song.mp3';   // your song file
+        const overlay = document.getElementById('entryOverlay');
+        const statusEl = document.getElementById('musicStatus');
 
-        // ─── Create audio element ───
+        // ─── AUDIO ───
         const audio = new Audio(SONG_URL);
-        audio.loop = true;          // keep looping
-        audio.volume = 0.8;         // 0.0 – 1.0
+        audio.loop = true;
+        audio.volume = 0.7;
 
-        const statusEl = document.getElementById('statusText');
-        const playBtn = document.getElementById('playBtn');
+        let isPlaying = false;
 
-        // ─── Try to autoplay ───
-        function attemptAutoplay() {
+        // ─── START MUSIC + HIDE OVERLAY ───
+        function enterSite() {
+            // Hide overlay
+            overlay.classList.add('hidden');
+
+            // Play music
             audio.play()
                 .then(() => {
-                    statusEl.textContent = '🎶 Playing...';
-                    statusEl.className = 'status playing';
-                    playBtn.textContent = '⏸ Pause';
+                    isPlaying = true;
+                    statusEl.textContent = '🎵 now playing';
+                    statusEl.className = 'music-status playing';
                 })
                 .catch((err) => {
-                    // Browsers block autoplay unless user has interacted
-                    statusEl.textContent = '🔇 Click "Play" to start (autoplay blocked)';
-                    statusEl.className = 'status';
-                    console.warn('Autoplay prevented:', err);
+                    // If autoplay fails, user can click again or it's just blocked.
+                    statusEl.textContent = '🔇 click play to start';
+                    statusEl.className = 'music-status';
+                    console.warn('Playback error:', err);
                 });
         }
 
-        // ─── Play / Pause toggle ───
-        playBtn.addEventListener('click', () => {
-            if (audio.paused) {
-                audio.play()
-                    .then(() => {
-                        statusEl.textContent = '🎶 Playing...';
-                        statusEl.className = 'status playing';
-                        playBtn.textContent = '⏸ Pause';
-                    })
-                    .catch(err => {
-                        statusEl.textContent = '❌ Could not play audio';
-                        console.error('Play error:', err);
-                    });
-            } else {
-                audio.pause();
-                statusEl.textContent = '⏸ Paused';
-                statusEl.className = 'status';
-                playBtn.textContent = '▶ Play / Resume';
+        // ─── CLICK OVERLAY ───
+        overlay.addEventListener('click', enterSite);
+
+        // ─── KEYBOARD: press any key to enter (nice touch) ───
+        document.addEventListener('keydown', function(e) {
+            if (!overlay.classList.contains('hidden')) {
+                enterSite();
             }
         });
 
-        // ─── When the page loads, try autoplay ───
-        window.addEventListener('load', attemptAutoplay);
-
-        // ─── Update status when audio ends (loop disabled) ───
-        audio.addEventListener('ended', () => {
-            if (!audio.loop) {
-                statusEl.textContent = '⏹ Finished';
-                statusEl.className = 'status';
-                playBtn.textContent = '▶ Play / Resume';
-            }
+        // ─── STATUS UPDATE ON AUDIO EVENTS ───
+        audio.addEventListener('play', () => {
+            statusEl.textContent = '🎵 now playing';
+            statusEl.className = 'music-status playing';
         });
 
-        // ─── Handle errors (e.g., file not found) ───
+        audio.addEventListener('pause', () => {
+            statusEl.textContent = '⏸ paused';
+            statusEl.className = 'music-status';
+        });
+
         audio.addEventListener('error', (e) => {
-            statusEl.textContent = '❌ Error: Could not load audio file.';
-            statusEl.className = 'status';
-            console.error('Audio load error:', e);
+            statusEl.textContent = '❌ audio error (check file)';
+            statusEl.className = 'music-status';
+            console.error('Audio error:', e);
         });
     </script>
 </body>
