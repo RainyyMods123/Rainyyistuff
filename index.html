@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rainyy.mods · MA BOYZ</title>
+    <title>RainyyClient · Downloads</title>
     <style>
         * {
             margin: 0;
@@ -18,102 +18,23 @@
             justify-content: center;
             background: #0a0a14;
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            padding: 1.5rem;
-            overflow: hidden;
-            position: relative;
+            padding: 2rem;
+            background-image: radial-gradient(circle at 20% 30%, #1a1040, #0a0a14 70%);
         }
 
-        /* ─── Background glow ─── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 50% 30%, #1a1040, #0a0a14 70%);
-            z-index: 0;
-        }
-
-        /* ─── ENTRY OVERLAY ─── */
-        #entryOverlay {
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background: rgba(10, 10, 20, 0.92);
-            backdrop-filter: blur(8px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-            user-select: none;
-        }
-        #entryOverlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .entry-text {
-            font-size: clamp(2.4rem, 8vw, 4.8rem);
-            font-weight: 700;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, #66d9ff, #a855f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: pulseGlow 2.2s ease-in-out infinite;
-            text-shadow: 0 0 60px rgba(168, 85, 247, 0.2);
-        }
-        .entry-sub {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 1rem;
-            letter-spacing: 6px;
-            margin-top: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        @keyframes pulseGlow {
-            0% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.03); text-shadow: 0 0 80px rgba(168, 85, 247, 0.4); }
-            100% { opacity: 0.7; transform: scale(1); }
-        }
-
-        /* ─── MAIN CARD ─── */
-        .card {
-            position: relative;
-            z-index: 5;
+        .container {
+            max-width: 700px;
+            width: 100%;
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(16px);
-            padding: 2.8rem 3.5rem;
-            border-radius: 50px;
+            padding: 3rem 2.5rem;
+            border-radius: 40px;
             border: 1px solid rgba(255, 255, 255, 0.06);
             box-shadow: 0 0 80px rgba(0, 150, 255, 0.04);
             text-align: center;
-            max-width: 580px;
-            width: 100%;
-            transition: all 0.4s ease;
-        }
-        .card:hover {
-            box-shadow: 0 0 100px rgba(100, 180, 255, 0.06);
         }
 
-        /* PFP */
-        .pfp {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 60px rgba(100, 180, 255, 0.08);
-            margin-bottom: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-        .pfp:hover {
-            transform: scale(1.04);
-        }
-
-        /* Title */
-        .title {
+        h1 {
             font-size: 2.6rem;
             font-weight: 700;
             background: linear-gradient(135deg, #a855f7, #66d9ff);
@@ -121,157 +42,182 @@
             background-clip: text;
             color: transparent;
             letter-spacing: 1px;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.3rem;
         }
 
-        /* Subtitle */
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #ffd966;
-            letter-spacing: 6px;
+        .sub {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.95rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 1.2rem;
-            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 1.2rem;
         }
 
-        /* Divider */
-        .divider {
-            width: 60px;
-            height: 2px;
-            margin: 0 auto 1.2rem auto;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        .download-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
         }
 
-        /* Description / Names */
-        .desc {
-            color: rgba(255, 255, 255, 0.65);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            letter-spacing: 0.3px;
-        }
-        .desc span {
-            color: #b0c4ff;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .desc span:hover {
-            color: #fff;
+        .download-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* ─── Music status (tiny) ─── */
-        .music-status {
-            margin-top: 1.8rem;
+        .download-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(102, 217, 255, 0.02));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .download-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(168, 85, 247, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-card:hover::before {
+            opacity: 1;
+        }
+
+        .download-card .version {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #c8d8ff;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-card .version span {
+            color: #66d9ff;
+        }
+
+        .download-card .badge {
+            display: inline-block;
+            margin-top: 0.4rem;
             font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.12);
-            letter-spacing: 2px;
             text-transform: uppercase;
-        }
-        .music-status.playing {
-            color: rgba(100, 220, 255, 0.3);
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* ─── RESPONSIVE ─── */
+        .download-card .arrow {
+            float: right;
+            font-size: 1.6rem;
+            opacity: 0.2;
+            transition: opacity 0.3s, transform 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-card:hover .arrow {
+            opacity: 0.6;
+            transform: translateX(4px);
+        }
+
+        .download-card .file-size {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.15);
+            margin-top: 0.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Special style for second card (slightly different tint) */
+        .download-card:nth-child(2) {
+            border-color: rgba(102, 217, 255, 0.08);
+        }
+        .download-card:nth-child(2):hover {
+            border-color: rgba(102, 217, 255, 0.25);
+        }
+        .download-card:nth-child(2) .version span {
+            color: #a855f7;
+        }
+
+        .footer {
+            margin-top: 2.2rem;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.06);
+            letter-spacing: 2px;
+        }
+
         @media (max-width: 480px) {
-            .card {
-                padding: 2rem 1.5rem;
-                border-radius: 32px;
+            .container {
+                padding: 2rem 1.2rem;
             }
-            .title {
+            h1 {
                 font-size: 2rem;
             }
-            .pfp {
-                width: 90px;
-                height: 90px;
+            .download-card {
+                padding: 1.4rem 1.2rem;
             }
-            .desc {
-                font-size: 0.95rem;
+            .download-card .version {
+                font-size: 1.4rem;
             }
-            .entry-text {
-                font-size: 2.4rem;
+            .download-card .arrow {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ─── ENTRY OVERLAY ─── -->
-    <div id="entryOverlay">
-        <div class="entry-text">✧ CLICK TO ENTER ✧</div>
-        <div class="entry-sub">tap anywhere</div>
-    </div>
+    <div class="container">
+        <h1>⚡ RainyyClient</h1>
+        <div class="sub">Download · Legacy Builds</div>
 
-    <!-- ─── MAIN CARD ─── -->
-    <div class="card">
-        <img src="lovely.png" alt="Rainyy" class="pfp" />
-        <div class="title">Rainyy.mods</div>
-        <div class="subtitle">MA BOYZ</div>
-        <div class="divider"></div>
-        <div class="desc">
-            <span>Vice</span>, <span>Rebortion, pickles</span>, <span>Wrld</span>, <span>navy</span>, <span>Virus</span>,<br />
-            <span>Tr4gic</span>, <span>BoweryPlayz</span>, <span>llonca</span>, <span>Abel</span>, and <span>Hauntrex</span>
+        <div class="download-grid">
+            <!-- ─── DOWNLOAD CARD 1 ─── -->
+            <a href="https://cdn.discordapp.com/attachments/1483570077206057161/1483573569131909192/libAK.so?ex=6a9150ce&is=6a8fff4e&hm=024c96837ffabf8c2437926c8404b67d228091f9130ab2ebd03ca4c67d102c40&" download class="download-card">
+                <span class="version">AK client <span>2021.3</span></span>
+                <span class="arrow">⬇</span>
+                <div class="badge">stable</div>
+            </a>
+
+            <!-- ─── DOWNLOAD CARD 2 ─── -->
+            <a href="https://cdn.discordapp.com/attachments/1455373172487622778/1542488527114338335/libRainyyClient.so?ex=6a9169e2&is=6a901862&hm=e31cf99e165f231e6dbe23d0e54069fc73ea8ca31459c5568a82243e17d67ee1&" download class="download-card">
+                <span class="version">RainyyClient <span>2022.2</span></span>
+                <span class="arrow">⬇</span>
+                <div class="badge">latest</div>
+                <div class="file-size">~ 145 MB</div>
+            </a>
         </div>
-        <div class="music-status" id="musicStatus">🎵 waiting for you...</div>
+
+        <div class="footer">✦ click a box to start the download ✦</div>
     </div>
 
+    <!-- ─── Optional: if you want to track clicks, you can add JS ─── -->
     <script>
-        // ─── CONFIG ───
-        const SONG_URL = 'Song.mp3';   // your song file
-        const overlay = document.getElementById('entryOverlay');
-        const statusEl = document.getElementById('musicStatus');
-
-        // ─── AUDIO ───
-        const audio = new Audio(SONG_URL);
-        audio.loop = true;
-        audio.volume = 0.7;
-
-        let isPlaying = false;
-
-        // ─── START MUSIC + HIDE OVERLAY ───
-        function enterSite() {
-            // Hide overlay
-            overlay.classList.add('hidden');
-
-            // Play music
-            audio.play()
-                .then(() => {
-                    isPlaying = true;
-                    statusEl.textContent = '🎵 now playing';
-                    statusEl.className = 'music-status playing';
-                })
-                .catch((err) => {
-                    // If autoplay fails, user can click again or it's just blocked.
-                    statusEl.textContent = '🔇 click play to start';
-                    statusEl.className = 'music-status';
-                    console.warn('Playback error:', err);
-                });
-        }
-
-        // ─── CLICK OVERLAY ───
-        overlay.addEventListener('click', enterSite);
-
-        // ─── KEYBOARD: press any key to enter (nice touch) ───
-        document.addEventListener('keydown', function(e) {
-            if (!overlay.classList.contains('hidden')) {
-                enterSite();
-            }
-        });
-
-        // ─── STATUS UPDATE ON AUDIO EVENTS ───
-        audio.addEventListener('play', () => {
-            statusEl.textContent = '🎵 now playing';
-            statusEl.className = 'music-status playing';
-        });
-
-        audio.addEventListener('pause', () => {
-            statusEl.textContent = '⏸ paused';
-            statusEl.className = 'music-status';
-        });
-
-        audio.addEventListener('error', (e) => {
-            statusEl.textContent = '❌ audio error (check file)';
-            statusEl.className = 'music-status';
-            console.error('Audio error:', e);
+        // If you want to log which version was clicked, you can add:
+        document.querySelectorAll('.download-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // e.target is the card; you can read the version text
+                const version = this.querySelector('.version')?.textContent?.trim() || 'unknown';
+                console.log(`Download started: ${version}`);
+                // No need to prevent default – the link will open
+            });
         });
     </script>
 </body>
