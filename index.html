@@ -2,270 +2,464 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PlayFab Session Ticket Grabber</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial Events And Live Text Panel</title>
 <style>
-  :root {
-    --bg: #1e1f22;
-    --panel: #2a2b2e;
-    --accent: #7b6cf6;
-    --accent-hover: #6a5ce0;
-    --text: #e6e6e6;
-    --muted: #9a9a9a;
-    --border: #3a3b3e;
-    --success: #3fbf60;
-    --error: #e5533d;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    padding: 32px 16px;
-    display: flex;
-    justify-content: center;
-  }
-  .card {
-    width: 100%;
-    max-width: 520px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
-  }
-  h1 {
-    font-size: 18px;
-    margin: 0 0 4px;
-  }
-  p.sub {
-    color: var(--muted);
-    font-size: 13px;
-    margin: 0 0 24px;
-  }
-  label {
-    display: block;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 6px;
-    margin-top: 16px;
-  }
-  input[type="text"] {
-    width: 100%;
-    padding: 10px 12px;
-    background: #232427;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-size: 14px;
-    outline: none;
-  }
-  input[type="text"]:focus {
-    border-color: var(--accent);
-  }
-  .checkbox-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
-  }
-  .checkbox-row input { width: 16px; height: 16px; }
-  .checkbox-row label { margin: 0; color: var(--text); font-size: 13px; }
-  button {
-    width: 100%;
-    margin-top: 22px;
-    padding: 12px;
-    background: var(--accent);
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  button:hover { background: var(--accent-hover); }
-  button:disabled { opacity: 0.6; cursor: not-allowed; }
-  .result {
-    margin-top: 24px;
-    display: none;
-  }
-  .result.show { display: block; }
-  .field {
-    background: #232427;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    margin-bottom: 10px;
-  }
-  .field-label {
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .copy-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    width: auto;
-    margin: 0;
-  }
-  .copy-btn:hover {
-    background: var(--border);
-    color: var(--text);
-  }
-  .field-value {
-    font-family: "SF Mono", Monaco, "Courier New", monospace;
-    font-size: 12px;
-    word-break: break-all;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .status {
-    margin-top: 16px;
-    font-size: 13px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    display: none;
-  }
-  .status.show { display: block; }
-  .status.ok { background: rgba(63,191,96,0.12); color: var(--success); border: 1px solid rgba(63,191,96,0.3); }
-  .status.err { background: rgba(229,83,61,0.12); color: var(--error); border: 1px solid rgba(229,83,61,0.3); }
-  .badge {
-    display: inline-block;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 999px;
-    background: rgba(123,108,246,0.15);
-    color: var(--accent);
-    margin-left: 6px;
-  }
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        background:
+            radial-gradient(circle at 50% 50%, #073cff 0%, #031a78 35%, #01082e 100%);
+        background-attachment: fixed;
+        color: white;
+        text-align: center;
+        padding-top: 80px;
+        padding-bottom: 60px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
+    }
+
+    /* Repeated Tutorial background */
+    body::before {
+        content:
+            "Tutorial     Tutorial     Tutorial     Tutorial     Tutorial";
+        position: fixed;
+        top: 0;
+        left: -15%;
+        width: 130%;
+        height: 100%;
+
+        font-size: 85px;
+        font-weight: 900;
+        font-style: italic;
+        line-height: 1.8;
+        letter-spacing: 4px;
+
+        color: transparent;
+        -webkit-text-stroke: 2px rgba(80, 160, 255, 0.12);
+
+        transform: rotate(-8deg) scale(1.2);
+        white-space: pre-wrap;
+
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Extra glow behind the panel */
+    body::after {
+        content: "";
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 90, 255, 0.25);
+        filter: blur(100px);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* RGB animated outline */
+    .box {
+        position: relative;
+        width: 540px;
+        max-width: calc(100% - 30px);
+        margin: auto;
+        padding: 35px;
+        border-radius: 18px;
+
+        z-index: 2;
+
+        border: 3px solid transparent;
+        background:
+            linear-gradient(rgba(5, 10, 35, 0.95), rgba(5, 10, 35, 0.95)) padding-box,
+            linear-gradient(
+                90deg,
+                #ff0000,
+                #ff00ff,
+                #0000ff,
+                #00ffff,
+                #00ff00,
+                #ffff00,
+                #ff0000
+            ) border-box;
+
+        background-size: 100% 100%, 400% 100%;
+
+        animation: rgbBorder 4s linear infinite;
+
+        box-shadow:
+            0 0 15px rgba(0, 100, 255, 0.5),
+            0 0 40px rgba(0, 100, 255, 0.25);
+    }
+
+    @keyframes rgbBorder {
+        0% { background-position: 0 0, 0% 50%; }
+        100% { background-position: 0 0, 400% 50%; }
+    }
+
+    /* Small Tutorial title */
+    .title {
+        position: relative;
+        z-index: 2;
+
+        margin-bottom: 25px;
+
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 5px;
+
+        background: linear-gradient(
+            90deg,
+            #ff0055,
+            #ff00ff,
+            #008cff,
+            #00ffff,
+            #00ff88,
+            #ffff00
+        );
+
+        background-size: 300% 100%;
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+
+        animation: titleRGB 5s linear infinite;
+
+        text-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+    }
+
+    @keyframes titleRGB {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 300% 50%; }
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+
+        border-radius: 10px;
+        border: 1px solid rgba(0, 150, 255, 0.5);
+
+        outline: none;
+
+        color: white;
+        background: rgba(0, 20, 60, 0.8);
+
+        transition: 0.25s;
+
+        box-shadow: inset 0 0 15px rgba(0, 100, 255, 0.15);
+    }
+
+    input::placeholder {
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    input:focus {
+        border-color: #00aaff;
+        box-shadow:
+            0 0 10px rgba(0, 150, 255, 0.5),
+            inset 0 0 15px rgba(0, 100, 255, 0.2);
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    button {
+        min-height: 48px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.25s;
+        background-size: 200% 100%;
+    }
+
+    button:hover {
+        transform: translateY(-2px) scale(1.04);
+        background-position: 100% 0;
+    }
+
+    button:active {
+        transform: scale(0.97);
+    }
+
+    button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    #messageButton {
+        background: linear-gradient(90deg, #00c853, #00e676, #00c853);
+        box-shadow: 0 0 15px rgba(0, 255, 100, 0.35);
+    }
+    #messageButton:hover {
+        box-shadow:
+            0 0 20px rgba(0, 255, 100, 0.7),
+            0 0 40px rgba(0, 255, 100, 0.3);
+    }
+
+    #eventButton {
+        background: linear-gradient(90deg, #1976d2, #2196f3, #1976d2);
+        box-shadow: 0 0 15px rgba(0, 150, 255, 0.35);
+    }
+    #eventButton:hover {
+        box-shadow:
+            0 0 20px rgba(0, 150, 255, 0.7),
+            0 0 40px rgba(0, 150, 255, 0.3);
+    }
+
+    #clearButton {
+        background: linear-gradient(90deg, #d50000, #ff1744, #d50000);
+        box-shadow: 0 0 15px rgba(255, 0, 60, 0.35);
+    }
+    #clearButton:hover {
+        box-shadow:
+            0 0 20px rgba(255, 0, 60, 0.7),
+            0 0 40px rgba(255, 0, 60, 0.3);
+    }
+
+    #status {
+        min-height: 18px;
+        margin: 14px 0 0;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .section {
+        position: relative;
+        width: 540px;
+        max-width: calc(100% - 30px);
+        margin: 20px auto 0;
+        padding: 22px 25px;
+        border-radius: 14px;
+        text-align: left;
+
+        background: rgba(5, 10, 35, 0.85);
+        border: 1px solid rgba(0, 150, 255, 0.35);
+        box-shadow: 0 0 15px rgba(0, 100, 255, 0.2);
+        z-index: 2;
+    }
+
+    .section h2 {
+        margin: 0 0 12px;
+        font-size: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .quick-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .quick-list li button {
+        width: 100%;
+        text-align: left;
+        min-height: 40px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .quick-list.events li button {
+        background: linear-gradient(90deg, #1976d2, #2196f3, #1976d2);
+        box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+    }
+
+    .quick-list.messages li button {
+        background: linear-gradient(90deg, #00c853, #00e676, #00c853);
+        box-shadow: 0 0 10px rgba(0, 255, 100, 0.3);
+    }
+
+    .empty-hint {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        font-style: italic;
+    }
 </style>
 </head>
+
 <body>
-<div class="card">
-  <h1>PlayFab Session Ticket Grabber</h1>
-  <p class="sub">Logs in via <code>LoginWithCustomID</code> and returns the PlayFabId + SessionTicket you need for authenticated calls like ExecuteCloudScript.</p>
 
-  <label for="titleId">Title ID</label>
-  <input type="text" id="titleId" placeholder="e.g. 1757B0" autocomplete="off" />
+<div class="title">Tutorial</div>
 
-  <label for="customId">Custom ID</label>
-  <input type="text" id="customId" placeholder="e.g. test123" autocomplete="off" />
+<div class="box">
+    <input
+        id="textInput"
+        type="text"
+        placeholder="Type a message or GameObject path..."
+        autocomplete="off"
+    >
 
-  <div class="checkbox-row">
-    <input type="checkbox" id="createAccount" checked />
-    <label for="createAccount">Create account if it doesn't exist</label>
-  </div>
-
-  <button id="loginBtn">Get Session Ticket</button>
-
-  <div class="status" id="status"></div>
-
-  <div class="result" id="result">
-    <div class="field">
-      <div class="field-label">
-        PlayFabId <span><button class="copy-btn" data-copy="playFabId">Copy</button></span>
-      </div>
-      <div class="field-value" id="playFabId">—</div>
+    <div class="buttons">
+        <button id="messageButton" type="button" onclick="sendMessage()">Send Message</button>
+        <button id="eventButton" type="button" onclick="sendEvent()">Send Event</button>
+        <button id="clearButton" type="button" onclick="clearEverything()">Clear</button>
     </div>
-    <div class="field">
-      <div class="field-label">
-        Session Ticket <span class="badge" id="newBadge" style="display:none;">New Account</span>
-        <span><button class="copy-btn" data-copy="sessionTicket">Copy</button></span>
-      </div>
-      <div class="field-value" id="sessionTicket">—</div>
-    </div>
-    <div class="field">
-      <div class="field-label">
-        Entity Token <span><button class="copy-btn" data-copy="entityToken">Copy</button></span>
-      </div>
-      <div class="field-value" id="entityToken">—</div>
-    </div>
-  </div>
+
+    <p id="status" aria-live="polite"></p>
+</div>
+
+<div class="section">
+    <h2>Quick Events</h2>
+    <ul class="quick-list events" id="quickEvents"></ul>
+</div>
+
+<div class="section">
+    <h2>Quick Messages</h2>
+    <ul class="quick-list messages" id="quickMessages"></ul>
 </div>
 
 <script>
-const loginBtn = document.getElementById('loginBtn');
-const statusEl = document.getElementById('status');
-const resultEl = document.getElementById('result');
+    const DB_URL = "tutorial(CHANGE THIS)/text.json";
+    const EVENT_HEADER = "EVENT:";
 
-function setStatus(msg, type) {
-  statusEl.textContent = msg;
-  statusEl.className = 'status show ' + type;
-}
+    const textInput = document.getElementById("textInput");
+    const statusText = document.getElementById("status");
+    const messageButton = document.getElementById("messageButton");
+    const eventButton = document.getElementById("eventButton");
+    const clearButton = document.getElementById("clearButton");
 
-function clearStatus() {
-  statusEl.className = 'status';
-}
+    async function sendMessage() {
+        const message = textInput.value.replace(/\\n/g, "\n");
 
-loginBtn.addEventListener('click', async () => {
-  const titleId = document.getElementById('titleId').value.trim();
-  const customId = document.getElementById('customId').value.trim();
-  const createAccount = document.getElementById('createAccount').checked;
+        if (message.trim().length === 0) {
+            statusText.innerText = "Enter a message first.";
+            return;
+        }
 
-  if (!titleId || !customId) {
-    setStatus('Please enter both a Title ID and a Custom ID.', 'err');
-    return;
-  }
+        const ok = await sendValue(message, "Message sent!");
+        if (ok) textInput.value = "";
+    }
 
-  loginBtn.disabled = true;
-  loginBtn.textContent = 'Logging in...';
-  clearStatus();
-  resultEl.classList.remove('show');
+    async function sendEvent() {
+        const gameObjectPath = textInput.value.trim();
 
-  try {
-    const response = await fetch(`https://${titleId}.playfabapi.com/Client/LoginWithCustomID`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        TitleId: titleId,
-        CustomId: customId,
-        CreateAccount: createAccount
-      })
+        if (gameObjectPath.length === 0) {
+            statusText.innerText = "Enter a GameObject path first.";
+            return;
+        }
+
+        const ok = await sendValue(EVENT_HEADER + gameObjectPath, "Event sent \u2714");
+        if (ok) textInput.value = "";
+    }
+
+    async function clearEverything() {
+        // Send an empty string instead of null so the value reads as
+        // blank ("") rather than the text "null" on the receiving end.
+        textInput.value = "";
+        await sendValue("", "Cleared \u2714");
+    }
+
+    async function sendValue(value, successMessage) {
+        setButtonsDisabled(true);
+        statusText.innerText = "Sending...";
+
+        try {
+            const response = await fetch(DB_URL, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(value)
+            });
+
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status);
+            }
+
+            statusText.innerText = successMessage;
+            return true;
+        }
+        catch (error) {
+            statusText.innerText = "Error \u274c";
+            console.error("Could not update the live value:", error);
+            return false;
+        }
+        finally {
+            setButtonsDisabled(false);
+        }
+    }
+
+    function setButtonsDisabled(disabled) {
+        messageButton.disabled = disabled;
+        eventButton.disabled = disabled;
+        clearButton.disabled = disabled;
+    }
+
+    // Allow pressing Enter to send the message
+    textInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
     });
 
-    const data = await response.json();
+    // --- Quick Events / Quick Messages lists ---
+    // Add or remove entries here to change what shows up in each list.
+    const QUICK_EVENTS = [];
+    const QUICK_MESSAGES = [];
 
-    if (data.code === 200 && data.data) {
-      document.getElementById('playFabId').textContent = data.data.PlayFabId || '—';
-      document.getElementById('sessionTicket').textContent = data.data.SessionTicket || '—';
-      document.getElementById('entityToken').textContent =
-        (data.data.EntityToken && data.data.EntityToken.EntityToken) || '—';
-      document.getElementById('newBadge').style.display = data.data.NewlyCreated ? 'inline-block' : 'none';
-      resultEl.classList.add('show');
-      setStatus('Logged in successfully.', 'ok');
-    } else {
-      setStatus(`Error ${data.code || ''}: ${data.errorMessage || data.error || 'Unknown error'}`, 'err');
+    async function sendQuickEvent(label) {
+        await sendValue(EVENT_HEADER + label, "Event sent \u2714");
     }
-  } catch (err) {
-    setStatus('Request failed: ' + err.message + ' (check the Title ID and your network/CORS settings)', 'err');
-  } finally {
-    loginBtn.disabled = false;
-    loginBtn.textContent = 'Get Session Ticket';
-  }
-});
 
-document.querySelectorAll('.copy-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const targetId = btn.getAttribute('data-copy');
-    const text = document.getElementById(targetId).textContent;
-    if (text && text !== '—') {
-      navigator.clipboard.writeText(text).then(() => {
-        const original = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = original; }, 1200);
-      });
+    async function sendQuickMessage(label) {
+        await sendValue(label, "Message sent!");
     }
-  });
-});
+
+    function buildQuickList(containerId, items, onClick, emptyText) {
+        const list = document.getElementById(containerId);
+        list.innerHTML = "";
+
+        if (items.length === 0) {
+            const li = document.createElement("li");
+            li.className = "empty-hint";
+            li.textContent = emptyText;
+            list.appendChild(li);
+            return;
+        }
+
+        items.forEach((label) => {
+            const li = document.createElement("li");
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.textContent = label;
+            btn.onclick = () => onClick(label);
+            li.appendChild(btn);
+            list.appendChild(li);
+        });
+    }
+
+    buildQuickList("quickEvents", QUICK_EVENTS, sendQuickEvent, "No quick events yet.");
+    buildQuickList("quickMessages", QUICK_MESSAGES, sendQuickMessage, "No quick messages yet.");
 </script>
+
 </body>
 </html>
